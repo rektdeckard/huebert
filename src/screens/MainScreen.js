@@ -16,17 +16,21 @@ class MainScreen extends React.Component {
     console.log(this.props.location.pathname);
   }
 
+  isActive(path) {
+    path === this.props.location.pathname ? "active" : "";
+  }
+
   render() {
     return (
       <div className="ui segment">
         <div className="ui grid">
           <div className="four wide column">
             <div className="ui vertical menu">
-              <Link className={`item`} to="/rooms">
+              <Link className={`item ${this.isActive("/rooms")}`} to="/rooms">
                 Rooms
                 <div className="ui label">{this.props.rooms.length}</div>
               </Link>
-              <Link className="item" to="/lights">
+              <Link className={`item ${this.isActive("/lights")}`} to="/lights">
                 Lights
                 <div className="ui label">{this.props.lights.length}</div>
               </Link>
