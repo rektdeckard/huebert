@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter, Switch, Route, Link } from "react-router-dom";
+import { withRouter, Switch, Route, Link, Redirect } from "react-router-dom";
 
 import { fetchRooms, fetchLights } from "../actions";
 import RoomsList from "./RoomsList";
@@ -41,6 +41,7 @@ class MainScreen extends React.Component {
             <Switch>
               <Route path="/rooms" exact component={RoomsList} />
               <Route path="/lights" exact component={LightsList} />
+              <Redirect to="/rooms" />
             </Switch>
           </div>
         </div>
