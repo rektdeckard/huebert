@@ -1,17 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import { Provider } from "react-redux";
 
-import history from '../history';
 import store from "./reducers";
-import MainScreen from "./screens/MainScreen";
-
+import App from "./components/App";
 
 ReactDOM.render(
   <Provider store={store}>
-      <Router history={history}>
-        <MainScreen />
+      <Router>
+        <App />
       </Router>
   </Provider>,
   document.querySelector("#root")
