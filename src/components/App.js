@@ -3,46 +3,32 @@ import { connect } from "react-redux";
 import { withRouter, Switch, Route, Link, Redirect } from "react-router-dom";
 
 import { fetchRooms, fetchLights } from "../actions";
+import Menu from './Menu';
 import RoomsList from "./RoomsList";
 import LightsList from "./LightsList";
+import ColorPicker from "./ColorPicker";
 
-class MainScreen extends React.Component {
+class App extends React.Component {
   componentDidMount() {
     this.props.fetchRooms();
     this.props.fetchLights();
-  }
-
-  componentDidUpdate() {
-    console.log(this.props.location.pathname);
-  }
-
-  isActive(path) {
-    path === this.props.location.pathname ? "active" : "";
   }
 
   render() {
     return (
       <div className="ui segment">
         <div className="ui grid">
-          <div className="four wide column">
-            <div className="ui vertical menu">
-              <Link className={`item ${this.isActive("/rooms")}`} to="/rooms">
-                Rooms
-                <div className="ui label">{this.props.rooms.length}</div>
-              </Link>
-              <Link className={`item ${this.isActive("/lights")}`} to="/lights">
-                Lights
-                <div className="ui label">{this.props.lights.length}</div>
-              </Link>
-              <a className="item">Settings</a>
-            </div>
-          </div>
-          <div className="twelve wide column">
+          <Menu location={this.props.location}/>
+          <div className="eight wide column">
             <Switch>
               <Route path="/rooms" exact component={RoomsList} />
               <Route path="/lights" exact component={LightsList} />
-              <Redirect to="/rooms" />
+              <Route path={`/picker`} component={ColorPicker} />
+              <Redirect to="/lights" />
             </Switch>
+          </div>
+          <div className="four wide column">
+            <ColorPicker />
           </div>
         </div>
       </div>
@@ -61,5 +47,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     { fetchRooms, fetchLights }
-  )(MainScreen)
+  )(App)
 );
