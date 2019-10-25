@@ -1,24 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-class Menu extends React.Component {
-  render() {
-    return (
-      <div className="four wide column">
-        <div className="ui vertical menu">
-          <Link className="item active" to="/rooms">
-            Rooms
-            <div className="ui label">{this.props.rooms.length}</div>
-          </Link>
-          <Link className="item" to="/lights">
-            Lights
-            <div className="ui label">{this.props.lights.length}</div>
-          </Link>
-          <a className="item">Settings</a>
-        </div>
+const Menu = ({ lights, rooms, location }) => {
+  const isActive = path => {
+    return path === location.pathname ? "active" : "";
+  };
+
+  return (
+    <div className="four wide fluid column">
+      <div className="ui fluid vertical menu" style={{ zIndex: 20 }}>
+        <Link className={`item ${isActive("/rooms")}`} to="/rooms">
+          Rooms
+          <div className="ui label">{rooms.length}</div>
+        </Link>
+        <Link className={`item ${isActive("/lights")}`} to="/lights">
+          Lights
+          <div className="ui label">{lights.length}</div>
+        </Link>
+        <a className="item">Settings</a>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-export default Menu;
+const mapStateToProps = state => {
+  return { rooms: state.rooms, lights: state.lights };
+};
+
+export default connect(
+  mapStateToProps,
+  {}
+)(Menu);
