@@ -36,6 +36,7 @@
     "reactcss": "^1.2.3",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
+    "tinycolor": "^0.0.1",
     "webpack": "^2.3.2",
     "webpack-dev-server": "^2.4.2"
   }

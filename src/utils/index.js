@@ -1,19 +1,30 @@
 import { colorTemperature2rgb } from "color-temperature";
-import { miredToKelvin } from "mired";
+import tinycolor from 'tinycolor2';
 
-export const convertHSLToColor = state => {
+export const convertHSBToColor = state => {
   // Lamp supports HSL
   if (state.hue) {
-    const hue = Math.round(state.hue / 182.041667);
-    const sat = Math.round(state.sat / 2.54);
-    const val = Math.round(state.bri / 2.54);
+    const h = Math.round(state.hue / 182.041667);
+    const s = Math.round(state.sat / 2.54);
+    const v = Math.round(state.bri / 2.54);
 
-    return `hsl(${hue}, ${sat}%, ${val}%)`;
+    const color = tinycolor({ h, s, v});
+    return color.toHexString();
   }
 
   // Lamp supports CT
   if (state.ct) {
-    const rgb = colorTemperature2rgb(miredToKelvin(state.ct));
-    return `rgb(${rgb.red},${rgb.green},${rgb.blue})`;
+    const rgb = colorTemperature2rgb(1e6/state.ct);
+    const color = tinycolor({r: rgb.red, g: rgb.green, b: rgb.blue });
+    return color.lighten(15).toHexString();
   }
 };
+
+
+export const convertHSVToHSB = color => {
+  const hue = Math.round(color.hsv.h * 182.041667);
+  const sat = Math.round(color.hsv.s * 254);
+  const bri = Math.round(color.hsv.v * 253) + 1;
+
+  return { hue, sat, bri };
+}
