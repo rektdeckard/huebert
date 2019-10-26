@@ -1,11 +1,17 @@
 import React from "react";
-import { convertHSLToColor } from "../utils";
+import { convertHSBToColor } from "../utils";
 
-const RoomItem = ({ room, toggle, alert, active}) => {
-  const color = convertHSLToColor(room.action);
+const RoomItem = ({ room, toggle, alert, active, onSelect }) => {
+  const color = convertHSBToColor(room.action);
 
   return (
-    <div className={`card ${active ? "blue" : null}`}>
+    <div
+      className={`ui card ${active ? "blue" : null}`}
+      onClick={() => onSelect(room)}
+    >
+      <div className="content">
+        <div className="description">{room.name}</div>
+      </div>
       <div
         className="ui square image"
         style={{
@@ -16,18 +22,15 @@ const RoomItem = ({ room, toggle, alert, active}) => {
         }}
         onClick={() => alert(room)}
       />
-      <div className="content">
-        <div className="description">{room.name}</div>
-      </div>
       <div className="extra content">
-        <div className="ui fitted right floated toggle checkbox">
+        <span className="ui fitted right floated toggle checkbox">
           <input
             type="checkbox"
             checked={room.action.on}
             onChange={() => toggle(room)}
           />
           <label></label>
-        </div>
+        </span>
       </div>
     </div>
   );

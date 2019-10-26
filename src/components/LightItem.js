@@ -1,11 +1,20 @@
 import React from "react";
-import { convertHSLToColor } from "../utils";
+import { convertHSBToColor } from "../utils";
 
-const LightItem = ({ light, toggle, alert, active }) => {
-  const color = convertHSLToColor(light.state);
+const LightItem = ({ light, toggle, alert, active, onSelect }) => {
+  const color = convertHSBToColor(light.state);
 
   return (
-    <div className={`card ${active ? "blue" : null}`}>
+    <div
+      className={`ui card ${active ? "blue" : null}`}
+      onClick={() => onSelect(light)}
+    >
+      <div className="content">
+        <i className="lightbulb outline icon"></i>
+        {light.name}
+        {/* <i className="ui avatar image" src="/images/avatar/large/elliot.jpg" /> Elliot */}
+        {/* <div className="description">{light.name}</div> */}
+      </div>
       <div
         className="ui square image"
         style={{
@@ -16,18 +25,16 @@ const LightItem = ({ light, toggle, alert, active }) => {
         }}
         onClick={() => alert(light)}
       />
-      <div className="content">
-        <div className="description">{light.name}</div>
-      </div>
       <div className="extra content">
-        <div className="ui fitted right floated toggle checkbox">
+        <span className="ui fitted right floated toggle checkbox">
           <input
             type="checkbox"
             checked={light.state.on}
             onChange={() => toggle(light)}
+            disabled={!light.state.reachable}
           />
           <label></label>
-        </div>
+        </span>
       </div>
     </div>
   );

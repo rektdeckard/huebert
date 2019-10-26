@@ -9,14 +9,14 @@ const Menu = ({ lights, rooms, location }) => {
 
   return (
     <div className="four wide fluid column">
-      <div className="ui fluid vertical menu" style={{ zIndex: 20 }}>
-        <Link className={`item ${isActive("/rooms")}`} to="/rooms">
-          Rooms
-          <div className="ui label">{rooms.length}</div>
-        </Link>
+      <div className="ui fluid vertical menu">
         <Link className={`item ${isActive("/lights")}`} to="/lights">
           Lights
-          <div className="ui label">{lights.length}</div>
+          <div className="ui label blue">{lights.length}</div>
+        </Link>
+        <Link className={`item ${isActive("/rooms")}`} to="/rooms">
+          Groups
+          <div className="ui label blue">{rooms.length}</div>
         </Link>
         <a className="item">Settings</a>
       </div>

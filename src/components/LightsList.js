@@ -1,14 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-
-import { fetchLights, setLight, alertLight, toggleLight } from "../actions";
+import {
+  fetchLights,
+  alertLight,
+  toggleLight,
+  setActiveLight
+} from "../actions";
 import LightItem from "./LightItem";
 
 class LightsList extends React.Component {
   componentDidMount() {
     this.props.fetchLights();
   }
+
+  // componentDidUpdate() {
+  //   this.props.fetchLights();
+  // }
 
   renderItems() {
     return this.props.lights.map(light => {
@@ -18,6 +25,8 @@ class LightsList extends React.Component {
           light={light}
           toggle={this.props.toggleLight}
           alert={this.props.alertLight}
+          active={this.props.active ? light.id == this.props.active.id : false}
+          onSelect={this.props.setActiveLight}
         />
       );
     });
@@ -34,13 +43,12 @@ class LightsList extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    lights: state.lights
+    lights: state.lights,
+    active: state.active.light
   };
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { fetchLights, setLight, alertLight, toggleLight }
-  )(LightsList)
-);
+export default connect(
+  mapStateToProps,
+  { fetchLights, alertLight, toggleLight, setActiveLight }
+)(LightsList);

@@ -1,6 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchRooms, setRoom, alertRoom, toggleRoom } from "../actions";
+import {
+  fetchRooms,
+  alertRoom,
+  toggleRoom,
+  setActiveRoom
+} from "../actions";
 import RoomItem from "./RoomItem";
 
 class RoomsList extends React.Component {
@@ -16,6 +21,8 @@ class RoomsList extends React.Component {
           room={room}
           alert={this.props.alertRoom}
           toggle={this.props.toggleRoom}
+          active={this.props.active ? room.id == this.props.active.id : false}
+          onSelect={this.props.setActiveRoom}
         />
       );
     });
@@ -32,11 +39,12 @@ class RoomsList extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    rooms: state.rooms
+    rooms: state.rooms,
+    active: state.active.room
   };
 };
 
 export default connect(
   mapStateToProps,
-  { fetchRooms, alertRoom, toggleRoom }
+  { fetchRooms, alertRoom, toggleRoom, setActiveRoom }
 )(RoomsList);

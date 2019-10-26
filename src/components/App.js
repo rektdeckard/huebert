@@ -23,7 +23,7 @@ class App extends React.Component {
             <Switch>
               <Route path="/rooms" exact component={RoomsList} />
               <Route path="/lights" exact component={LightsList} />
-              <Route path={`/picker`} component={ColorPicker} />
+              <Route path="/picker" component={ColorPicker} />
               <Redirect to="/lights" />
             </Switch>
           </div>
