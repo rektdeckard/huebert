@@ -1,12 +1,14 @@
 import Hue from "../api/Hue";
+import axios from 'axios';
 import * as Mock from "../__mock__";
 import {
   FETCH_LIGHTS,
-  SET_LIGHT,
   SET_ACTIVE_LIGHT,
   FETCH_ROOMS,
   SET_ROOM,
-  SET_ACTIVE_ROOM
+  SET_ACTIVE_ROOM,
+  INITIALIZE_APP,
+  CREATE_USER
 } from "./types";
 
 export const fetchLights = () => async dispatch => {
@@ -68,6 +70,7 @@ export const toggleRoom = room => async dispatch => {
   const response = await Hue.put(`/groups/${room.id}/action`, {
     on: !room.action.on
   });
+  // TODO: FIX
   dispatch({
     type: SET_ROOM,
     payload: { ...room, action: { ...room.action, on: !room.action.on } }
@@ -78,5 +81,32 @@ export const setActiveRoom = room => {
   return {
     type: SET_ACTIVE_ROOM,
     payload: room
+  };
+};
+
+export const initializeApp = () => dispatch => {
+  const ip = localStorage.getItem("ip");
+  const username = localStorage.getItem("username");
+
+  dispatch({
+    type: INITIALIZE_APP,
+    payload: { ip, username }
+  });
+};
+
+export const createUser = ip => async dispatch => {
+  const response = await axios.post(`http://${ip}/api/`, { devicetype: "Huebert"});
+  if (response.data[0].success) {
+    localStorage.setItem("ip", ip);
+    localStorage.setItem("username", response.data[0].success.username);
+    dispatch({
+      type: CREATE_USER,
+      payload: { ip, username: response.data[0].success.username }
+    });
+  } else {
+    dispatch ({
+      type: INITIALIZE_APP,
+      payload: { error: response.data[0].error.description }
+    });
   };
 };
