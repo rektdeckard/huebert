@@ -2,29 +2,40 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter, Switch, Route, Link, Redirect } from "react-router-dom";
 
-import { fetchRooms, fetchLights } from "../actions";
-import Menu from './Menu';
+import { fetchRooms, fetchLights, initializeApp, createUser } from "../actions";
+import Menu from "./Menu";
 import RoomsList from "./RoomsList";
 import LightsList from "./LightsList";
 import ColorPicker from "./ColorPicker";
+import Setup from "./Setup";
 
 class App extends React.Component {
   componentDidMount() {
-    this.props.fetchRooms();
-    this.props.fetchLights();
+    // localStorage.clear();
+    localStorage.setItem("ip", "192.168.1.5");
+    localStorage.setItem(
+      "username",
+      "9vsJop8As2ZXY1ySSVz2EjoHcenpl1cMMLZuBA92"
+    );
+    this.props.initializeApp();
+    if (this.props.init) {
+      this.props.fetchRooms();
+      this.props.fetchLights();
+    }
   }
 
   render() {
     return (
       <div className="ui segment">
         <div className="ui grid">
-          <Menu location={this.props.location}/>
+          <Menu location={this.props.location} />
           <div className="eight wide column">
             <Switch>
               <Route path="/rooms" exact component={RoomsList} />
               <Route path="/lights" exact component={LightsList} />
-              <Route path="/picker" component={ColorPicker} />
-              <Redirect to="/lights" />
+              <Route path="/setup" exact component={Setup} />
+              <Redirect to={this.props.init ? "/lights" : "/setup"} />;
+              {/* <Redirect to="/setup" />; */}
             </Switch>
           </div>
           <div className="four wide column">
@@ -39,13 +50,14 @@ class App extends React.Component {
 const mapStateToProps = state => {
   return {
     rooms: state.rooms,
-    lights: state.lights
+    lights: state.lights,
+    init: state.init
   };
 };
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { fetchRooms, fetchLights }
+    { fetchRooms, fetchLights, initializeApp, createUser }
   )(App)
 );

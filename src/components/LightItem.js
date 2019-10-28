@@ -10,10 +10,8 @@ const LightItem = ({ light, toggle, alert, active, onSelect }) => {
       onClick={() => onSelect(light)}
     >
       <div className="content">
-        <i className="lightbulb outline icon"></i>
+        {/* <i className="lightbulb outline icon"></i> */}
         {light.name}
-        {/* <i className="ui avatar image" src="/images/avatar/large/elliot.jpg" /> Elliot */}
-        {/* <div className="description">{light.name}</div> */}
       </div>
       <div
         className="ui square image"

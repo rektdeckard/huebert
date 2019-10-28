@@ -9,6 +9,7 @@ const Menu = ({ lights, rooms, location }) => {
 
   return (
     <div className="four wide fluid column">
+      {/* <div className="ui left fixed vertical menu"> */}
       <div className="ui fluid vertical menu">
         <Link className={`item ${isActive("/lights")}`} to="/lights">
           Lights
@@ -18,7 +19,7 @@ const Menu = ({ lights, rooms, location }) => {
           Groups
           <div className="ui label blue">{rooms.length}</div>
         </Link>
-        <a className="item">Settings</a>
+        <Link className={`item ${isActive("/setup")}`} to="/setup">Settings</Link>
       </div>
     </div>
   );
