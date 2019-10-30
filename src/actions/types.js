@@ -7,3 +7,4 @@ export const SET_LIGHT = "set_light";
 export const SET_ACTIVE_LIGHT = "set_active_light";
 
 export const INITIALIZE_APP = "initialize_app";
+export const CREATE_USER = "create_user";

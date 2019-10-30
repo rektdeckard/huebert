@@ -84,7 +84,7 @@ export const setActiveRoom = room => {
   };
 };
 
-export const initializeApp = () => dispatch => {
+export const initializeApp = () => async dispatch => {
   const ip = localStorage.getItem("ip");
   const username = localStorage.getItem("username");
 
@@ -92,6 +92,15 @@ export const initializeApp = () => dispatch => {
     type: INITIALIZE_APP,
     payload: { ip, username }
   });
+
+  if (ip && username) {
+    const response = await axios.get(`http://${ip}/api/${username}`);
+    console.log(response);
+    if (response.data.config) {
+      dispatch(fetchLights());
+      dispatch(fetchRooms());
+    }
+  }
 };
 
 export const createUser = ip => async dispatch => {
