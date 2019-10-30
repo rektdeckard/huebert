@@ -1,7 +1,6 @@
 import { INITIALIZE_APP, CREATE_USER } from '../actions/types';
 
 export default (state = {}, action) => {
-  // console.log(action.payload);
   switch (action.type) {
     case INITIALIZE_APP:
       return action.payload;

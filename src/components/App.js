@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { withRouter, Switch, Route, Link, Redirect } from "react-router-dom";
+import { withRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import { fetchRooms, fetchLights, initializeApp, createUser } from "../actions";
 import Menu from "./Menu";
@@ -11,17 +11,7 @@ import Setup from "./Setup";
 
 class App extends React.Component {
   componentDidMount() {
-    // localStorage.clear();
-    localStorage.setItem("ip", "192.168.1.5");
-    localStorage.setItem(
-      "username",
-      "9vsJop8As2ZXY1ySSVz2EjoHcenpl1cMMLZuBA92"
-    );
     this.props.initializeApp();
-    if (this.props.init) {
-      this.props.fetchRooms();
-      this.props.fetchLights();
-    }
   }
 
   render() {
@@ -29,7 +19,7 @@ class App extends React.Component {
       <div className="ui segment">
         <div className="ui grid">
           <Menu location={this.props.location} />
-          <div className="eight wide column">
+          <div className="eight wide column" style={{ overflow: "hidden" }}>
             <Switch>
               <Route path="/rooms" exact component={RoomsList} />
               <Route path="/lights" exact component={LightsList} />

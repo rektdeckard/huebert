@@ -66,7 +66,7 @@ export const get = path => {
             }
         },
         "3": {
-            "name": "Custom group for $lights",
+            "name": "All",
             "lights": [
                 "1",
                 "2",

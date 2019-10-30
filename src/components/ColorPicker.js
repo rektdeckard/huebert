@@ -3,7 +3,7 @@ import SketchPicker from "./picker/components/sketch/Sketch";
 import reactCSS from "reactcss";
 import { connect } from "react-redux";
 import { setLight, setRoom } from "../actions";
-import { convertHSBToColor, convertHSVToHSB } from "../utils";
+import { convertHSBToColor, convertHSVToHSB, convertHSVToCT } from "../utils";
 
 const LIGHT_ELEMENT = "light_element";
 const GROUP_ELEMENT = "group_element";
@@ -33,12 +33,18 @@ const ColorPicker = ({ active, setLight, setRoom }) => {
 
     switch (type) {
       case LIGHT_ELEMENT:
-        const { hue, sat, bri } = convertHSVToHSB(color);
-        const newLight = { id: active.id, state: { hue, sat, bri } };
-        setLight(newLight);
+        if (active.state.hue) {
+          const { hue, sat, bri } = convertHSVToHSB(color);
+          const newLight = { id: active.id, state: { hue, sat, bri } };
+          setLight(newLight);
+        } else {
+          const ct = convertHSVToCT(color);
+          console.log(ct);
+          const newLight = { id: active.id, state: { ct } };
+          setLight(newLight);
+        }
         break;
       case GROUP_ELEMENT:
-        
         break;
       default:
         break;
@@ -47,22 +53,6 @@ const ColorPicker = ({ active, setLight, setRoom }) => {
     setTimeout(() => {
       bufferedColor = null;
     }, 100);
-
-    // color = {
-    //   hex: '#333',
-    //   rgb: {
-    //     r: 51,
-    //     g: 51,
-    //     b: 51,
-    //     a: 1,
-    //   },
-    //   hsl: {
-    //     h: 0,
-    //     s: 0,
-    //     l: .20,
-    //     a: 1,
-    //   },
-    // }
   };
 
   return (

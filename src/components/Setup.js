@@ -31,9 +31,9 @@ const Setup = ({ init, createUser }) => {
     if (init.error) {
       return (
         <div className="ui error message">
-          <i className="close icon" onClick={initializeApp}></i>
-          <div className="header">Error</div>
-          <p>{init.error}</p>
+          {/* <i className="close icon" onClick={initializeApp}></i> */}
+          <div className="header">Error: {init.error}</div>
+          {/* <p>{init.error}</p> */}
         </div>
       );
     }
@@ -45,6 +45,11 @@ const Setup = ({ init, createUser }) => {
         </div>
       );
     }
+    return (
+      <div className="ui secondary message">
+        <div className="header">Device not conneted</div>
+      </div>
+    )
   };
 
   const renderHelp = () => {
@@ -125,7 +130,7 @@ const Setup = ({ init, createUser }) => {
   };
 
   return (
-    <div>
+    <div style={{ height: "100%" }}>
       {renderMessage()}
       <div className="ui placeholder segment">
         <div className="ui icon header">

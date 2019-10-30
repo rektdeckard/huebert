@@ -1,4 +1,4 @@
-import { colorTemperature2rgb } from "color-temperature";
+import { colorTemperature2rgb, rgb2colorTemperature } from "color-temperature";
 import tinycolor from 'tinycolor2';
 
 export const convertHSBToColor = state => {
@@ -27,4 +27,10 @@ export const convertHSVToHSB = color => {
   const bri = Math.round(color.hsv.v * 253) + 1;
 
   return { hue, sat, bri };
+}
+
+export const convertHSVToCT = color => {
+  const { r, g, b } = color.rgb;
+  console.log(color);
+  return rgb2colorTemperature({ red: r, green: g, blue: b }) / 10;
 }
