@@ -14,10 +14,6 @@ class LightsList extends React.Component {
     this.props.fetchLights();
   }
 
-  // componentDidUpdate() {
-  //   this.props.fetchLights();
-  // }
-
   renderItems() {
     return this.props.lights.map(light => {
       return (

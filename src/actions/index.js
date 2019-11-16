@@ -54,11 +54,8 @@ export const fetchRooms = () => async dispatch => {
 };
 
 export const setRoom = room => async dispatch => {
-  await Hue.put(`/groups/${room.id}/action}`, room.action);
-  dispatch({
-    type: SET_ROOM,
-    payload: room
-  });
+  await Hue.put(`/groups/${room.id}/action`, room.action);
+  dispatch(fetchRooms());
 };
 
 export const alertRoom = room => async () => {
