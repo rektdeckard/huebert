@@ -8,7 +8,6 @@ import RoomsList from "./RoomsList";
 import LightsList from "./LightsList";
 import ColorPicker from "./ColorPicker";
 import Setup from "./Setup";
-import { height } from "window-size";
 
 class App extends React.Component {
   componentDidMount() {

@@ -5,10 +5,17 @@
   "main": "main.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "electron": "electron ."
+    "electron": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "author": "Tobias Fried",
   "devDependencies": {
+    "@electron-forge/cli": "6.0.0-beta.45",
+    "@electron-forge/maker-deb": "6.0.0-beta.45",
+    "@electron-forge/maker-rpm": "6.0.0-beta.45",
+    "@electron-forge/maker-squirrel": "6.0.0-beta.45",
+    "@electron-forge/maker-zip": "6.0.0-beta.45",
     "electron": "^6.0.12",
     "webpack": "2.3.2",
     "webpack-dev-server": "2.4.2"
@@ -23,6 +30,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "color-temperature": "^0.2.7",
+    "electron-squirrel-startup": "^1.0.0",
     "fluent-ffmpeg": "^2.1.0",
     "lodash": "^4.17.15",
     "mired": "^0.0.0",
@@ -39,5 +47,32 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "tinycolor": "^0.0.1"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "huebert"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }
