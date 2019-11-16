@@ -4,6 +4,7 @@ import {
   fetchLights,
   alertLight,
   toggleLight,
+  setLight,
   setActiveLight
 } from "../actions";
 import LightItem from "./LightItem";
@@ -27,6 +28,7 @@ class LightsList extends React.Component {
           alert={this.props.alertLight}
           active={this.props.active ? light.id == this.props.active.id : false}
           onSelect={this.props.setActiveLight}
+          onDim={this.props.setLight}
         />
       );
     });
@@ -50,5 +52,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchLights, alertLight, toggleLight, setActiveLight }
+  { fetchLights, alertLight, toggleLight, setLight, setActiveLight }
 )(LightsList);

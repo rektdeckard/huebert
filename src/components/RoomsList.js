@@ -1,11 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-  fetchRooms,
-  alertRoom,
-  toggleRoom,
-  setActiveRoom
-} from "../actions";
+import { fetchRooms, alertRoom, toggleRoom, setActiveRoom } from "../actions";
 import RoomItem from "./RoomItem";
 
 class RoomsList extends React.Component {
