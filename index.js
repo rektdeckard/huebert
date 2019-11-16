@@ -17,4 +17,8 @@ app.on("ready", () => {
   mainWindow.once("ready-to-show", () => {
     mainWindow.show();
   });
+  mainWindow.webContents.on('new-window', (e, url) => {
+    e.preventDefault();
+    electron.shell.openExternal(url);
+  });
 });
