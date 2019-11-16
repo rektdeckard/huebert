@@ -45,6 +45,9 @@ const ColorPicker = ({ active, setLight, setRoom }) => {
         }
         break;
       case GROUP_ELEMENT:
+        const { hue, sat, bri } = convertHSVToHSB(color);
+        const newRoom = { id: active.id, action: { hue, sat, bri } };
+        setRoom(newRoom);
         break;
       default:
         break;

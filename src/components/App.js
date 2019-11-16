@@ -8,6 +8,7 @@ import RoomsList from "./RoomsList";
 import LightsList from "./LightsList";
 import ColorPicker from "./ColorPicker";
 import Setup from "./Setup";
+import { height } from "window-size";
 
 class App extends React.Component {
   componentDidMount() {
@@ -16,7 +17,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="ui segment">
+      <div className="ui segment" style={{ height: "100vh"}}>
         <div className="ui grid">
           <Menu location={this.props.location} />
           <div className="eight wide column" style={{ overflow: "hidden" }}>
