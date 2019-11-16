@@ -1,5 +1,5 @@
 import Hue from "../api/Hue";
-import axios from 'axios';
+import axios from "axios";
 import * as Mock from "../__mock__";
 import {
   FETCH_LIGHTS,
@@ -21,7 +21,7 @@ export const fetchLights = () => async dispatch => {
 
 export const setLight = light => async dispatch => {
   await Hue.put(`/lights/${light.id}/state`, light.state);
-  // It malformed request, return early
+  // If malformed request, return early
   // if(response.data.filter(it => it.error)) {
   //   return;
   // }
@@ -103,8 +103,17 @@ export const initializeApp = () => async dispatch => {
   }
 };
 
+export const resetApp = () => async dispatch => {
+  localStorage.clear();
+  dispatch({
+    type: INITIALIZE_APP
+  });
+};
+
 export const createUser = ip => async dispatch => {
-  const response = await axios.post(`http://${ip}/api/`, { devicetype: "Huebert"});
+  const response = await axios.post(`http://${ip}/api/`, {
+    devicetype: "Huebert"
+  });
   if (response.data[0].success) {
     localStorage.setItem("ip", ip);
     localStorage.setItem("username", response.data[0].success.username);
@@ -113,9 +122,9 @@ export const createUser = ip => async dispatch => {
       payload: { ip, username: response.data[0].success.username }
     });
   } else {
-    dispatch ({
+    dispatch({
       type: INITIALIZE_APP,
       payload: { error: response.data[0].error.description }
     });
-  };
+  }
 };

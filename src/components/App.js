@@ -24,8 +24,7 @@ class App extends React.Component {
               <Route path="/rooms" exact component={RoomsList} />
               <Route path="/lights" exact component={LightsList} />
               <Route path="/setup" exact component={Setup} />
-              <Redirect to={this.props.init ? "/lights" : "/setup"} />;
-              {/* <Redirect to="/setup" />; */}
+              <Redirect to={this.props.init.ip ? "/lights" : "/setup"} />;
             </Switch>
           </div>
           <div className="four wide column">
