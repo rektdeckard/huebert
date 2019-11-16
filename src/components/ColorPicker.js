@@ -22,7 +22,7 @@ const ColorPicker = ({ active, setLight, setRoom }) => {
     }
   };
 
-  // Debounce calls to handleChange()
+  // Throttle calls to handleChange()
   let bufferedColor = null;
 
   const handleChange = (color, event) => {
@@ -74,7 +74,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { setLight, setRoom }
-)(ColorPicker);
+export default connect(mapStateToProps, { setLight, setRoom })(ColorPicker);

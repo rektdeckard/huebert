@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-import { initializeApp, createUser } from "../actions";
+import { initializeApp, resetApp, createUser } from "../actions";
 
 const Setup = ({ init, createUser }) => {
   const [deviceAddress, setDeviceAddress] = useState("");
-
-  // console.log(init);
 
   useEffect(() => {
     discoverDevices();
@@ -28,7 +26,7 @@ const Setup = ({ init, createUser }) => {
   const renderContent = () => {};
 
   const renderMessage = () => {
-    if (init.error) {
+    if (init.error && !init.ip) {
       return (
         <div className="ui error message">
           {/* <i className="close icon" onClick={initializeApp}></i> */}
@@ -216,5 +214,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { createUser }
+  { createUser, resetApp }
 )(Setup);
