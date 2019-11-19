@@ -53,7 +53,7 @@ const Setup = ({ init, createUser }) => {
       );
     }
     return (
-      <div className="ui secondary message">
+      <div className="ui message">
         <div className="header">Device not conneted</div>
       </div>
     );
