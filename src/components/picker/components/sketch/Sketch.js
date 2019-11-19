@@ -53,14 +53,14 @@ var Sketch = exports.Sketch = function Sketch(_ref) {
 
   var styles = (0, _reactcss2.default)((0, _merge2.default)({
     'default': _extends({
-      picker: {
-        width: width,
-        padding: '10px 10px 0',
-        boxSizing: 'initial',
-        background: '#fff',
-        borderRadius: '4px',
-        boxShadow: '0 0 0 1px rgba(0,0,0,.15)'
-      },
+      // picker: {
+      //   width: width,
+      //   padding: '10px 10px 0',
+      //   boxSizing: 'initial',
+      //   background: '#fff',
+      //   borderRadius: '4px',
+      //   boxShadow: '0 0 0 1px rgba(0,0,0,.15)'
+      // },
       saturation: {
         width: '100%',
         paddingBottom: '75%',
