@@ -9,6 +9,9 @@ app.on("ready", () => {
     show: false,
     width: 1440,
     height: 900,
+    darkTheme: false,
+    autoHideMenuBar: true,
+    // titleBarStyle: 'customButtonsOnHover', frame: false,
     webPreferences: {
       nodeIntegration: true
     }
@@ -21,4 +24,7 @@ app.on("ready", () => {
     e.preventDefault();
     electron.shell.openExternal(url);
   });
+  mainWindow.webContents.on('dom-ready', e => {
+    mainWindow.webContents.insertCSS('html,body{ overflow: hidden; }');
+  })
 });
