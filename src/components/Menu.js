@@ -8,7 +8,7 @@ const Menu = ({ lights, rooms, schedules, rules, sensors, location }) => {
   };
 
   return (
-    <div className="four wide fluid column">
+    <div className="four wide column">
       {/* <div className="ui left fixed vertical menu"> */}
       {/* <div className="ui top attached blue label">Huebert</div> */}
       <div className="ui fluid vertical menu">

@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
-import { convertHSBToColor } from "../utils";
+import { convertHSBToColor, compatibleText } from "../utils";
 
 const LightItem = ({ light, toggle, alert, active, onSelect, onDim }) => {
   const color = convertHSBToColor(light.state);
+  const textColor = compatibleText(color);
 
   // Throttle calls to onChangeBrightness()
   const throttle = useRef(null);
@@ -21,28 +22,36 @@ const LightItem = ({ light, toggle, alert, active, onSelect, onDim }) => {
   const handleSelect = event => {
     event.preventDefault();
     onSelect(light);
-  }
+  };
 
   return (
     <div
       className={`ui card ${active ? "blue" : null}`}
+      style={{ backgroundColor: color }}
       onClick={event => handleSelect(event)}
     >
-      <div className="content">
+      <div className="content" style={{ backgroundColor: color }}>
         {/* <i className="lightbulb outline icon"></i> */}
-        {light.name}
+        {/* {light.name} */}
+        <div 
+          style={{ color: textColor, opacity: 0.7, userSelect: "none" }}
+          // onDoubleClick={() => alert(light)}
+          onAuxClick={() => alert(light)}
+        >
+          {light.name}
+        </div>
+        {/* <span
+          className="ui right floated avatar image"
+          style={{
+            flex: 1,
+            minWidth: 20,
+            minHeight: 20,
+            backgroundColor: color
+          }}
+          onClick={() => alert(light)}
+        /> */}
       </div>
-      <div
-        className="ui square image"
-        style={{
-          flex: 1,
-          minWidth: 100,
-          minHeight: 100,
-          backgroundColor: color,
-        }}
-        onClick={() => alert(light)}
-      />
-      <div className="extra content">
+      <div className="extra content" style={{ backgroundColor: "#FFFFFF48" }}>
         <div className="slidecontainer">
           <input
             className="slide"
@@ -54,7 +63,7 @@ const LightItem = ({ light, toggle, alert, active, onSelect, onDim }) => {
           />
         </div>
       </div>
-      <div className="extra content">
+      <div className="extra content" style={{ backgroundColor: "#FFFFFF48" }}>
         <span className="ui fitted right floated toggle checkbox">
           <input
             type="checkbox"

@@ -36,7 +36,7 @@ const LightsList = ({
           >
             {room.name}
           </div>
-          <div className="ui three stackable link cards">
+          <div className="ui three doubling stackable link cards">
             {renderItems(
               lights.filter(light => room.lights.includes(light.id))
             )}
