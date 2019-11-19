@@ -26,19 +26,25 @@ const LightItem = ({ light, toggle, alert, active, onSelect, onDim }) => {
 
   return (
     <div
-      className={`ui card ${active ? "blue" : null}`}
+      className="ui card"
       style={{ backgroundColor: color }}
       onClick={event => handleSelect(event)}
     >
       <div className="content" style={{ backgroundColor: color }}>
         {/* <i className="lightbulb outline icon"></i> */}
         {/* {light.name} */}
-        <div 
+        <div
           style={{ color: textColor, opacity: 0.7, userSelect: "none" }}
           // onDoubleClick={() => alert(light)}
           onAuxClick={() => alert(light)}
         >
           {light.name}
+          <span className="ui right floated icon">
+            <i
+              className={`${active ? "check" : null} icon`}
+              style={{ color: textColor, opacity: 0.7 }}
+            ></i>
+          </span>
         </div>
         {/* <span
           className="ui right floated avatar image"

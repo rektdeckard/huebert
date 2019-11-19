@@ -26,15 +26,25 @@ const LightsList = ({
   }, []);
 
   const renderGroups = () => {
-    return rooms.map(room => {
+    return rooms.filter(room => room.name !== "All").map(room => {
       return (
         <div className="ui segment" key={room.id}>
           <div
-            className={`ui top attached ${(active.room && active.room.id == room.id) ? "blue" : ""} label`}
+            className={`ui top attached ${
+              active.room && active.room.id == room.id ? "blue" : ""
+            } label`}
             style={{ cursor: "pointer" }}
             onClick={() => setActiveRoom(room)}
           >
             {room.name}
+            <span className="ui right floated icon">
+              <i
+                className={`${
+                  active.room && active.room.id == room.id ? "check" : ""
+                } icon`}
+                style={{ float: "right", margin: 0 }}
+              ></i>
+            </span>
           </div>
           <div className="ui three doubling stackable link cards">
             {renderItems(
