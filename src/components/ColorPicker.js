@@ -59,15 +59,15 @@ const ColorPicker = ({ active, setLight, setRoom }) => {
   };
 
   return (
-    // <div style={styles.sketchPicker}>
-    <SketchPicker
-      width={null}
-      color={extractColor()}
-      onChange={handleChange}
-      disableAlpha
-      // styles={styles.sketchPicker}
-    />
-    // </div>
+    <div className="ui segment">
+      <div className={`ui top attached ${active ? "blue" : ""} label`}>{active ? active.name : "Color Picker"}</div>
+      <SketchPicker
+        width={null}
+        color={extractColor()}
+        onChange={handleChange}
+        disableAlpha
+      />
+    </div>
   );
 };
 

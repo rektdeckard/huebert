@@ -7,6 +7,7 @@ import {
   FETCH_ROOMS,
   SET_ROOM,
   SET_ACTIVE_ROOM,
+  FETCH_SCENES,
   INITIALIZE_APP,
   CREATE_USER
 } from "./types";
@@ -38,24 +39,35 @@ export const toggleLight = light => async dispatch => {
   dispatch(fetchLights());
 };
 
-export const setActiveLight = light => {
-  return {
+export const setActiveLight = light => dispatch => {
+  dispatch({
     type: SET_ACTIVE_LIGHT,
     payload: light
-  };
+  });
 };
 
 export const fetchRooms = () => async dispatch => {
-  const response = await Hue.get("/groups");
+  const { data } = await Hue.get("/groups");
+  const lights = await Hue.get("/lights")
+  
+  // Apply light colors to room
+  Object.keys(data).forEach(key => {
+    data[key].colors = Object.keys(lights.data)
+      .filter(id => data[key].lights.includes(id))
+      .map(included => lights.data[included].state)
+    }
+  );
+  console.log(data);
   dispatch({
     type: FETCH_ROOMS,
-    payload: response.data
+    payload: data
   });
 };
 
 export const setRoom = room => async dispatch => {
   await Hue.put(`/groups/${room.id}/action`, room.action);
   dispatch(fetchRooms());
+  dispatch(fetchLights());
 };
 
 export const alertRoom = room => async () => {
@@ -74,11 +86,19 @@ export const toggleRoom = room => async dispatch => {
   });
 };
 
-export const setActiveRoom = room => {
-  return {
+export const setActiveRoom = room => dispatch => {
+  dispatch({
     type: SET_ACTIVE_ROOM,
     payload: room
-  };
+  });
+};
+
+export const fetchScenes = () => async dispatch => {
+  const response = await Hue.get("/scenes");
+  dispatch({
+    type: FETCH_SCENES,
+    payload: response.data
+  });
 };
 
 export const initializeApp = () => async dispatch => {
@@ -96,6 +116,7 @@ export const initializeApp = () => async dispatch => {
     if (response.data.config) {
       dispatch(fetchLights());
       dispatch(fetchRooms());
+      dispatch(fetchScenes());
     }
   }
 };

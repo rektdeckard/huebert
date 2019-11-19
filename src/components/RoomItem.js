@@ -3,6 +3,7 @@ import { convertHSBToColor } from "../utils";
 
 const RoomItem = ({ room, toggle, alert, active, onSelect, onDim }) => {
   const color = convertHSBToColor(room.action);
+  const colors = room.colors.filter(it => it.hue).map(light => convertHSBToColor(light)).sort();
 
   // Throttle calls to onChangeBrightness()
   const throttle = useRef(null);
@@ -30,7 +31,8 @@ const RoomItem = ({ room, toggle, alert, active, onSelect, onDim }) => {
           flex: 1,
           minWidth: 100,
           minHeight: 100,
-          backgroundColor: color
+          // backgroundColor: color
+          backgroundImage: `linear-gradient(to right, ${colors})`
         }}
         onClick={() => alert(room)}
       />
