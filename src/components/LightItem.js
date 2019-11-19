@@ -18,10 +18,15 @@ const LightItem = ({ light, toggle, alert, active, onSelect, onDim }) => {
     }, 100);
   };
 
+  const handleSelect = event => {
+    event.preventDefault();
+    onSelect(light);
+  }
+
   return (
     <div
       className={`ui card ${active ? "blue" : null}`}
-      onClick={() => onSelect(light)}
+      onClick={event => handleSelect(event)}
     >
       <div className="content">
         {/* <i className="lightbulb outline icon"></i> */}
@@ -33,7 +38,7 @@ const LightItem = ({ light, toggle, alert, active, onSelect, onDim }) => {
           flex: 1,
           minWidth: 100,
           minHeight: 100,
-          backgroundColor: color
+          backgroundColor: color,
         }}
         onClick={() => alert(light)}
       />
