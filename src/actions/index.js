@@ -40,6 +40,7 @@ export const toggleLight = light => async dispatch => {
 };
 
 export const setActiveLight = light => dispatch => {
+  console.log("setActiveLight", light)
   dispatch({
     type: SET_ACTIVE_LIGHT,
     payload: light
@@ -112,11 +113,16 @@ export const initializeApp = () => async dispatch => {
 
   if (ip && username) {
     const response = await axios.get(`http://${ip}/api/${username}`);
-    console.log(response);
+    
     if (response.data.config) {
       dispatch(fetchLights());
       dispatch(fetchRooms());
       dispatch(fetchScenes());
+      
+      dispatch({
+        type: INITIALIZE_APP,
+        payload: { ip, username, config: response.data.config }
+      })
     }
   }
 };
@@ -139,6 +145,7 @@ export const createUser = ip => async dispatch => {
       type: CREATE_USER,
       payload: { ip, username: response.data[0].success.username }
     });
+    dispatch(initializeApp());
   } else {
     dispatch({
       type: INITIALIZE_APP,

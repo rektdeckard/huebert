@@ -7,9 +7,11 @@ import {
   fetchLights,
   initializeApp,
   resetApp,
-  createUser
+  createUser,
+  setActiveLight
 } from "../actions";
 import Menu from "./Menu";
+import Info from './Info';
 import RoomsList from "./RoomsList";
 import LightsList from "./LightsList";
 import ColorPicker from "./ColorPicker";
@@ -24,7 +26,9 @@ class App extends React.Component {
   renderControls() {
     return (
       <div className="four wide column">
-        {this.props.active.light || this.props.active.room ? <ColorPicker /> : null}
+        {this.props.active.light || this.props.active.room ? (
+          <ColorPicker />
+        ) : null}
         {this.props.active.room ? <ScenesList /> : null}
       </div>
     );
@@ -37,10 +41,14 @@ class App extends React.Component {
           className="ui grid"
           style={{ overflowY: "hidden", height: "100vh" }}
         >
-          <Menu location={this.props.location} />
+          <div className="four wide column">
+            <Menu location={this.props.location} />
+            <Info />
+          </div>
           <div
             className="eight wide column"
             style={{ overflowY: "auto", height: "100%" }}
+            onClick={() => this.props.setActiveLight(null)}
           >
             <Switch>
               <Route path="/rooms" exact component={RoomsList} />
@@ -49,7 +57,7 @@ class App extends React.Component {
               <Route path="/rules" exact />
               <Route path="/sensors" exact />
               <Route path="/setup" exact component={Setup} />
-              <Redirect to={this.props.init.ip ? "/lights" : "/setup"} />;
+              <Redirect to={this.props.init ? "/lights" : "/setup"} />;
             </Switch>
           </div>
           {this.renderControls()}
@@ -72,6 +80,7 @@ export default withRouter(
   connect(mapStateToProps, {
     fetchRooms,
     fetchLights,
+    setActiveLight,
     initializeApp,
     createUser
   })(App)

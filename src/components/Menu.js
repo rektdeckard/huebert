@@ -8,34 +8,30 @@ const Menu = ({ lights, rooms, schedules, rules, sensors, location }) => {
   };
 
   return (
-    <div className="four wide column">
-      {/* <div className="ui left fixed vertical menu"> */}
-      {/* <div className="ui top attached blue label">Huebert</div> */}
-      <div className="ui fluid vertical menu">
-        <Link className={`item ${isActive("/lights")}`} to="/lights">
-          Lights
-          <div className="ui label blue">{lights.length}</div>
-        </Link>
-        <Link className={`item ${isActive("/rooms")}`} to="/rooms">
-          Groups
-          <div className="ui label blue">{rooms.length}</div>
-        </Link>
-        <Link className={`item ${isActive("/schedules")}`} to="/schedules">
-          Schedules
-          <div className="ui label blue">{schedules.length}</div>
-        </Link>
-        <Link className={`item ${isActive("/rules")}`} to="/rules">
-          Rules
-          <div className="ui label blue">{rules.length}</div>
-        </Link>
-        <Link className={`item ${isActive("/sensors")}`} to="/sensors">
-          Sensors
-          <div className="ui label blue">{sensors.length}</div>
-        </Link>
-        <Link className={`item ${isActive("/setup")}`} to="/setup">
-          Settings
-        </Link>
-      </div>
+    <div className="ui fluid vertical menu">
+      <Link className={`item ${isActive("/lights")}`} to="/lights">
+        Lights
+        <div className="ui label blue">{lights.length}</div>
+      </Link>
+      <Link className={`item ${isActive("/rooms")}`} to="/rooms">
+        Groups
+        <div className="ui label blue">{rooms.length}</div>
+      </Link>
+      <Link className={`item ${isActive("/schedules")}`} to="/schedules">
+        Schedules
+        <div className="ui label blue">{schedules.length}</div>
+      </Link>
+      <Link className={`item ${isActive("/rules")}`} to="/rules">
+        Rules
+        <div className="ui label blue">{rules.length}</div>
+      </Link>
+      <Link className={`item ${isActive("/sensors")}`} to="/sensors">
+        Sensors
+        <div className="ui label blue">{sensors.length}</div>
+      </Link>
+      <Link className={`item ${isActive("/setup")}`} to="/setup">
+        Settings
+      </Link>
     </div>
   );
 };
