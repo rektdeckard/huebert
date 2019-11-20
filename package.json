@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "webpack-dev-server",
+    "it": "electron .",
     "electron": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make"

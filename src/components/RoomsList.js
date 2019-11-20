@@ -1,37 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchRooms, alertRoom, toggleRoom, setRoom, setActiveRoom } from "../actions";
+import {
+  fetchRooms,
+  alertRoom,
+  toggleRoom,
+  setRoom,
+  setActiveRoom
+} from "../actions";
 import RoomItem from "./RoomItem";
 
-class RoomsList extends React.Component {
-  componentDidMount() {
-    this.props.fetchRooms();
-  }
+const RoomsList = props => {
+  useEffect(() => {
+    props.fetchRooms();
+  });
 
-  renderItems() {
-    return this.props.rooms.map(room => {
+  const renderItems = () => {
+    return props.rooms.map(room => {
       return (
         <RoomItem
           key={room.id}
           room={room}
-          alert={this.props.alertRoom}
-          toggle={this.props.toggleRoom}
-          active={this.props.active ? room.id == this.props.active.id : false}
-          onSelect={this.props.setActiveRoom}
-          onDim={this.props.setRoom}
+          alert={props.alertRoom}
+          toggle={props.toggleRoom}
+          active={props.active ? room.id == props.active.id : false}
+          onSelect={props.setActiveRoom}
+          onDim={props.setRoom}
         />
       );
     });
-  }
+  };
 
-  render() {
-    return (
-      <div className="ui three stackable link cards">
-        {this.props.rooms ? this.renderItems() : null}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="ui three stackable link cards">
+      {props.rooms ? renderItems() : null}
+    </div>
+  );
+};
 
 const mapStateToProps = state => {
   return {
@@ -40,7 +44,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { fetchRooms, alertRoom, toggleRoom, setRoom, setActiveRoom }
-)(RoomsList);
+export default connect(mapStateToProps, {
+  fetchRooms,
+  alertRoom,
+  toggleRoom,
+  setRoom,
+  setActiveRoom
+})(RoomsList);

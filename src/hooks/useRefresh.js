@@ -6,13 +6,13 @@ export default (action, interval) => {
 
   useEffect(() => {
     ipcRenderer.on("app:focus", () => {
-      // console.log("starting refresh");
+      console.log("starting refresh");
       action();
       refresh();
     });
 
     ipcRenderer.on("app:blur", () => {
-      // console.log("cancelling refresh");
+      console.log("cancelling refresh");
       cancel();
     });
 
@@ -28,7 +28,7 @@ export default (action, interval) => {
     }
 
     intervalRef.current = setInterval(() => {
-      // console.log("refreshing");
+      console.log("refreshing");
       action();
     }, interval);
   }, []);
