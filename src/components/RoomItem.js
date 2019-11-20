@@ -21,11 +21,16 @@ const RoomItem = ({ room, toggle, alert, active, onSelect, onDim }) => {
     }, 500);
   };
 
+  const handleSelect = event => {
+    onSelect(room)
+    event.stopPropagation();
+  }
+
   return (
     <div
     className="ui card"
     style={{ backgroundImage: `linear-gradient(to right, ${colors})` }}
-    onClick={() => onSelect(room)}
+    onClick={handleSelect}
   >
     <div className="content" style={{ backgroundImage: `linear-gradient(to right, ${colors})` }}>
       <div

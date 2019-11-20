@@ -20,7 +20,7 @@ const LightItem = ({ light, toggle, alert, active, onSelect, onDim }) => {
   };
 
   const handleSelect = event => {
-    event.preventDefault();
+    event.stopPropagation();
     onSelect(light);
   };
 
@@ -28,7 +28,7 @@ const LightItem = ({ light, toggle, alert, active, onSelect, onDim }) => {
     <div
       className="ui card"
       style={{ backgroundColor: color }}
-      onClick={event => handleSelect(event)}
+      onClick={handleSelect}
     >
       <div className="content" style={{ backgroundColor: color }}>
         {/* <i className="lightbulb outline icon"></i> */}

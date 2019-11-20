@@ -21,20 +21,28 @@ const LightsList = ({
   setActiveLight,
   setActiveRoom
 }) => {
+
   useEffect(() => {
     fetchLights();
   }, []);
 
+  const handleSelect = (event, room) => {
+    setActiveRoom(room);
+    event.stopPropagation();
+  }
+
   const renderGroups = () => {
     return rooms.filter(room => room.name !== "All").map(room => {
       return (
-        <div className="ui segment" key={room.id}>
+        <div className="ui segment" 
+          key={room.id}
+          onClick={event => handleSelect(event, room)}
+        >
           <div
             className={`ui top attached ${
               active.room && active.room.id == room.id ? "blue" : ""
             } label`}
             style={{ cursor: "pointer" }}
-            onClick={() => setActiveRoom(room)}
           >
             {room.name}
             <span className="ui right floated icon">
