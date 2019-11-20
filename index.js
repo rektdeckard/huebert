@@ -26,5 +26,16 @@ app.on("ready", () => {
   });
   mainWindow.webContents.on('dom-ready', e => {
     mainWindow.webContents.insertCSS('html,body{ overflow: hidden; }');
-  })
+  });
+
+  app.on('browser-window-focus', () => {
+    // console.log('focus');
+    mainWindow.webContents.send("app:focus");
+  });
+
+  app.on('browser-window-blur', () => {
+    // console.log('blur');
+    mainWindow.webContents.send("app:blur");
+  });
+
 });

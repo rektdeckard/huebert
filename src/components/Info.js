@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 
 const Info = ({ config }) => {
   if (config) {
-    console.log(config);
     return (
       <div className="ui segment">
         <div className="ui top attached label">Device Info</div>
@@ -52,6 +51,18 @@ const Info = ({ config }) => {
             <tr>
               <td>Zigbee Channel</td>
               <td>{config.zigbeechannel}</td>
+            </tr>
+            <tr>
+              <td>Software Version</td>
+              <td>{config.swversion}</td>
+            </tr>
+            <tr>
+              <td>Portal Services</td>
+              <td>{config.portalservices.toString()}</td>
+            </tr>
+            <tr>
+              <td>Portal Connection</td>
+              <td>{config.portalconnection}</td>
             </tr>
           </tbody>
         </table>

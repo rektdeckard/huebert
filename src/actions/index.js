@@ -40,7 +40,6 @@ export const toggleLight = light => async dispatch => {
 };
 
 export const setActiveLight = light => dispatch => {
-  console.log("setActiveLight", light)
   dispatch({
     type: SET_ACTIVE_LIGHT,
     payload: light
@@ -58,7 +57,6 @@ export const fetchRooms = () => async dispatch => {
       .map(included => lights.data[included].state)
     }
   );
-  console.log(data);
   dispatch({
     type: FETCH_ROOMS,
     payload: data
@@ -68,7 +66,9 @@ export const fetchRooms = () => async dispatch => {
 export const setRoom = room => async dispatch => {
   await Hue.put(`/groups/${room.id}/action`, room.action);
   dispatch(fetchRooms());
-  dispatch(fetchLights());
+  setTimeout(() => {
+    dispatch(fetchLights());
+  }, 500);
 };
 
 export const alertRoom = room => async () => {
