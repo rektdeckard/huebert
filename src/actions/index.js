@@ -57,6 +57,7 @@ export const fetchRooms = () => async dispatch => {
       .map(included => lights.data[included].state)
     }
   );
+
   dispatch({
     type: FETCH_ROOMS,
     payload: data
@@ -96,11 +97,26 @@ export const setActiveRoom = room => dispatch => {
 
 export const fetchScenes = () => async dispatch => {
   const response = await Hue.get("/scenes");
+
   dispatch({
     type: FETCH_SCENES,
     payload: response.data
   });
+
+  // dispatch(storeSceneInfo(response.data));
+  // localStorage.setItem("scenes", JSON.stringify(response.data));
 };
+
+// export const storeSceneInfo = scenes => async dispatch => {
+//   const promises = Object.keys(scenes).map(id => {
+//     console.log("promised");
+//     return Hue.get(`/scenes/${id}`);
+//   });
+//   const sceneInfo = await Promise.all(promises);
+  
+//   console.log(sceneInfo);
+//   scenes.forEach()
+// }
 
 export const initializeApp = () => async dispatch => {
   const ip = localStorage.getItem("ip");

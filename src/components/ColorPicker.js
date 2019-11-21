@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import SketchPicker from "./picker/components/sketch/Sketch";
-import reactCSS from "reactcss";
 import { connect } from "react-redux";
 import { setLight, setRoom } from "../actions";
 import { convertHSBToColor, convertHSVToHSB, convertHSVToCT } from "../utils";
