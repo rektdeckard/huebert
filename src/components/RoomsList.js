@@ -12,7 +12,7 @@ import RoomItem from "./RoomItem";
 const RoomsList = props => {
   useEffect(() => {
     props.fetchRooms();
-  });
+  }, []);
 
   const renderItems = () => {
     return props.rooms.map(room => {

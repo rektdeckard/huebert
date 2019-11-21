@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 const Info = ({ config }) => {
-  if (config) {
+  if (config && config.name) {
     return (
       <div className="ui segment">
         <div className="ui top attached label">Device Info</div>
