@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { setLight, setRoom } from "../actions";
 import { convertHSBToColor, convertHSVToHSB, convertHSVToCT } from "../utils";
 
-const LIGHT_ELEMENT = "light_element";
-const GROUP_ELEMENT = "group_element";
+const LIGHT_ELEMENT = 100;
+const GROUP_ELEMENT = 500;
 
 const ColorPicker = ({ active, setLight, setRoom }) => {
   const type = active ? (active.action ? GROUP_ELEMENT : LIGHT_ELEMENT) : null;
@@ -22,13 +22,13 @@ const ColorPicker = ({ active, setLight, setRoom }) => {
   };
 
   // Throttle calls to handleChange()
-  let bufferedColor = null;
+  let bufferedColor = useRef(null);
 
   const handleChange = (color, event) => {
-    if (bufferedColor !== null) {
+    if (bufferedColor.current !== null) {
       return;
     }
-    bufferedColor = color;
+    bufferedColor.current = color;
 
     switch (type) {
       case LIGHT_ELEMENT:
@@ -38,7 +38,7 @@ const ColorPicker = ({ active, setLight, setRoom }) => {
           setLight(newLight);
         } else {
           const ct = convertHSVToCT(color);
-          console.log(ct);
+          // console.log(ct);
           const newLight = { id: active.id, state: { ct } };
           setLight(newLight);
         }
@@ -53,8 +53,8 @@ const ColorPicker = ({ active, setLight, setRoom }) => {
     }
 
     setTimeout(() => {
-      bufferedColor = null;
-    }, 100);
+      bufferedColor.current = null;
+    }, type);
   };
 
   return (

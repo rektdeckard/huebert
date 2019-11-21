@@ -56,7 +56,7 @@ const App = props => {
             <Route path="/rules" exact />
             <Route path="/sensors" exact />
             <Route path="/setup" exact component={Setup} />
-            <Redirect to={props.init ? "/lights" : "/setup"} />;
+            <Redirect to={props.init.ip ? "/lights" : "/setup"} />;
           </Switch>
         </div>
         {renderControls()}
