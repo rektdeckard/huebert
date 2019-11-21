@@ -18,7 +18,6 @@ import ColorPicker from "./ColorPicker";
 import Setup from "./Setup";
 import ScenesList from "./ScenesList";
 import useRefresh from "../hooks/useRefresh";
-import ControlPanel from "./ControlPanel";
 
 const App = props => {
   const { refresh, cancel } = useRefresh(props.fetchLights, 10000);
@@ -32,11 +31,8 @@ const App = props => {
   const renderControls = () => {
     return (
       <div className="four wide column">
-        {/* <div className="ui segments"> */}
           {props.active.light || props.active.room ? <ColorPicker /> : null}
           {props.active.room ? <ScenesList /> : null}
-        {/* </div> */}
-        {/* <ControlPanel /> */}
       </div>
     );
   };
