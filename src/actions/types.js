@@ -8,5 +8,11 @@ export const SET_ACTIVE_LIGHT = "set_active_light";
 
 export const FETCH_SCENES = "fetch_scenes";
 
+export const FETCH_SCHEDULES = "fetch_schedules";
+
+export const FETCH_RULES = "fetch_rules";
+
+export const FETCH_SENSORS = "fetch_sensors";
+
 export const INITIALIZE_APP = "initialize_app";
 export const CREATE_USER = "create_user";

@@ -21,11 +21,11 @@ const Menu = ({ lights, rooms, schedules, rules, sensors, location }) => {
         Schedules
         <div className="ui label blue">{schedules.length}</div>
       </Link>
-      <Link className={`item ${isActive("/rules")}`} to="/rules">
+      <Link className={`item disabled ${isActive("/rules")}`} to="/rules">
         Rules
         <div className="ui label blue">{rules.length}</div>
       </Link>
-      <Link className={`item ${isActive("/sensors")}`} to="/sensors">
+      <Link className={`item disabled ${isActive("/sensors")}`} to="/sensors">
         Sensors
         <div className="ui label blue">{sensors.length}</div>
       </Link>

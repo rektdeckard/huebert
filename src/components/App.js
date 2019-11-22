@@ -14,9 +14,10 @@ import Menu from "./Menu";
 import Info from "./Info";
 import RoomsList from "./RoomsList";
 import LightsList from "./LightsList";
+import ScenesList from "./ScenesList";
+import RulesList from './RulesList';
 import ColorPicker from "./ColorPicker";
 import Setup from "./Setup";
-import ScenesList from "./ScenesList";
 import useRefresh from "../hooks/useRefresh";
 
 const App = props => {
@@ -53,7 +54,7 @@ const App = props => {
             <Route path="/rooms" exact component={RoomsList} />
             <Route path="/lights" exact component={LightsList} />
             <Route path="/schedules" exact />
-            <Route path="/rules" exact />
+            <Route path="/rules" exact component={RulesList} />
             <Route path="/sensors" exact />
             <Route path="/setup" exact component={Setup} />
             <Redirect to={props.init.ip ? "/lights" : "/setup"} />;
