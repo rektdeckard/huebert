@@ -38,13 +38,10 @@ const ColorPicker = ({ active, setLight, setRoom }) => {
       case LIGHT_ELEMENT:
         if (active.state.hue) {
           const { hue, sat, bri } = convertHSVToHSB(color);
-          const newLight = { id: active.id, state: { hue, sat, bri } };
-          setLight(newLight);
+          setLight({ id: active.id, state: { hue, sat, bri } });
         } else {
-          const ct = convertHSVToCT(color);
-          // console.log(ct);
-          const newLight = { id: active.id, state: { ct } };
-          setLight(newLight);
+          const { ct, bri } = convertHSVToCT(color);
+          setLight({ id: active.id, state: { ct, bri } });
         }
         break;
       case GROUP_ELEMENT:
