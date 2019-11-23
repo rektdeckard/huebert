@@ -40,12 +40,12 @@ export const alertRoom = room => async () => {
 
 export const toggleRoom = room => async dispatch => {
   const response = await Hue.put(`/groups/${room.id}/action`, {
-    on: !room.action.on
+    on: !room.state.any_on
   });
   // TODO: FIX
   dispatch({
     type: SET_ROOM,
-    payload: { ...room, action: { ...room.action, on: !room.action.on } }
+    payload: { ...room, state: { ...room.state, any_on: !room.state.any_on } }
   });
 };
 

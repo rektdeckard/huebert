@@ -71,7 +71,7 @@ const RoomItem = ({ room, toggle, alert, active, onSelect, onDim }) => {
         <span className="ui fitted right floated toggle checkbox">
           <input
             type="checkbox"
-            checked={room.action.on}
+            checked={room.state.any_on}
             onChange={() => toggle(room)}
             // disabled={!light.state.reachable}
           />
