@@ -10,7 +10,7 @@ const RoomItem = ({ room, toggle, alert, active, onSelect, onDim }) => {
         .sort()
     )
   ];
-  const textColor = compatibleText(colors[0]);
+  const textColor = compatibleText(colors[0] || "#FFFFFF");
 
   // Throttle calls to onChangeBrightness()
   const throttle = useRef(null);

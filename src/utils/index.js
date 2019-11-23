@@ -19,6 +19,8 @@ export const convertHSBToColor = state => {
     const color = tinycolor({r: rgb.red, g: rgb.green, b: rgb.blue });
     return color.lighten(15).toHexString();
   }
+
+  return "#FFFFFF"
 };
 
 
@@ -36,5 +38,8 @@ export const convertHSVToCT = color => {
 }
 
 export const compatibleText = color => {
+  if (!color) {
+    return "black";
+  }
   return textContrast.isDark(color) ? "white" : "black"
 }

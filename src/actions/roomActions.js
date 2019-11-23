@@ -1,4 +1,5 @@
 import Hue from "../api/Hue";
+import * as Mock from "../__mock__";
 import { fetchLights } from '../actions';
 import {
   FETCH_ROOMS,

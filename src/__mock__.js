@@ -388,7 +388,6 @@ export const get = path => {
               "state": {
                   "on": true,
                   "bri": 152,
-                  "ct": 233,
                   "alert": "select",
                   "colormode": "ct",
                   "mode": "homeautomation",
