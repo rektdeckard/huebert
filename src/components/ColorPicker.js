@@ -8,7 +8,7 @@ const LIGHT_ELEMENT = 100;
 const GROUP_ELEMENT = 500;
 
 const ColorPicker = ({ active, setLight, setRoom }) => {
-  if (!isAdjustable(active.state || active.action)) {
+  if (!isAdjustable(active.action || active.state)) {
     return null;
   }
 
