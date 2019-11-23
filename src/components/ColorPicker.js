@@ -2,12 +2,16 @@ import React, { useRef } from "react";
 import SketchPicker from "./picker/components/sketch/Sketch";
 import { connect } from "react-redux";
 import { setLight, setRoom } from "../actions";
-import { convertHSBToColor, convertHSVToHSB, convertHSVToCT } from "../utils";
+import { convertHSBToColor, convertHSVToHSB, convertHSVToCT, isAdjustable } from "../utils";
 
 const LIGHT_ELEMENT = 100;
 const GROUP_ELEMENT = 500;
 
 const ColorPicker = ({ active, setLight, setRoom }) => {
+  if (!isAdjustable(active.state || active.action)) {
+    return null;
+  }
+
   const type = active ? (active.action ? GROUP_ELEMENT : LIGHT_ELEMENT) : null;
 
   const extractColor = () => {

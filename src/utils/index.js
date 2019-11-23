@@ -43,3 +43,8 @@ export const compatibleText = color => {
   }
   return textContrast.isDark(color) ? "white" : "black"
 }
+
+export const isAdjustable = state => {
+  if (state.hue || state.ct) return true;
+  return false;
+}
