@@ -1,7 +1,7 @@
 <img src="https://i.imgur.com/SHFIm8n.png" width="192" align="right" hspace="20" />
 
 # Huebert
-A Philips Hue desktop client in Electron and React
+A Philips Hue desktop client in Electron and React.
 
 [![GitHub stars](https://img.shields.io/github/stars/rektdeckard/huebert?style=flat-square&label=Star)](https://github.com/rektdeckard/huebert)
 [![GitHub forks](https://img.shields.io/github/forks/rektdeckard/huebert?style=flat-square&label=Fork)](https://github.com/rektdeckard/huebert/fork)
