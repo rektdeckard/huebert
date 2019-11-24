@@ -17,6 +17,7 @@ export const convertHSBToColor = state => {
   if (state.ct) {
     const rgb = colorTemperature2rgb(1e6/state.ct);
     const color = tinycolor({r: rgb.red, g: rgb.green, b: rgb.blue });
+    // color.darken(100 - Math.round(state.bri / 2.54));
     return color.lighten(15).toHexString();
   }
 

@@ -10,6 +10,7 @@ app.on("ready", () => {
     width: 1440,
     height: 900,
     darkTheme: false,
+    icon: __dirname + '/assets/icon.png',
     autoHideMenuBar: true,
     // titleBarStyle: 'customButtonsOnHover', frame: false,
     webPreferences: {

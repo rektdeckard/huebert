@@ -1,31 +1,25 @@
-import * as LightActions from './lightActions';
-import * as RoomActions from './roomActions';
-import * as SceneActions from './sceneActions';
-import * as ScheduleActions from './scheduleActions';
-import * as RuleActions from './ruleActions';
-import * as SensorActions from './sensorActions';
-import * as InitActions from './initActions';
+export {
+  fetchLights,
+  setLight,
+  alertLight,
+  toggleLight,
+  setActiveLight
+} from "./lightActions";
 
-export const fetchLights = LightActions.fetchLights;
-export const setLight = LightActions.setLight;
-export const alertLight = LightActions.alertLight;
-export const toggleLight = LightActions.toggleLight;
-export const setActiveLight = LightActions.setActiveLight;
+export {
+  fetchRooms,
+  setRoom,
+  alertRoom,
+  toggleRoom,
+  setActiveRoom
+} from "./roomActions";
 
-export const fetchRooms = RoomActions.fetchRooms;
-export const setRoom = RoomActions.setRoom;
-export const alertRoom = RoomActions.alertRoom;
-export const toggleRoom = RoomActions.toggleRoom;
-export const setActiveRoom = RoomActions.setActiveRoom;
+export { fetchScenes } from "./sceneActions";
 
-export const fetchScenes = SceneActions.fetchScenes;
+export { fetchSchedules } from "./scheduleActions";
 
-export const fetchSchedules = ScheduleActions.fetchSchedules;
+export { fetchRules } from "./ruleActions";
 
-export const fetchRules = RuleActions.fetchRules;
+export { fetchSensors } from "./sensorActions";
 
-export const fetchSensors = SensorActions.fetchSensors;
-
-export const initializeApp = InitActions.initializeApp;
-export const resetApp = InitActions.resetApp;
-export const createUser = InitActions.createUser;
+export { initializeApp, resetApp, createUser } from "./initActions";
