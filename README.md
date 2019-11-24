@@ -1,3 +1,5 @@
+<img src="https://i.imgur.com/SHFIm8n.png" width="192" align="right" hspace="20" />
+
 # Huebert
 A Philips Hue desktop client in Electron and React
 
