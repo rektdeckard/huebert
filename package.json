@@ -1,86 +1,46 @@
 {
-  "name": "huebert",
-  "version": "0.1.1",
-  "description": "Desktop client for Philips Hue",
-  "main": "index.js",
-  "scripts": {
-    "start": "webpack-dev-server",
-    "it": "electron .",
-    "electron": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
-  },
-  "author": "Tobias Fried",
-  "devDependencies": {
-    "@electron-forge/cli": "6.0.0-beta.45",
-    "@electron-forge/maker-deb": "6.0.0-beta.45",
-    "@electron-forge/maker-dmg": "^6.0.0-beta.45",
-    "@electron-forge/maker-rpm": "6.0.0-beta.45",
-    "@electron-forge/maker-squirrel": "6.0.0-beta.45",
-    "@electron-forge/maker-zip": "6.0.0-beta.45",
-    "@electron-forge/plugin-webpack": "^6.0.0-beta.45",
-    "electron": "^6.0.12",
-    "webpack": "2.3.2",
-    "webpack-dev-server": "2.4.2"
-  },
+  "name": "huebert-web",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
     "axios": "^0.19.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "7",
-    "babel-plugin-transform-regenerator": "^6.26.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
     "color-temperature": "^0.2.7",
-    "electron-squirrel-startup": "^1.0.0",
-    "fluent-ffmpeg": "^2.1.0",
     "lodash": "^4.17.15",
     "mired": "^0.0.0",
-    "moment": "^2.18.1",
-    "moment-duration-format": "^1.3.0",
-    "react": "16.8.0",
+    "moment": "^2.24.0",
+    "moment-duration-format": "^2.3.2",
+    "react": "^16.12.0",
     "react-color": "^2.17.3",
-    "react-dom": "16.8.0",
-    "react-dropzone": "^3.12.2",
-    "react-redux": "^5.0.3",
-    "react-router": "^4.0.0",
-    "react-router-dom": "^4.0.0",
+    "react-dom": "^16.12.0",
+    "react-redux": "^7.1.3",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0",
     "reactcss": "^1.2.3",
-    "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
     "text-contrast": "^1.0.2",
     "tinycolor": "^0.0.1"
   },
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "huebert"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-dmg",
-          "config": {}
-        }
-      ]
-    }
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

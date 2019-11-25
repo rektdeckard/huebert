@@ -8,6 +8,9 @@ const LIGHT_ELEMENT = 100;
 const GROUP_ELEMENT = 500;
 
 const ColorPicker = ({ active, setLight, setRoom }) => {
+  // Throttle calls to handleChange()
+  let bufferedColor = useRef(null);
+
   if (!isAdjustable(active.action || active.state)) {
     return null;
   }
@@ -24,9 +27,6 @@ const ColorPicker = ({ active, setLight, setRoom }) => {
         return "#2185D0";
     }
   };
-
-  // Throttle calls to handleChange()
-  let bufferedColor = useRef(null);
 
   const handleChange = (color, event) => {
     if (bufferedColor.current !== null) {

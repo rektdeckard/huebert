@@ -30,7 +30,7 @@ export const convertHSVToHSB = color => {
   const sat = Math.round(color.hsv.s * 254);
   const bri = Math.round(color.hsv.v * 253) + 1;
 
-  return { hue, sat, bri };``
+  return { hue, sat, bri };
 }
 
 export const convertHSVToCT = color => {
