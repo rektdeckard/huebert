@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.js": "/huebert/static/js/main.4f81221e.chunk.js",
-    "main.js.map": "/huebert/static/js/main.4f81221e.chunk.js.map",
+    "main.js": "/huebert/static/js/main.6d53fe32.chunk.js",
+    "main.js.map": "/huebert/static/js/main.6d53fe32.chunk.js.map",
     "runtime-main.js": "/huebert/static/js/runtime-main.54a4f8d3.js",
     "runtime-main.js.map": "/huebert/static/js/runtime-main.54a4f8d3.js.map",
-    "static/js/2.fde631f2.chunk.js": "/huebert/static/js/2.fde631f2.chunk.js",
-    "static/js/2.fde631f2.chunk.js.map": "/huebert/static/js/2.fde631f2.chunk.js.map",
+    "static/js/2.085846c3.chunk.js": "/huebert/static/js/2.085846c3.chunk.js",
+    "static/js/2.085846c3.chunk.js.map": "/huebert/static/js/2.085846c3.chunk.js.map",
     "index.html": "/huebert/index.html",
-    "precache-manifest.c17798a26384f4a68878e58f77bbceae.js": "/huebert/precache-manifest.c17798a26384f4a68878e58f77bbceae.js",
+    "precache-manifest.3397e574f0ad3be8c58dd1a0fbaf4b81.js": "/huebert/precache-manifest.3397e574f0ad3be8c58dd1a0fbaf4b81.js",
     "service-worker.js": "/huebert/service-worker.js"
   },
   "entrypoints": [
     "static/js/runtime-main.54a4f8d3.js",
-    "static/js/2.fde631f2.chunk.js",
-    "static/js/main.4f81221e.chunk.js"
+    "static/js/2.085846c3.chunk.js",
+    "static/js/main.6d53fe32.chunk.js"
   ]
 }
