@@ -1,24 +1,24 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback } from "react";
 
 export default (action, interval) => {
   const intervalRef = useRef(null);
 
-  useEffect(() => {
-    // ipcRenderer.on("app:focus", () => {
-    //   console.log("starting refresh");
-    //   action();
-    //   refresh();
-    // });
+  useEffect(() => {   
+    window.addEventListener("focus", () => {
+      // console.log("starting refresh");
+      action();
+      refresh();
+    });
 
-    // ipcRenderer.on("app:blur", () => {
-    //   console.log("cancelling refresh");
-    //   cancel();
-    // });
+    window.addEventListener("blur", () => {
+      // console.log("cancelling refresh");
+      cancel();
+    });
 
-    // return () => {
-    //   ipcRenderer.removeListener("app:focus");
-    //   ipcRenderer.removeListener("app:blur");
-    // }
+    return () => {
+      window.removeEventListener("focus");
+      window.removeEventListener("blur");
+    };
   }, []);
 
   const refresh = useCallback(() => {
@@ -27,7 +27,7 @@ export default (action, interval) => {
     }
 
     intervalRef.current = setInterval(() => {
-      console.log("refreshing");
+      // console.log("refreshing");
       action();
     }, interval);
   }, []);
@@ -42,4 +42,4 @@ export default (action, interval) => {
   });
 
   return { refresh, cancel };
-}
+};

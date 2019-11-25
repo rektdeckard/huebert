@@ -1,6 +1,7 @@
 {
   "name": "huebert-web",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "homepage": "https://rektdeckard.github.io/huebert/",
   "private": true,
   "dependencies": {
     "axios": "^0.19.0",
@@ -26,7 +27,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^2.1.1"
   }
 }

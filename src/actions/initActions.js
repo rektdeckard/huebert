@@ -15,7 +15,7 @@ export const initializeApp = () => async dispatch => {
   });
 
   if (ip && username) {
-    const response = await axios.get(`http://${ip}/api/${username}`);
+    const response = await axios.get(`https://${ip}/api/${username}`);
     
     if (response.data.config) {
       dispatch(fetchLights());
@@ -41,7 +41,7 @@ export const resetApp = () => async dispatch => {
 };
 
 export const createUser = ip => async dispatch => {
-  const response = await axios.post(`http://${ip}/api/`, {
+  const response = await axios.post(`https://${ip}/api/`, {
     devicetype: "Huebert"
   });
   if (response.data[0].success) {
