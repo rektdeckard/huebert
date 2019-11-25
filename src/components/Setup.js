@@ -35,25 +35,25 @@ const Setup = ({ init, createUser }) => {
   const renderContent = () => {};
 
   const renderMessage = () => {
-    if (init.error && !init.ip) {
+    if (init.error && !init.config) {
       return (
-        <div className="ui error message">
+        <div className="ui tiny error message">
           {/* <i className="close icon" onClick={initializeApp}></i> */}
           <div className="header">Error: {init.error}</div>
           {/* <p>{init.error}</p> */}
         </div>
       );
     }
-    if (init.ip && init.username) {
+    if (init.ip && init.username && init.config) {
       return (
-        <div className="ui success message">
+        <div className="ui tiny success message">
           <div className="header">Device connected</div>
           {/* <p>Device connected</p> */}
         </div>
       );
     }
     return (
-      <div className="ui message">
+      <div className="ui tiny message">
         <div className="header">Device not conneted</div>
       </div>
     );
@@ -62,6 +62,7 @@ const Setup = ({ init, createUser }) => {
   const renderHelp = () => {
     return (
       <div className="ui fluid styled accordion">
+        {/* <div className="ui top attached label">Help</div> */}
         <div
           className={`${expanded == 0 ? "active" : null} title`}
           onClick={() => expand(0)}
@@ -161,13 +162,14 @@ const Setup = ({ init, createUser }) => {
     <div style={{ height: "100%" }}>
       {renderMessage()}
       <div className="ui placeholder segment">
+      <div className="ui top attached label">Device Setup</div>
         <div className="ui icon header">
           <i className={deviceAddress ? "wifi icon" : "exclamation icon"} />
           Connect to Philips Hue
         </div>
-        <form className="inline form" onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
           <div className="field">
-            <div className="ui labeled action input">
+            <div className="ui inline labeled action input">
               <div className="ui label">http://</div>
               <input
                 type="text"
