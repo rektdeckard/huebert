@@ -10,6 +10,9 @@ A Philips Hue desktop client in Electron and React.
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/friedtm.svg?style=flat-square)](https://twitter.com/friedtm)
 
+### Screenshots
+<img src="https://i.imgur.com/eAYFhwX.jpg" align="center" />
+
 ## Installation
 
 ### Build from source
