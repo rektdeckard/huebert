@@ -35,7 +35,7 @@ const Setup = ({ init, createUser }) => {
   const renderMessage = () => {
     if (init.error && !init.config) {
       return (
-        <div className="ui tiny error message">
+        <div className={`ui tiny ${init.theme === "inverted" ? "inverted red" : "error"} message`}>
           {/* <i className="close icon" onClick={initializeApp}></i> */}
           <div className="header">Error: {init.error}</div>
           {/* <p>{init.error}</p> */}
@@ -44,22 +44,22 @@ const Setup = ({ init, createUser }) => {
     }
     if (init.ip && init.username && init.config) {
       return (
-        <div className="ui tiny success message">
+        <div className={`ui tiny ${init.theme === "inverted" ? "inverted green" : "success"} message`}>
           <div className="header">Device connected</div>
           {/* <p>Device connected</p> */}
         </div>
       );
     }
     return (
-      <div className="ui tiny message">
-        <div className="header">Device not conneted</div>
+      <div className={`ui tiny ${init.theme === "inverted" ? "inverted" : null} message`}>
+        <div className="header">Device not connected</div>
       </div>
     );
   };
 
   const renderHelp = () => {
     return (
-      <div className="ui fluid styled accordion">
+      <div className={`ui fluid ${init.theme || "styled"} accordion`}>
         {/* <div className="ui top attached label">Help</div> */}
         <div
           className={`${expanded === 0 ? "active" : null} title`}
@@ -160,8 +160,8 @@ const Setup = ({ init, createUser }) => {
   return (
     <div style={{ height: "100%" }}>
       {renderMessage()}
-      <div className="ui placeholder segment">
-      <div className="ui top attached label">Device Setup</div>
+      <div className={`ui ${init.theme} placeholder segment`}>
+      <div className={`ui top attached ${init.theme === "inverted" ? "black" : null} label`}>DEVICE SETUP</div>
         <div className="ui icon header">
           <i className={deviceAddress ? "wifi icon" : "exclamation icon"} />
           Connect to Philips Hue

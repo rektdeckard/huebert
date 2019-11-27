@@ -9,7 +9,8 @@ import {
   resetApp,
   createUser,
   setActiveLight,
-  setTheme
+  setTheme, 
+  setView
 } from "../actions";
 import Menu from "./Menu";
 import Info from "./Info";
@@ -49,20 +50,48 @@ const App = props => {
         backgroundColor: props.init.theme === "inverted" ? "#080808" : "white"
       }}
     >
-      <div className="ui grid" style={{ overflowY: "hidden" }}>
+      <div
+        className="ui grid"
+        style={{ overflowY: "hidden", height: "99.5vh" }}
+      >
         <div className="four wide column">
           <Menu location={props.location} />
           <Info />
           <div className={`ui ${props.init.theme} segment`}>
-            <div class={`ui mini ${props.init.theme === "inverted" ? "secondary" : "basic"} icon buttons`}>
-              <button class="ui button">
-                <i class="list ul icon"></i>
+            <div
+              className={`ui mini ${
+                props.init.theme === "inverted" ? "secondary" : "basic"
+              } icon buttons`}
+            >
+              <button 
+                className={`ui ${props.init.view !== "card" ? "active" : null} button`}
+                onClick={() => props.setView(null)}
+              >
+                <i className="list ul icon"></i>
               </button>
-              <button class="ui button">
-                <i class="th icon"></i>
+              <button
+                className={`ui ${props.init.view === "card" ? "active" : null} button`}
+                onClick={() => props.setView("card")}
+              >
+                <i className="th icon"></i>
               </button>
             </div>
-            <div className={`ui tiny ${props.init.theme} slider checkbox`}>
+            <div
+              className={`ui mini right floated 
+                ${props.init.theme === "inverted" ? "secondary" : "basic"} 
+                icon buttons`
+              }
+            >
+              <button 
+                className={`ui ${props.init.theme === "inverted" ? "active" : null} button`}
+                onClick={() =>
+                  props.setTheme(props.init.theme ? null : "inverted")
+                }
+              >
+                <i className="adjust icon"></i>
+              </button>
+            </div>
+            {/* <div className={`ui mini ${props.init.theme} slider checkbox`}>
               <input
                 type="checkbox"
                 checked={props.init.theme === "inverted"}
@@ -71,7 +100,7 @@ const App = props => {
                 }
               />
               <label>DARK MODE</label>
-            </div>
+            </div> */}
           </div>
         </div>
         <div
@@ -111,6 +140,7 @@ export default withRouter(
     setActiveLight,
     initializeApp,
     createUser,
-    setTheme
+    setTheme,
+    setView
   })(App)
 );

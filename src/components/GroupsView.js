@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import {
-  fetchRooms,
-  setActiveRoom
-} from "../actions";
+import { fetchRooms, setActiveRoom } from "../actions";
 import LightsTable from "./LightsTable";
+import LightsList from './LightsList';
 
-const GroupsView = ({ lights, rooms, fetchRooms, setActiveRoom }) => {
+const GroupsView = ({ lights, rooms, fetchRooms, setActiveRoom, view }) => {
   useEffect(() => {
     fetchRooms();
   }, []);
+
+  console.log(view);
 
   const renderTables = () => {
     return rooms
@@ -25,9 +25,13 @@ const GroupsView = ({ lights, rooms, fetchRooms, setActiveRoom }) => {
       });
   };
 
+  const renderCards = () => {
+    return <LightsList />;
+  };
+
   return (
-    <div style={{ height: "95vh" }} onClick={() => setActiveRoom(null)}>
-      {renderTables()}
+    <div onClick={() => setActiveRoom(null)}>
+      {view == "card" ? renderCards() : renderTables()}
     </div>
   );
 };
@@ -36,6 +40,7 @@ const mapStateToProps = state => {
   return {
     lights: state.lights,
     rooms: state.rooms,
+    view: state.init.view
   };
 };
 
