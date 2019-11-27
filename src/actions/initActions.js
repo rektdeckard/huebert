@@ -1,15 +1,20 @@
 import axios from "axios";
-import { fetchLights, fetchRooms, fetchScenes, fetchSchedules, fetchRules, fetchSensors } from '../actions';
 import {
-  INITIALIZE_APP,
-  CREATE_USER
-} from "./types";
+  fetchLights,
+  fetchRooms,
+  fetchScenes,
+  fetchSchedules,
+  fetchRules,
+  fetchSensors
+} from "../actions";
+import { INITIALIZE_APP, CREATE_USER, SET_THEME } from "./types";
 
 export const initializeApp = () => async dispatch => {
   const ip = localStorage.getItem("ip");
   const username = localStorage.getItem("username");
+  const theme = localStorage.getItem("theme");
 
-  const settings = { ip, username }
+  const settings = { ip, username, theme };
   // dispatch({
   //   type: INITIALIZE_APP,
   //   payload: { ip, username }
@@ -17,7 +22,7 @@ export const initializeApp = () => async dispatch => {
 
   if (ip && username) {
     const response = await axios.get(`https://${ip}/api/${username}`);
-    
+
     if (response.data.config) {
       // FIXME: create a fetchAll() function that makes a single network call
       dispatch(fetchLights());
@@ -26,14 +31,14 @@ export const initializeApp = () => async dispatch => {
       dispatch(fetchRules());
       dispatch(fetchSchedules());
       dispatch(fetchSensors());
-      
+
       settings.config = response.data.config;
     }
 
     dispatch({
       type: INITIALIZE_APP,
       payload: settings
-    })
+    });
   }
 };
 
@@ -48,7 +53,7 @@ export const createUser = ip => async dispatch => {
   const response = await axios.post(`https://${ip}/api/`, {
     devicetype: "Huebert"
   });
-  
+
   if (response.data[0].success) {
     localStorage.setItem("ip", ip);
     localStorage.setItem("username", response.data[0].success.username);
@@ -63,4 +68,12 @@ export const createUser = ip => async dispatch => {
       payload: { error: response.data[0].error.description }
     });
   }
+};
+
+export const setTheme = theme => dispatch => {
+  localStorage.setItem("theme", theme);
+  dispatch({
+    type: SET_THEME,
+    payload: theme
+  });
 };

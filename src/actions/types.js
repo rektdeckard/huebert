@@ -16,3 +16,4 @@ export const FETCH_SENSORS = "fetch_sensors";
 
 export const INITIALIZE_APP = "initialize_app";
 export const CREATE_USER = "create_user";
+export const SET_THEME = "set_theme";
