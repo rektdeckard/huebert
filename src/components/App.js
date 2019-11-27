@@ -21,6 +21,7 @@ import Setup from "./Setup";
 import useRefresh from "../hooks/useRefresh";
 
 const App = props => {
+  // FIXME: Shoule use the fetchAll() function, once I make it
   const { refresh, cancel } = useRefresh(props.fetchRooms, 5000);
 
   useEffect(() => {
@@ -39,8 +40,8 @@ const App = props => {
   };
 
   return (
-    <div className="ui segment">
-      <div className="ui grid" style={{ overflowY: "hidden", height: "100vh" }}>
+    <div style={{ padding: 24 }}>
+      <div className="ui grid" style={{ overflowY: "hidden" }}>
         <div className="four wide column">
           <Menu location={props.location} />
           <Info />

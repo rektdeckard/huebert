@@ -25,14 +25,12 @@ const Setup = ({ init, createUser }) => {
   };
 
   const expand = index => {
-    if (index == expanded) {
+    if (index === expanded) {
       setExpanded(null);
     } else {
       setExpanded(index);
     }
   };
-
-  const renderContent = () => {};
 
   const renderMessage = () => {
     if (init.error && !init.config) {
@@ -64,13 +62,13 @@ const Setup = ({ init, createUser }) => {
       <div className="ui fluid styled accordion">
         {/* <div className="ui top attached label">Help</div> */}
         <div
-          className={`${expanded == 0 ? "active" : null} title`}
+          className={`${expanded === 0 ? "active" : null} title`}
           onClick={() => expand(0)}
         >
           <i className="dropdown icon"></i>
           Finding your Device IP
         </div>
-        <div className={`${expanded == 0 ? "active" : null} content`}>
+        <div className={`${expanded === 0 ? "active" : null} content`}>
           <div>
             If your device is not automatically discovered, you must manually
             enter the device IP address above.
@@ -81,7 +79,7 @@ const Setup = ({ init, createUser }) => {
           <div className="ui divider" />
           <div>
             Use the{" "}
-            <a href="https://discovery.meethue.com" target="_blank">
+            <a href="https://discovery.meethue.com" target="_blank" rel="noopener noreferrer">
               Hue Discovery Tool
             </a>
             <div className="ui ordered list">
@@ -106,6 +104,7 @@ const Setup = ({ init, createUser }) => {
             <a
               href="https://www2.meethue.com/en-us/app/bridge#download-hue-app"
               target="_blank"
+              rel="noopener noreferrer"
             >
               Hue App
             </a>
@@ -131,13 +130,13 @@ const Setup = ({ init, createUser }) => {
           </div>
         </div>
         <div
-          className={`${expanded == 1 ? "active" : null} title`}
+          className={`${expanded === 1 ? "active" : null} title`}
           onClick={() => expand(1)}
         >
           <i className="dropdown icon"></i>
           Connecting to your Philips Hue Bridge
         </div>
-        <div className={`${expanded == 1 ? "active" : null} content`}>
+        <div className={`${expanded === 1 ? "active" : null} content`}>
           Your device should be automatically detected if it is on the same
           network as your computer. If you are on the same network and still do
           not see a Device IP, try obtaining it using one of the methods above.

@@ -24,19 +24,20 @@ export default (action, interval) => {
     }
 
     intervalRef.current = setInterval(() => {
-      // console.log("refreshing");
+      console.log("refreshing");
       action();
     }, interval);
-  }, []);
+  }, [action, interval]);
 
   const cancel = useCallback(() => {
     if (intervalRef.current === null) {
       return;
     }
 
+    console.log("cancelling refresh");
     clearInterval(intervalRef.current);
     intervalRef.current = null;
-  });
+  }, [intervalRef]);
 
   return { refresh, cancel };
 };

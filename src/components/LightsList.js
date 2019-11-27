@@ -58,7 +58,7 @@ const LightsList = ({
               room={room}
               alert={alertRoom}
               toggle={toggleRoom}
-              active={active.room ? room.id == active.room.id : false}
+              active={active.room ? room.id === active.room.id : false}
               onSelect={setActiveRoom}
               onDim={setRoom}
             />
@@ -98,7 +98,7 @@ const LightsList = ({
           light={light}
           toggle={toggleLight}
           alert={alertLight}
-          active={active.light ? light.id == active.light.id : false}
+          active={active.light ? light.id === active.light.id : false}
           onSelect={setActiveLight}
           onDim={setLight}
         />

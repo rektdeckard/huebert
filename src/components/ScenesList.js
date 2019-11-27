@@ -30,7 +30,7 @@ const ScenesList = ({ scenes, active, setRoom }) => {
   };
 
   return (
-      <div className="ui segment" style={{ overflowY: "hidden", height: "46vh" }}>
+      <div className="ui segment" style={{ overflowY: "hidden", height: "48vh" }}>
         {/* <div className="ui top attached blue label"> */}
         <div className="ui top attached label">
           Scenes
