@@ -8,20 +8,25 @@ import {
   initializeApp,
   resetApp,
   createUser,
-  setActiveLight
+  setActiveLight,
+  setTheme, 
+  setView
 } from "../actions";
 import Menu from "./Menu";
 import Info from "./Info";
 import RoomsList from "./RoomsList";
 import LightsList from "./LightsList";
 import ScenesList from "./ScenesList";
-import RulesList from './RulesList';
+import RulesList from "./RulesList";
 import ColorPicker from "./ColorPicker";
 import Setup from "./Setup";
 import useRefresh from "../hooks/useRefresh";
+import LightsTable from "./LightsTable";
+import GroupsView from "./GroupsView";
 
 const App = props => {
-  const { refresh, cancel } = useRefresh(props.fetchLights, 10000);
+  // FIXME: Shoule use the fetchAll() function, once I make it
+  const { refresh, cancel } = useRefresh(props.fetchRooms, 5000);
 
   useEffect(() => {
     props.initializeApp();
@@ -32,18 +37,61 @@ const App = props => {
   const renderControls = () => {
     return (
       <div className="four wide column">
-          {props.active.light || props.active.room ? <ColorPicker /> : null}
-          {props.active.room ? <ScenesList /> : null}
+        {props.active.light || props.active.room ? <ColorPicker /> : null}
+        {props.active.room ? <ScenesList /> : null}
       </div>
     );
   };
 
   return (
-    <div className="ui segment">
-      <div className="ui grid" style={{ overflowY: "hidden", height: "100vh" }}>
+    <div
+      style={{
+        padding: 16,
+        backgroundColor: props.init.theme === "inverted" ? "#080808" : "white"
+      }}
+    >
+      <div
+        className="ui grid"
+        style={{ overflowY: "hidden", height: "99.5vh" }}
+      >
         <div className="four wide column">
           <Menu location={props.location} />
           <Info />
+          <div className={`ui ${props.init.theme} segment`}>
+            <div
+              className={`ui mini ${
+                props.init.theme === "inverted" ? "secondary" : "basic"
+              } icon buttons`}
+            >
+              <button 
+                className={`ui ${props.init.view !== "card" ? "active" : null} button`}
+                onClick={() => props.setView(null)}
+              >
+                <i className="list ul icon"></i>
+              </button>
+              <button
+                className={`ui ${props.init.view === "card" ? "active" : null} button`}
+                onClick={() => props.setView("card")}
+              >
+                <i className="th icon"></i>
+              </button>
+            </div>
+            <div
+              className={`ui mini right floated 
+                ${props.init.theme === "inverted" ? "secondary" : "basic"} 
+                icon buttons`
+              }
+            >
+              <button 
+                className={`ui ${props.init.theme === "inverted" ? "active" : null} button`}
+                onClick={() =>
+                  props.setTheme(props.init.theme ? null : "inverted")
+                }
+              >
+                <i className="adjust icon"></i>
+              </button>
+            </div>
+          </div>
         </div>
         <div
           className="eight wide column"
@@ -52,7 +100,7 @@ const App = props => {
         >
           <Switch>
             <Route path="/rooms" exact component={RoomsList} />
-            <Route path="/lights" exact component={LightsList} />
+            <Route path="/lights" exact component={GroupsView} />
             <Route path="/schedules" exact />
             <Route path="/rules" exact component={RulesList} />
             <Route path="/sensors" exact />
@@ -81,6 +129,8 @@ export default withRouter(
     fetchLights,
     setActiveLight,
     initializeApp,
-    createUser
+    createUser,
+    setTheme,
+    setView
   })(App)
 );

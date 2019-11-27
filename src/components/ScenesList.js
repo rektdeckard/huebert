@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { fetchScenes, fetchRooms, setRoom } from "../actions";
 
-const ScenesList = ({ scenes, active, setRoom }) => {
+const ScenesList = ({ scenes, active, setRoom, theme }) => {
   const availableScenes = scenes.filter(scene => active.room? scene.group === active.room.id : false)
   
   const applyScene = id => {
@@ -30,13 +30,14 @@ const ScenesList = ({ scenes, active, setRoom }) => {
   };
 
   return (
-      <div className="ui segment" style={{ overflowY: "hidden", height: "46vh" }}>
-        <div className="ui top attached blue label">
-          Scenes
+      <div className={`ui ${theme} segment`} style={{ overflowY: "hidden", height: "48vh" }}>
+        {/* <div className="ui top attached blue label"> */}
+        <div className={`ui top attached ${theme === "inverted" ? "black" : null} label`}>
+          SCENES
           {/* <div className="ui horizontal right label blue">{availableScenes.length}</div> */}
         </div>
         <div
-          className="ui middle aligned selection list"
+          className={`ui middle aligned ${theme} selection list`}
           style={{ overflowY: "auto", height: "102%" }}
         >
           {renderScenes()}
@@ -46,7 +47,7 @@ const ScenesList = ({ scenes, active, setRoom }) => {
 };
 
 const mapStateToProps = state => {
-  return { scenes: state.scenes, active: state.active };
+  return { scenes: state.scenes, active: state.active, theme: state.init.theme };
 };
 
 export default connect(mapStateToProps, { fetchScenes, fetchRooms, setRoom })(ScenesList);

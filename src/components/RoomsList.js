@@ -9,22 +9,31 @@ import {
 } from "../actions";
 import RoomItem from "./RoomItem";
 
-const RoomsList = props => {
+const RoomsList = ({
+  rooms,
+  active,
+  fetchRooms,
+  alertRoom,
+  toggleRoom,
+  setRoom,
+  setActiveRoom
+}) => {
+
   useEffect(() => {
-    props.fetchRooms();
+    fetchRooms();
   }, []);
 
   const renderItems = () => {
-    return props.rooms.map(room => {
+    return rooms.map(room => {
       return (
         <RoomItem
           key={room.id}
           room={room}
-          alert={props.alertRoom}
-          toggle={props.toggleRoom}
-          active={props.active ? room.id == props.active.id : false}
-          onSelect={props.setActiveRoom}
-          onDim={props.setRoom}
+          alert={alertRoom}
+          toggle={toggleRoom}
+          active={active ? room.id === active.id : false}
+          onSelect={setActiveRoom}
+          onDim={setRoom}
         />
       );
     });
@@ -32,7 +41,7 @@ const RoomsList = props => {
 
   return (
     <div className="ui three stackable link cards">
-      {props.rooms ? renderItems() : null}
+      {rooms ? renderItems() : null}
     </div>
   );
 };

@@ -11,6 +11,7 @@ const RoomItem = ({ room, toggle, alert, active, onSelect, onDim }) => {
     )
   ];
   const textColor = compatibleText(colors[0] || "#FFFFFF");
+  // const iconColor = compatibleText(colors[colors.length - 1] || "#FFFFFF");
 
   // Throttle calls to onChangeBrightness()
   const throttle = useRef(null);
@@ -31,20 +32,28 @@ const RoomItem = ({ room, toggle, alert, active, onSelect, onDim }) => {
     event.stopPropagation();
   };
 
+  const handleAlert = event => {
+    if (event.ctrlKey) {
+      alert(room);
+      event.stopPropagation();
+    }
+  }
+
   return (
     <div
       className="ui card"
       style={{
         backgroundImage: `linear-gradient(to right, ${
           colors.length > 1 ? colors : [colors[0], colors[0]]
-        })`
+        })`,
+        width: "100%"
       }}
       onClick={handleSelect}
     >
       <div className="content">
         <div
           style={{ color: textColor, opacity: 0.7, userSelect: "none" }}
-          onAuxClick={() => alert(room)}
+          onClick={handleAlert}
         >
           {room.name}
           <span className="ui right floated icon">

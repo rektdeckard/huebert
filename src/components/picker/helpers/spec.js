@@ -1,5 +1,3 @@
-'use strict';
-
 var _color = require('./color');
 
 var _color2 = _interopRequireDefault(_color);
