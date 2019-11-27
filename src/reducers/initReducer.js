@@ -1,11 +1,13 @@
-import { INITIALIZE_APP, CREATE_USER } from '../actions/types';
+import { INITIALIZE_APP, CREATE_USER, SET_THEME } from '../actions/types';
 
-export default (state = {}, action) => {
+export default (state = { theme: "inverted" }, action) => {
   switch (action.type) {
     case INITIALIZE_APP:
-      return action.payload;
+      return { ...state, ...action.payload};
     case CREATE_USER:
-      return { ip: action.payload.ip, username: action.payload.username }
+      return { ...state, ip: action.payload.ip, username: action.payload.username, error: null }
+    case SET_THEME:
+      return { ...state, theme: action.payload }
     default: 
       return state;
   }

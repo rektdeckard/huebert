@@ -24,7 +24,7 @@ export default (action, interval) => {
     }
 
     intervalRef.current = setInterval(() => {
-      console.log("refreshing");
+      // console.log("refreshing");
       action();
     }, interval);
   }, [action, interval]);
@@ -34,7 +34,7 @@ export default (action, interval) => {
       return;
     }
 
-    console.log("cancelling refresh");
+    // console.log("cancelling refresh");
     clearInterval(intervalRef.current);
     intervalRef.current = null;
   }, [intervalRef]);
