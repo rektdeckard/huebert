@@ -4,22 +4,19 @@ export default (action, interval) => {
   const intervalRef = useRef(null);
 
   useEffect(() => {   
-    window.addEventListener("focus", () => {
-      // console.log("starting refresh");
-      action();
-      refresh();
-    });
-
-    window.addEventListener("blur", () => {
-      // console.log("cancelling refresh");
-      cancel();
-    });
+    window.addEventListener("focus", doAction);
+    window.addEventListener("blur", cancel);
 
     return () => {
-      window.removeEventListener("focus");
-      window.removeEventListener("blur");
+      window.removeEventListener("focus", doAction);
+      window.removeEventListener("blur", cancel);
     };
   }, []);
+
+  const doAction = () => {
+    action();
+    refresh();
+  }
 
   const refresh = useCallback(() => {
     if (intervalRef.current !== null) {
