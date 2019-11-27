@@ -34,7 +34,7 @@ $ yarn run it
 ### Binaries
 Download one of the linked binaries:
 
-- [Windows](https://github.com/rektdeckard/huebert/releases/download/v0.1.1/huebert-0.1.1-setup.exe)
+- [Windows](https://github.com/rektdeckard/huebert/releases/download/v0.1.2/huebert-0.1.2.Setup.exe)
 - macOS [coming soon]
 - Linux [coming soon]
   
