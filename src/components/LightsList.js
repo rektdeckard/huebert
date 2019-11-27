@@ -6,10 +6,13 @@ import {
   toggleLight,
   setLight,
   setActiveLight,
+  setRoom,
   alertRoom,
+  toggleRoom,
   setActiveRoom
 } from "../actions";
 import LightItem from "./LightItem";
+import RoomItem from "./RoomItem";
 
 const LightsList = ({
   lights,
@@ -20,7 +23,9 @@ const LightsList = ({
   toggleLight,
   setLight,
   setActiveLight,
+  setRoom,
   alertRoom,
+  toggleRoom,
   setActiveRoom
 }) => {
   useEffect(() => {
@@ -49,7 +54,15 @@ const LightsList = ({
             key={room.id}
             onClick={event => handleSelect(event, room)}
           >
-            <div
+            <RoomItem
+              room={room}
+              alert={alertRoom}
+              toggle={toggleRoom}
+              active={active.room ? room.id == active.room.id : false}
+              onSelect={setActiveRoom}
+              onDim={setRoom}
+            />
+            {/* <div
               className={`ui top attached ${
                 active.room && active.room.id == room.id ? "blue" : ""
               } label`}
@@ -65,7 +78,7 @@ const LightsList = ({
                   style={{ float: "right", margin: 0 }}
                 ></i>
               </span>
-            </div>
+            </div> */}
             <div className="ui three doubling stackable link cards">
               {renderItems(
                 lights.filter(light => room.lights.includes(light.id))
@@ -93,7 +106,12 @@ const LightsList = ({
     });
   };
 
-  return lights ? renderGroups() : null;
+  return (
+    <div className="ui segments">
+      {/* <div className="ui top attached label">Groups</div> */}
+      {lights ? renderGroups() : null}
+    </div>
+  );
 };
 
 const mapStateToProps = state => {
@@ -110,6 +128,8 @@ export default connect(mapStateToProps, {
   toggleLight,
   setLight,
   setActiveLight,
+  setRoom,
   alertRoom,
+  toggleRoom,
   setActiveRoom
 })(LightsList);

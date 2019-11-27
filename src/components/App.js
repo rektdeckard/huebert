@@ -21,7 +21,7 @@ import Setup from "./Setup";
 import useRefresh from "../hooks/useRefresh";
 
 const App = props => {
-  const { refresh, cancel } = useRefresh(props.fetchLights, 10000);
+  const { refresh, cancel } = useRefresh(props.fetchRooms, 5000);
 
   useEffect(() => {
     props.initializeApp();

@@ -11,6 +11,7 @@ const RoomItem = ({ room, toggle, alert, active, onSelect, onDim }) => {
     )
   ];
   const textColor = compatibleText(colors[0] || "#FFFFFF");
+  // const iconColor = compatibleText(colors[colors.length - 1] || "#FFFFFF");
 
   // Throttle calls to onChangeBrightness()
   const throttle = useRef(null);
@@ -44,7 +45,8 @@ const RoomItem = ({ room, toggle, alert, active, onSelect, onDim }) => {
       style={{
         backgroundImage: `linear-gradient(to right, ${
           colors.length > 1 ? colors : [colors[0], colors[0]]
-        })`
+        })`,
+        width: "100%"
       }}
       onClick={handleSelect}
     >
