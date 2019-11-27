@@ -80,7 +80,7 @@ const LightsTable = ({
         <tr>
           <th>
             <span
-              className="ui label"
+              className="ui fluid label"
               style={{
                 color: textColor,
                 backgroundImage: `linear-gradient(to right, ${

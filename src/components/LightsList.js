@@ -26,7 +26,8 @@ const LightsList = ({
   setRoom,
   alertRoom,
   toggleRoom,
-  setActiveRoom
+  setActiveRoom,
+  theme
 }) => {
   useEffect(() => {
     fetchLights();
@@ -50,7 +51,7 @@ const LightsList = ({
       .map(room => {
         return (
           <div
-            className="ui segment"
+            className={`ui ${theme} segment`}
             key={room.id}
             onClick={event => handleSelect(event, room)}
           >
@@ -118,7 +119,8 @@ const mapStateToProps = state => {
   return {
     lights: state.lights,
     rooms: state.rooms,
-    active: state.active
+    active: state.active,
+    theme: state.init.theme
   };
 };
 

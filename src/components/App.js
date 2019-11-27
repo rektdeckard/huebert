@@ -91,16 +91,6 @@ const App = props => {
                 <i className="adjust icon"></i>
               </button>
             </div>
-            {/* <div className={`ui mini ${props.init.theme} slider checkbox`}>
-              <input
-                type="checkbox"
-                checked={props.init.theme === "inverted"}
-                onChange={() =>
-                  props.setTheme(props.init.theme ? null : "inverted")
-                }
-              />
-              <label>DARK MODE</label>
-            </div> */}
           </div>
         </div>
         <div
