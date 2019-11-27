@@ -13,6 +13,9 @@ A Philips Hue desktop client in Electron and React.
 ## Screenshots
 <img src="https://i.imgur.com/eAYFhwX.jpg" align="center" />
 
+## Usage
+Head to https://rektdeckard.github.io/huebert for the web app, or use the install instructions below for the offline app.
+
 ## Installation
 
 ### Build from source
