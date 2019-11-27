@@ -31,6 +31,13 @@ const RoomItem = ({ room, toggle, alert, active, onSelect, onDim }) => {
     event.stopPropagation();
   };
 
+  const handleAlert = event => {
+    if (event.ctrlKey) {
+      alert(room);
+      event.stopPropagation();
+    }
+  }
+
   return (
     <div
       className="ui card"
@@ -44,7 +51,7 @@ const RoomItem = ({ room, toggle, alert, active, onSelect, onDim }) => {
       <div className="content">
         <div
           style={{ color: textColor, opacity: 0.7, userSelect: "none" }}
-          onAuxClick={() => alert(room)}
+          onClick={handleAlert}
         >
           {room.name}
           <span className="ui right floated icon">

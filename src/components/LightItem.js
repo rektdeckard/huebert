@@ -20,8 +20,15 @@ const LightItem = ({ light, toggle, alert, active, onSelect, onDim }) => {
   };
 
   const handleSelect = event => {
-    event.stopPropagation();
     onSelect(light);
+    event.stopPropagation();
+  };
+
+  const handleAlert = event => {
+    if (event.ctrlKey) {
+      alert(light);
+      event.stopPropagation();
+    }
   };
 
   return (
@@ -36,7 +43,7 @@ const LightItem = ({ light, toggle, alert, active, onSelect, onDim }) => {
         <div
           style={{ color: textColor, opacity: 0.7, userSelect: "none" }}
           // onDoubleClick={() => alert(light)}
-          onAuxClick={() => alert(light)}
+          onClick={handleAlert}
         >
           {light.name}
           <span className="ui right floated icon">

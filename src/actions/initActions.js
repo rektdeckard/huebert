@@ -9,15 +9,17 @@ export const initializeApp = () => async dispatch => {
   const ip = localStorage.getItem("ip");
   const username = localStorage.getItem("username");
 
-  dispatch({
-    type: INITIALIZE_APP,
-    payload: { ip, username }
-  });
+  const settings = { ip, username }
+  // dispatch({
+  //   type: INITIALIZE_APP,
+  //   payload: { ip, username }
+  // });
 
   if (ip && username) {
     const response = await axios.get(`https://${ip}/api/${username}`);
     
     if (response.data.config) {
+      // FIXME: create a fetchAll() function that makes a single network call
       dispatch(fetchLights());
       dispatch(fetchRooms());
       dispatch(fetchScenes());
@@ -25,11 +27,13 @@ export const initializeApp = () => async dispatch => {
       dispatch(fetchSchedules());
       dispatch(fetchSensors());
       
-      dispatch({
-        type: INITIALIZE_APP,
-        payload: { ip, username, config: response.data.config }
-      })
+      settings.config = response.data.config;
     }
+
+    dispatch({
+      type: INITIALIZE_APP,
+      payload: settings
+    })
   }
 };
 
@@ -44,6 +48,7 @@ export const createUser = ip => async dispatch => {
   const response = await axios.post(`https://${ip}/api/`, {
     devicetype: "Huebert"
   });
+  
   if (response.data[0].success) {
     localStorage.setItem("ip", ip);
     localStorage.setItem("username", response.data[0].success.username);

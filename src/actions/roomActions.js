@@ -1,36 +1,63 @@
 import Hue from "../api/Hue";
 import * as Mock from "../__mock__";
-import { fetchLights } from '../actions';
+import { fetchLights } from "../actions";
 import {
   FETCH_ROOMS,
+  FETCH_LIGHTS,
   SET_ROOM,
-  SET_ACTIVE_ROOM
+  SET_ACTIVE_ROOM,
+  INITIALIZE_APP
 } from "./types";
 
 export const fetchRooms = () => async dispatch => {
-  const { data } = await Hue.get("/groups");
-  const lights = await Hue.get("/lights")
-  
+  const roomsResponse = await Hue.get("/groups");
+  const lightsResponse = await Hue.get("/lights");
+
+  if (Array.isArray(roomsResponse.data) || Array.isArray(lightsResponse.data)) {
+    // dispatch({
+    //   type: INITIALIZE_APP,
+    //   payload: { error: roomsData.data[0].error.description }
+    // });
+    return;
+  }
+
+  // Apply IDs to lights
+  const lights = Object.keys(lightsResponse.data).map(key => ({
+    ...lightsResponse.data[key],
+    id: key
+  }));
+
   // Apply light colors to room
-  Object.keys(data).forEach(key => {
-    data[key].colors = Object.keys(lights.data)
-      .filter(id => data[key].lights.includes(id))
-      .map(included => lights.data[included].state)
-    }
-  );
+  const rooms = roomsResponse.data;
+  Object.keys(rooms).forEach(key => {
+    rooms[key].id = key;
+    rooms[key].colors = lights
+      .filter(light => rooms[key].lights.includes(light.id))
+      .map(light => light.state);
+  });
+
+  // // Apply light colors to room
+  // const rooms = Object.values(roomsResponse.data).map(room => {
+  //   const colors = lights
+  //     .filter(light => room.lights.includes(light.id))
+  //     .map(light => light.state);
+  //   return { ...room, colors };
+  // });
 
   dispatch({
     type: FETCH_ROOMS,
-    payload: data
+    payload: rooms
+  });
+
+  dispatch({
+    type: FETCH_LIGHTS,
+    payload: lights
   });
 };
 
 export const setRoom = room => async dispatch => {
   await Hue.put(`/groups/${room.id}/action`, room.action);
   dispatch(fetchRooms());
-  // setTimeout(() => {
-    dispatch(fetchLights());
-  // }, 500);
 };
 
 export const alertRoom = room => async () => {
@@ -39,7 +66,7 @@ export const alertRoom = room => async () => {
 };
 
 export const toggleRoom = room => async dispatch => {
-  const response = await Hue.put(`/groups/${room.id}/action`, {
+  await Hue.put(`/groups/${room.id}/action`, {
     on: !room.state.any_on
   });
   // TODO: FIX
