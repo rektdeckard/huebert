@@ -7,14 +7,15 @@ import {
   fetchRules,
   fetchSensors
 } from "../actions";
-import { INITIALIZE_APP, CREATE_USER, SET_THEME } from "./types";
+import { INITIALIZE_APP, CREATE_USER, SET_THEME, SET_VIEW } from "./types";
 
 export const initializeApp = () => async dispatch => {
   const ip = localStorage.getItem("ip");
   const username = localStorage.getItem("username");
   const theme = localStorage.getItem("theme");
+  const view = localStorage.getItem("view");
 
-  const settings = { ip, username, theme };
+  const settings = { ip, username, theme, view };
   // dispatch({
   //   type: INITIALIZE_APP,
   //   payload: { ip, username }
@@ -75,5 +76,13 @@ export const setTheme = theme => dispatch => {
   dispatch({
     type: SET_THEME,
     payload: theme
+  });
+};
+
+export const setView = view => dispatch => {
+  localStorage.setItem("view", view);
+  dispatch({
+    type: SET_VIEW,
+    payload: view
   });
 };

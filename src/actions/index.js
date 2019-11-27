@@ -22,4 +22,4 @@ export { fetchRules } from "./ruleActions";
 
 export { fetchSensors } from "./sensorActions";
 
-export { initializeApp, resetApp, createUser, setTheme } from "./initActions";
+export { initializeApp, resetApp, createUser, setTheme, setView } from "./initActions";
