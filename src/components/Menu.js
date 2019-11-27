@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-const Menu = ({ lights, rooms, schedules, rules, sensors, location }) => {
+const Menu = ({ lights, rooms, schedules, rules, sensors, location, theme }) => {
   const isActive = path => {
     return path === location.pathname ? "active" : "";
   };
 
   return (
-    <div className="ui fluid vertical menu">
+    <div className={`ui fluid ${theme} vertical menu`}>
       <Link className={`item ${isActive("/lights")}`} to="/lights">
         Lights
         <div className="ui label blue">{lights.length}</div>
@@ -42,7 +42,8 @@ const mapStateToProps = state => {
     lights: state.lights,
     schedules: state.schedules,
     rules: state.rules,
-    sensors: state.sensors
+    sensors: state.sensors,
+    theme: state.init.theme
   };
 };
 

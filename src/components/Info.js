@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 
-const Info = ({ config }) => {
+const Info = ({ config, theme }) => {
   if (config && config.name) {
     return (
-      <div className="ui segment">
-        <div className="ui top attached label">Device Info</div>
-        <table className="ui very basic compact fixed single line small table">
+      <div className={`ui ${theme} segment`}>
+        <div className={`ui top attached ${theme === "inverted" ? "black" : null} label`}>DEVICE INFO</div>
+        <table className={`ui very basic compact fixed single line small ${theme} table`}>
           <tbody>
             <tr>
               <td>Name</td>
@@ -72,7 +72,7 @@ const Info = ({ config }) => {
 };
 
 const mapStateToProps = state => {
-  return { config: state.init.config };
+  return { config: state.init.config, theme: state.init.theme };
 };
 
 export default connect(mapStateToProps, {})(Info);

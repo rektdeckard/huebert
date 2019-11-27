@@ -8,17 +8,20 @@ import {
   initializeApp,
   resetApp,
   createUser,
-  setActiveLight
+  setActiveLight,
+  setTheme
 } from "../actions";
 import Menu from "./Menu";
 import Info from "./Info";
 import RoomsList from "./RoomsList";
 import LightsList from "./LightsList";
 import ScenesList from "./ScenesList";
-import RulesList from './RulesList';
+import RulesList from "./RulesList";
 import ColorPicker from "./ColorPicker";
 import Setup from "./Setup";
 import useRefresh from "../hooks/useRefresh";
+import LightsTable from "./LightsTable";
+import GroupsView from "./GroupsView";
 
 const App = props => {
   // FIXME: Shoule use the fetchAll() function, once I make it
@@ -33,18 +36,43 @@ const App = props => {
   const renderControls = () => {
     return (
       <div className="four wide column">
-          {props.active.light || props.active.room ? <ColorPicker /> : null}
-          {props.active.room ? <ScenesList /> : null}
+        {props.active.light || props.active.room ? <ColorPicker /> : null}
+        {props.active.room ? <ScenesList /> : null}
       </div>
     );
   };
 
   return (
-    <div style={{ padding: 24 }}>
+    <div
+      style={{
+        padding: 16,
+        backgroundColor: props.init.theme === "inverted" ? "#080808" : "white"
+      }}
+    >
       <div className="ui grid" style={{ overflowY: "hidden" }}>
         <div className="four wide column">
           <Menu location={props.location} />
           <Info />
+          <div className={`ui ${props.init.theme} segment`}>
+            <div class={`ui mini ${props.init.theme === "inverted" ? "secondary" : "basic"} icon buttons`}>
+              <button class="ui button">
+                <i class="list ul icon"></i>
+              </button>
+              <button class="ui button">
+                <i class="th icon"></i>
+              </button>
+            </div>
+            <div className={`ui tiny ${props.init.theme} slider checkbox`}>
+              <input
+                type="checkbox"
+                checked={props.init.theme === "inverted"}
+                onChange={() =>
+                  props.setTheme(props.init.theme ? null : "inverted")
+                }
+              />
+              <label>DARK MODE</label>
+            </div>
+          </div>
         </div>
         <div
           className="eight wide column"
@@ -53,7 +81,7 @@ const App = props => {
         >
           <Switch>
             <Route path="/rooms" exact component={RoomsList} />
-            <Route path="/lights" exact component={LightsList} />
+            <Route path="/lights" exact component={GroupsView} />
             <Route path="/schedules" exact />
             <Route path="/rules" exact component={RulesList} />
             <Route path="/sensors" exact />
@@ -82,6 +110,7 @@ export default withRouter(
     fetchLights,
     setActiveLight,
     initializeApp,
-    createUser
+    createUser,
+    setTheme
   })(App)
 );

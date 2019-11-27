@@ -7,7 +7,7 @@ import { convertHSBToColor, convertHSVToHSB, convertHSVToCT, isAdjustable } from
 const LIGHT_ELEMENT = 100;
 const GROUP_ELEMENT = 500;
 
-const ColorPicker = ({ active, setLight, setRoom }) => {
+const ColorPicker = ({ active, setLight, setRoom, theme }) => {
   // Throttle calls to handleChange()
   let bufferedColor = useRef(null);
 
@@ -59,9 +59,9 @@ const ColorPicker = ({ active, setLight, setRoom }) => {
   };
 
   return (
-    <div className="ui segment">
+    <div className={`ui ${theme} segment`}>
       {/* <div className={`ui top attached ${active ? "blue" : ""} label`}>{active ? active.name : "Color"}</div> */}
-      <div className={`ui top attached label`}>{active ? active.name : "Color"}</div>
+      <div className={`ui top attached ${theme === "inverted" ? "black" : null} label`}>{active ? active.name.toUpperCase() : "Color"}</div>
       <SketchPicker
         width={null}
         color={extractColor()}
@@ -74,7 +74,8 @@ const ColorPicker = ({ active, setLight, setRoom }) => {
 
 const mapStateToProps = state => {
   return {
-    active: state.active.light ? state.active.light : state.active.room
+    active: state.active.light ? state.active.light : state.active.room,
+    theme: state.init.theme
   };
 };
 
