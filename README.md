@@ -7,6 +7,7 @@ A Philips Hue desktop client in Electron and React.
 [![GitHub forks](https://img.shields.io/github/forks/rektdeckard/huebert?style=flat-square&label=Fork)](https://github.com/rektdeckard/huebert/fork)
 [![GitHub watchers](https://img.shields.io/github/watchers/rektdeckard/huebert?style=flat-square&label=Watch)](https://github.com/rektdeckard/huebert)
 [![Follow on GitHub](https://img.shields.io/github/followers/rektdeckard?style=flat-square&label=Follow)](https://github.com/rektdeckard)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/rektdeckard/huebert?include_prereleases&style=flat-square)
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/friedtm.svg?style=flat-square)](https://twitter.com/friedtm)
 [![](https://img.shields.io/badge/paypal-buy%20me%20a%20coffee-green.svg?style=flat-square)](https://paypal.me/TobiasFried)
