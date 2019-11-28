@@ -9,6 +9,7 @@ A Philips Hue desktop client in Electron and React.
 [![Follow on GitHub](https://img.shields.io/github/followers/rektdeckard?style=flat-square&label=Follow)](https://github.com/rektdeckard)
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/friedtm.svg?style=flat-square)](https://twitter.com/friedtm)
+[![](https://img.shields.io/badge/paypal-buy%20me%20a%20coffee-green.svg?style=flat-square)](https://paypal.me/TobiasFried)
 
 ## Screenshots
 <img src="https://i.imgur.com/CUF5LBD.jpg" align="center" />
