@@ -1,11 +1,11 @@
 import axios from "axios";
 import {
-  fetchLights,
-  fetchRooms,
-  fetchScenes,
-  fetchSchedules,
-  fetchRules,
-  fetchSensors
+  updateLights,
+  updateRooms,
+  updateScenes,
+  updateRules,
+  updateSchedules,
+  updateSensors
 } from "../actions";
 import { INITIALIZE_APP, CREATE_USER, SET_THEME, SET_VIEW } from "./types";
 
@@ -25,13 +25,12 @@ export const initializeApp = () => async dispatch => {
     const response = await axios.get(`https://${ip}/api/${username}`);
 
     if (response.data.config) {
-      // FIXME: create a fetchAll() function that makes a single network call
-      dispatch(fetchLights());
-      dispatch(fetchRooms());
-      dispatch(fetchScenes());
-      dispatch(fetchRules());
-      dispatch(fetchSchedules());
-      dispatch(fetchSensors());
+      dispatch(updateLights(response.data.lights));
+      dispatch(updateRooms(response.data.lights, response.data.groups));
+      dispatch(updateScenes(response.data.scenes));
+      dispatch(updateRules(response.data.rules));
+      dispatch(updateSchedules(response.data.schedules));
+      dispatch(updateSensors(response.data.sensors));
 
       settings.config = response.data.config;
     }

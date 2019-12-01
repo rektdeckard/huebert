@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { fetchScenes, fetchRooms, setRoom } from "../actions";
 
 const ScenesList = ({ scenes, active, setRoom, theme }) => {
-  const availableScenes = scenes.filter(scene => active.room? scene.group === active.room.id : false)
+  const availableScenes = scenes.filter(scene => active.room ? scene.group === active.room.id : false)
   
   const applyScene = id => {
     // console.log(id);

@@ -7,13 +7,17 @@ import {
 
 export const fetchLights = () => async dispatch => {
   const { data } = await Hue.get("/lights");
+  dispatch(updateLights(data));
+};
+
+export const updateLights = data => dispatch => {
   const lights = Object.keys(data).map(key => ({ ...data[key], id: key }));
 
   dispatch({
     type: FETCH_LIGHTS,
     payload: lights
   });
-};
+}
 
 export const setLight = light => async dispatch => {
   await Hue.put(`/lights/${light.id}/state`, light.state);

@@ -1,5 +1,6 @@
 export {
   fetchLights,
+  updateLights,
   setLight,
   alertLight,
   toggleLight,
@@ -8,18 +9,19 @@ export {
 
 export {
   fetchRooms,
+  updateRooms,
   setRoom,
   alertRoom,
   toggleRoom,
   setActiveRoom
 } from "./roomActions";
 
-export { fetchScenes } from "./sceneActions";
+export { fetchScenes, updateScenes } from "./sceneActions";
 
-export { fetchSchedules } from "./scheduleActions";
+export { fetchSchedules, updateSchedules } from "./scheduleActions";
 
-export { fetchRules } from "./ruleActions";
+export { fetchRules, updateRules } from "./ruleActions";
 
-export { fetchSensors } from "./sensorActions";
+export { fetchSensors, updateSensors } from "./sensorActions";
 
 export { initializeApp, resetApp, createUser, setTheme, setView } from "./initActions";

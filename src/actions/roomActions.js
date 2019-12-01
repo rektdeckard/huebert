@@ -1,13 +1,6 @@
 import Hue from "../api/Hue";
 import * as Mock from "../__mock__";
-import { fetchLights } from "../actions";
-import {
-  FETCH_ROOMS,
-  FETCH_LIGHTS,
-  SET_ROOM,
-  SET_ACTIVE_ROOM,
-  INITIALIZE_APP
-} from "./types";
+import { FETCH_ROOMS, FETCH_LIGHTS, SET_ROOM, SET_ACTIVE_ROOM } from "./types";
 
 export const fetchRooms = () => async dispatch => {
   const roomsResponse = await Hue.get("/groups");
@@ -21,23 +14,27 @@ export const fetchRooms = () => async dispatch => {
     return;
   }
 
+  dispatch(updateRooms(lightsResponse.data, roomsResponse.data));
+};
+
+export const updateRooms = (lightsData, roomsData) => dispatch => {
   // Apply IDs to lights
-  const lights = Object.keys(lightsResponse.data).map(key => ({
-    ...lightsResponse.data[key],
+  const lights = Object.keys(lightsData).map(key => ({
+    ...lightsData[key],
     id: key
   }));
 
   // Apply light colors to room
-  const rooms = roomsResponse.data;
-  Object.keys(rooms).forEach(key => {
-    rooms[key].id = key;
-    rooms[key].colors = lights
-      .filter(light => rooms[key].lights.includes(light.id))
-      .map(light => light.state);
-  });
+  const rooms = Object.keys(roomsData).map(key => ({
+    ...roomsData[key],
+    id: key,
+    colors: lights
+      .filter(light => roomsData[key].lights.includes(light.id))
+      .map(light => light.state)
+  }));
 
   // // Apply light colors to room
-  // const rooms = Object.values(roomsResponse.data).map(room => {
+  // const rooms = Object.values(roomsData.data).map(room => {
   //   const colors = lights
   //     .filter(light => room.lights.includes(light.id))
   //     .map(light => light.state);
