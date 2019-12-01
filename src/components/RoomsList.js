@@ -8,6 +8,10 @@ import {
   setActiveRoom
 } from "../actions";
 import RoomItem from "./RoomItem";
+import ScenesList from "./ScenesList";
+import ColorPicker from "./ColorPicker";
+import CenterPanel from "./CenterPanel";
+import ToolPanel from './ToolPanel';
 
 const RoomsList = ({
   rooms,
@@ -18,7 +22,6 @@ const RoomsList = ({
   setRoom,
   setActiveRoom
 }) => {
-
   useEffect(() => {
     fetchRooms();
   }, []);
@@ -31,7 +34,7 @@ const RoomsList = ({
           room={room}
           alert={alertRoom}
           toggle={toggleRoom}
-          active={active ? room.id === active.id : false}
+          active={active.room ? room.id === active.room.id : false}
           onSelect={setActiveRoom}
           onDim={setRoom}
         />
@@ -39,17 +42,31 @@ const RoomsList = ({
     });
   };
 
+  const renderControls = () => {
+    return (
+      <ToolPanel>
+        {active.light || active.room ? <ColorPicker /> : null}
+        {active.room ? <ScenesList /> : null}
+      </ToolPanel>
+    );
+  };
+
   return (
-    <div className="ui three stackable link cards">
-      {rooms ? renderItems() : null}
-    </div>
+    <>
+      <CenterPanel onClick={() => setActiveRoom(null)} >
+        <div className="ui three stackable link cards">
+          {rooms ? renderItems() : null}
+        </div>
+      </CenterPanel>
+      {renderControls()}
+    </>
   );
 };
 
 const mapStateToProps = state => {
   return {
     rooms: state.rooms,
-    active: state.active.room
+    active: state.active
   };
 };
 

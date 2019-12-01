@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import { initializeApp, resetApp, createUser } from "../actions";
+import FullPanel from "./FullPanel";
 
 const Setup = ({ init, createUser }) => {
   const [deviceAddress, setDeviceAddress] = useState("");
@@ -37,7 +38,11 @@ const Setup = ({ init, createUser }) => {
   const renderMessage = () => {
     if (init.error && !init.config) {
       return (
-        <div className={`ui tiny ${init.theme === "inverted" ? "inverted red" : "error"} message`}>
+        <div
+          className={`ui tiny ${
+            init.theme === "inverted" ? "inverted red" : "error"
+          } message`}
+        >
           {/* <i className="close icon" onClick={initializeApp}></i> */}
           <div className="header">Error: {init.error}</div>
           {/* <p>{init.error}</p> */}
@@ -46,14 +51,22 @@ const Setup = ({ init, createUser }) => {
     }
     if (init.ip && init.username && init.config) {
       return (
-        <div className={`ui tiny ${init.theme === "inverted" ? "inverted green" : "success"} message`}>
+        <div
+          className={`ui tiny ${
+            init.theme === "inverted" ? "inverted green" : "success"
+          } message`}
+        >
           <div className="header">Device connected</div>
           {/* <p>Device connected</p> */}
         </div>
       );
     }
     return (
-      <div className={`ui tiny ${init.theme === "inverted" ? "inverted" : null} message`}>
+      <div
+        className={`ui tiny ${
+          init.theme === "inverted" ? "inverted" : null
+        } message`}
+      >
         <div className="header">Device not connected</div>
       </div>
     );
@@ -62,7 +75,13 @@ const Setup = ({ init, createUser }) => {
   const renderHelp = () => {
     return (
       <div className={`ui ${init.theme} segment`}>
-        <div className={`ui top attached ${init.theme === "inverted" ? "black" : null} label`}>HELP</div>
+        <div
+          className={`ui top attached ${
+            init.theme === "inverted" ? "black" : null
+          } label`}
+        >
+          HELP
+        </div>
         <div className={`ui fluid ${init.theme} accordion`}>
           {/* <div className="ui top attached label">Help</div> */}
           <div
@@ -78,15 +97,20 @@ const Setup = ({ init, createUser }) => {
               enter the device IP address above.
             </div>
             <div>
-              Your IP address can be found by using one of the following methods:
+              Your IP address can be found by using one of the following
+              methods:
             </div>
             <div className="ui divider" />
             <div>
               Use the{" "}
-              <a href="https://discovery.meethue.com" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://discovery.meethue.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Hue Discovery Tool
               </a>
-              <div className="ui ordered list">
+              <div className={`ui ${init.theme} ordered list`}>
                 <div className="item">
                   In a browser, visit the Discovery Tool, making sure you are on
                   the same network as your device
@@ -112,16 +136,18 @@ const Setup = ({ init, createUser }) => {
               >
                 Hue App
               </a>
-              <div className="ui ordered list">
-                <div className="item">Download the official Philips Hue app</div>
+              <div className={`ui ${init.theme} ordered list`}>
+                <div className="item">
+                  Download the official Philips Hue app
+                </div>
                 <div className="item">
                   Connect your phone to the network the hue bridge is on
                 </div>
                 <div className="item">Start the hue app</div>
                 <div className="item">Push link connect to the bridge</div>
                 <div className="item">
-                  Go to <b> Settings > My Bridge > Network </b> and switch off the
-                  DHCP toggle
+                  Go to <b> Settings > My Bridge > Network </b> and switch off
+                  the DHCP toggle
                 </div>
                 <div className="item">
                   Note the IP address, then switch DHCP back on
@@ -142,10 +168,11 @@ const Setup = ({ init, createUser }) => {
           </div>
           <div className={`${expanded === 1 ? "active" : null} content`}>
             Your device should be automatically detected if it is on the same
-            network as your computer. If you are on the same network and still do
-            not see a Device IP, try obtaining it using one of the methods above.
+            network as your computer. If you are on the same network and still
+            do not see a Device IP, try obtaining it using one of the methods
+            above.
             <div className="ui divider" />
-            <div className="ui ordered list">
+            <div className={`ui ${init.theme} ordered list`}>
               <div className="item">
                 Enter your Device IP into the field above
               </div>
@@ -163,10 +190,16 @@ const Setup = ({ init, createUser }) => {
   };
 
   return (
-    <div style={{ height: "100%" }}>
+    <FullPanel>
       {renderMessage()}
       <div className={`ui ${init.theme} placeholder segment`}>
-      <div className={`ui top attached ${init.theme === "inverted" ? "black" : null} label`}>DEVICE SETUP</div>
+        <div
+          className={`ui top attached ${
+            init.theme === "inverted" ? "black" : null
+          } label`}
+        >
+          DEVICE SETUP
+        </div>
         <div className="ui icon header">
           <i className={deviceAddress ? "wifi icon" : "exclamation icon"} />
           Connect to Philips Hue
@@ -189,7 +222,7 @@ const Setup = ({ init, createUser }) => {
         </form>
       </div>
       {renderHelp()}
-    </div>
+      </FullPanel>
   );
 };
 
