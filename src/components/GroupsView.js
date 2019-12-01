@@ -9,8 +9,6 @@ const GroupsView = ({ lights, rooms, fetchRooms, setActiveRoom, view }) => {
     fetchRooms();
   }, []);
 
-  console.log(view);
-
   const renderTables = () => {
     return rooms
       .filter(room => room.name !== "All")
@@ -31,7 +29,7 @@ const GroupsView = ({ lights, rooms, fetchRooms, setActiveRoom, view }) => {
 
   return (
     <div onClick={() => setActiveRoom(null)}>
-      {view == "card" ? renderCards() : renderTables()}
+      {view === "card" ? renderCards() : renderTables()}
     </div>
   );
 };

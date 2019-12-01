@@ -85,7 +85,7 @@ const App = props => {
               <button 
                 className={`ui ${props.init.theme === "inverted" ? "active" : null} button`}
                 onClick={() =>
-                  props.setTheme(props.init.theme ? null : "inverted")
+                  props.setTheme(props.init.theme === "inverted" ? null : "inverted")
                 }
               >
                 <i className="adjust icon"></i>
