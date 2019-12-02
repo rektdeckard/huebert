@@ -18,7 +18,7 @@ import RulesList from "./RulesList";
 import Setup from "./Setup";
 import useRefresh from "../hooks/useRefresh";
 import GroupsView from "./GroupsView";
-import ToolPanel from './ToolPanel';
+import ToolPanel from "./ToolPanel";
 
 const App = props => {
   // FIXME: Shoule use the fetchAll() function, once I make it
@@ -44,9 +44,11 @@ const App = props => {
         <ToolPanel>
           <Menu location={props.location} />
           <Info />
-          <div className={`ui ${props.init.theme} segment`}>
+          {/* <div className={`ui ${props.init.theme} segment`}> */}
+          <div className={`ui ${props.init.theme} center aligned single line segment`}>
             <div
-              className={`ui mini ${
+              // className={`ui mini ${
+              className={`ui mini left floated ${
                 props.init.theme === "inverted" ? "secondary" : "basic"
               } icon buttons`}
             >
@@ -54,6 +56,7 @@ const App = props => {
                 className={`ui ${
                   props.init.view !== "card" ? "active" : null
                 } button`}
+                title="List View"
                 onClick={() => props.setView(null)}
               >
                 <i className="list ul icon"></i>
@@ -62,9 +65,28 @@ const App = props => {
                 className={`ui ${
                   props.init.view === "card" ? "active" : null
                 } button`}
+                title="Card View"
                 onClick={() => props.setView("card")}
               >
                 <i className="th icon"></i>
+              </button>
+            </div>
+            <div
+              className={`ui mini ${
+                props.init.theme === "inverted" ? "secondary" : "basic"
+              } icon buttons`}
+            >
+              <button className={`ui button`} title="Hide Groups">
+                <i className="eye slash icon"></i>
+              </button>
+              <button className={`ui button`} title="Filter Groups">
+                <i className="filter icon"></i>
+              </button>
+              <button className={`ui button`} title="Edit Groups">
+                <i className="edit icon"></i>
+              </button>
+              <button className={`ui button`} title="Add Group">
+                <i className="plus icon"></i>
               </button>
             </div>
             <div
@@ -76,6 +98,7 @@ const App = props => {
                 className={`ui ${
                   props.init.theme === "inverted" ? "active" : null
                 } button`}
+                title="Toggle Dark Mode"
                 onClick={() =>
                   props.setTheme(
                     props.init.theme === "inverted" ? null : "inverted"
