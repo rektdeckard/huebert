@@ -32,7 +32,11 @@ const LightRow = ({
   };
 
   return (
-    <tr onClick={handleClick}>
+    <tr 
+      style={active ? { backgroundColor: "#AAAAAA24" } : null}
+      // className={active ? "left marked secondary" : null}
+      onClick={handleClick}
+    >
       <td>
         <span
           className="ui label"
@@ -42,14 +46,6 @@ const LightRow = ({
           }}
         >
           {light.name}
-        </span>
-      </td>
-      <td>
-        <span className="ui icon">
-          <i
-            className={`${active ? "check" : null} icon`}
-            style={{ color: theme === "inverted" ? "white" : "black", opacity: 0.7 }}
-          />
         </span>
       </td>
       <td>

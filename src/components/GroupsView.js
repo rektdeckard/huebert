@@ -28,7 +28,12 @@ const GroupsView = ({ lights, rooms, active, fetchRooms, setActiveRoom, view }) 
   };
 
   const renderCards = () => {
-    return <LightsList />;
+    return (
+      <LightsList
+        rooms={rooms.filter(room => room.name !== "All")}
+        lights={lights}
+      />
+    );
   };
 
   const renderControls = () => {

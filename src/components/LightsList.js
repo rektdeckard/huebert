@@ -47,7 +47,6 @@ const LightsList = ({
 
   const renderGroups = () => {
     return rooms
-      .filter(room => room.name !== "All")
       .map(room => {
         return (
           <div
@@ -117,8 +116,6 @@ const LightsList = ({
 
 const mapStateToProps = state => {
   return {
-    lights: state.lights,
-    rooms: state.rooms,
     active: state.active,
     theme: state.init.theme
   };

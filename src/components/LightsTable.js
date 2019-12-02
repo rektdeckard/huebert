@@ -75,30 +75,24 @@ const LightsTable = ({
   };
 
   return (
-    <table className={`ui selectable large ${theme} table`}>
+    <table className={`ui selectable large single line ${theme} table`}>
       <thead onClick={handleClick}>
-        <tr>
+        <tr 
+          style={active.room && active.room.id === room.id ? { backgroundColor: "#AAAAAA24" } : null}
+          // className={active.room && active.room.id === room.id ? "left marked secondary" : null}
+        >
           <th>
             <span
               className="ui fluid label"
               style={{
                 color: textColor,
+                // width: 224,
                 backgroundImage: `linear-gradient(to right, ${
                   colors.length > 1 ? colors : [colors[0], colors[0]]
                 })`
               }}
             >
               {room.name}
-            </span>
-          </th>
-          <th>
-            <span className="ui icon">
-              <i
-                className={`${
-                  active.room && active.room.id === room.id ? "check" : null
-                } icon`}
-                style={{ color: theme === "inverted" ? "white" : "black", opacity: 0.7 }}
-              />
             </span>
           </th>
           <th>
@@ -115,8 +109,8 @@ const LightsTable = ({
               />
             </div>
           </th>
-          <th>
-            <span className="ui fitted middle aligned toggle checkbox">
+          <th className="collapsing">
+            <span className="ui middle aligned toggle checkbox">
               <input
                 type="checkbox"
                 checked={room.state.any_on}
