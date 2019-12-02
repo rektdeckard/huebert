@@ -56,7 +56,6 @@ var SketchFields = exports.SketchFields = function SketchFields(_ref) {
         display: 'block',
         textAlign: 'center',
         fontSize: '11px',
-        color: '#222',
         paddingTop: '3px',
         paddingBottom: '4px',
         textTransform: 'capitalize'
