@@ -15,6 +15,7 @@ export const FETCH_RULES = "fetch_rules";
 export const FETCH_SENSORS = "fetch_sensors";
 
 export const INITIALIZE_APP = "initialize_app";
+export const INITIALIZE_ERROR = "initialize_error";
 export const CREATE_USER = "create_user";
 export const SET_THEME = "set_theme";
 export const SET_VIEW = "set_view";

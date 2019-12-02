@@ -7,7 +7,7 @@ import {
   updateSchedules,
   updateSensors
 } from "../actions";
-import { INITIALIZE_APP, CREATE_USER, SET_THEME, SET_VIEW } from "./types";
+import { INITIALIZE_APP, INITIALIZE_ERROR, CREATE_USER, SET_THEME, SET_VIEW } from "./types";
 
 export const initializeApp = () => async dispatch => {
   const ip = localStorage.getItem("ip");
@@ -64,8 +64,8 @@ export const createUser = ip => async dispatch => {
     dispatch(initializeApp());
   } else {
     dispatch({
-      type: INITIALIZE_APP,
-      payload: { error: response.data[0].error.description }
+      type: INITIALIZE_ERROR,
+      payload: response.data[0].error.description
     });
   }
 };

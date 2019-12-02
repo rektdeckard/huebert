@@ -36,7 +36,7 @@ const Setup = ({ init, createUser }) => {
   };
 
   const renderMessage = () => {
-    if (init.error && !init.config) {
+    if (init.error) {
       return (
         <div
           className={`ui tiny ${

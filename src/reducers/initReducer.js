@@ -1,5 +1,6 @@
 import {
   INITIALIZE_APP,
+  INITIALIZE_ERROR,
   CREATE_USER,
   SET_THEME,
   SET_VIEW
@@ -8,7 +9,7 @@ import {
 export default (state = {}, action) => {
   switch (action.type) {
     case INITIALIZE_APP:
-      return { ...state, ...action.payload };
+      return { ...state, ...action.payload, error: null };
     case CREATE_USER:
       return {
         ...state,
@@ -16,6 +17,8 @@ export default (state = {}, action) => {
         username: action.payload.username,
         error: null
       };
+    case INITIALIZE_ERROR:
+      return { ...state, error: action.payload };
     case SET_THEME:
       return { ...state, theme: action.payload };
     case SET_VIEW:
