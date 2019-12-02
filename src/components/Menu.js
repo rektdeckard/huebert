@@ -10,7 +10,7 @@ const Menu = ({ lights, rooms, schedules, rules, sensors, location, theme }) => 
   return (
     <div className={`ui fluid ${theme} vertical menu`}>
       <Link className={`item ${isActive("/lights")}`} to="/lights">
-        Lights
+        Home
         <div className="ui label blue">{lights.length}</div>
       </Link>
       <Link className={`item ${isActive("/rooms")}`} to="/rooms">
