@@ -2,15 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter, Switch, Route, Redirect } from "react-router-dom";
 
-import {
-  fetchRooms,
-  fetchLights,
-  initializeApp,
-  createUser,
-  setActiveLight,
-  setTheme,
-  setView
-} from "../actions";
+import { fetchRooms, initializeApp, setTheme } from "../actions";
 import Menu from "./Menu";
 import Info from "./Info";
 import RoomsList from "./RoomsList";
@@ -44,69 +36,25 @@ const App = props => {
         <ToolPanel>
           <Menu location={props.location} />
           <Info />
-          {/* <div className={`ui ${props.init.theme} segment`}> */}
-          <div className={`ui ${props.init.theme} center aligned single line segment`}>
-            <div
-              // className={`ui mini ${
-              className={`ui mini left floated ${
-                props.init.theme === "inverted" ? "secondary" : "basic"
-              } icon buttons`}
-            >
-              <button
-                className={`ui ${
-                  props.init.view !== "card" ? "active" : null
-                } button`}
-                title="List View"
-                onClick={() => props.setView(null)}
+          <div className={`ui ${props.init.theme} secondary fitted menu`}>
+            <div className="item">
+              <div
+                className={`ui mini right floated 
+                    ${props.init.theme === "inverted" ? "secondary" : "basic"} 
+                    icon buttons`}
               >
-                <i className="list ul icon"></i>
-              </button>
-              <button
-                className={`ui ${
-                  props.init.view === "card" ? "active" : null
-                } button`}
-                title="Card View"
-                onClick={() => props.setView("card")}
-              >
-                <i className="th icon"></i>
-              </button>
-            </div>
-            <div
-              className={`ui mini ${
-                props.init.theme === "inverted" ? "secondary" : "basic"
-              } icon buttons`}
-            >
-              <button className={`ui button`} title="Hide Groups">
-                <i className="eye slash icon"></i>
-              </button>
-              <button className={`ui button`} title="Filter Groups">
-                <i className="filter icon"></i>
-              </button>
-              <button className={`ui button`} title="Edit Groups">
-                <i className="edit icon"></i>
-              </button>
-              <button className={`ui button`} title="Add Group">
-                <i className="plus icon"></i>
-              </button>
-            </div>
-            <div
-              className={`ui mini right floated 
-                ${props.init.theme === "inverted" ? "secondary" : "basic"} 
-                icon buttons`}
-            >
-              <button
-                className={`ui ${
-                  props.init.theme === "inverted" ? "active" : null
-                } button`}
-                title="Toggle Dark Mode"
-                onClick={() =>
-                  props.setTheme(
-                    props.init.theme === "inverted" ? null : "inverted"
-                  )
-                }
-              >
-                <i className="adjust icon"></i>
-              </button>
+                <button
+                  className={`ui ${
+                    props.init.theme === "inverted" ? "active" : null
+                  } button`}
+                  title="Toggle Dark Mode"
+                  onClick={() =>
+                    props.setTheme(props.init.theme === "inverted" ? null : "inverted")
+                  }
+                >
+                  <i className="adjust icon"></i>
+                </button>
+              </div>
             </div>
           </div>
         </ToolPanel>
@@ -125,22 +73,13 @@ const App = props => {
 };
 
 const mapStateToProps = state => {
-  return {
-    rooms: state.rooms,
-    lights: state.lights,
-    init: state.init,
-    active: state.active
-  };
+  return { init: state.init };
 };
 
 export default withRouter(
   connect(mapStateToProps, {
     fetchRooms,
-    fetchLights,
-    setActiveLight,
     initializeApp,
-    createUser,
-    setTheme,
-    setView
+    setTheme
   })(App)
 );

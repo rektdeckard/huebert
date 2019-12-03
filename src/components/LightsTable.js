@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { connect } from "react-redux";
 import { convertHSBToColor, compatibleText } from "../utils";
-import LightRow from './LightRow';
+import LightRow from "./LightRow";
 import {
   alertLight,
   toggleLight,
@@ -77,10 +77,20 @@ const LightsTable = ({
   return (
     <table className={`ui selectable large single line ${theme} table`}>
       <thead onClick={handleClick}>
-        <tr 
-          style={active.room && active.room.id === room.id ? { backgroundColor: "#AAAAAA24" } : null}
+        <tr
+          style={
+            active.room && active.room.id === room.id
+              ? { backgroundColor: "#AAAAAA24" }
+              : null
+          }
           // className={active.room && active.room.id === room.id ? "left marked secondary" : null}
         >
+          {/* <th className="collapsing">
+            <div className="ui middle aligned fitted checkbox">
+              <input type="checkbox" />
+              <label></label>
+            </div>
+          </th> */}
           <th>
             <span
               className="ui fluid label"

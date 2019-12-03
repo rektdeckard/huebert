@@ -31,12 +31,22 @@ const LightRow = ({
     event.stopPropagation();
   };
 
+  const renderCheckbox = () => (
+    <td className="collapsing">
+      <div className="ui middle aligned fitted checkbox">
+        <input type="checkbox" />
+        <label></label>
+      </div>
+    </td>
+  );
+
   return (
-    <tr 
+    <tr
       style={active ? { backgroundColor: "#AAAAAA24" } : null}
       // className={active ? "left marked secondary" : null}
       onClick={handleClick}
     >
+      {false ? renderCheckbox() : null}
       <td>
         <span
           className="ui label"
