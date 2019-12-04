@@ -9,8 +9,10 @@ import RoomsList from "./RoomsList";
 import RulesList from "./RulesList";
 import Setup from "./Setup";
 import useRefresh from "../hooks/useRefresh";
-import GroupsView from "./GroupsView";
+import GroupsView from "./home/GroupsView";
 import ToolPanel from "./ToolPanel";
+
+const INVERTED = "inverted";
 
 const App = props => {
   // FIXME: Shoule use the fetchAll() function, once I make it
@@ -26,7 +28,7 @@ const App = props => {
     <div
       style={{
         padding: 16,
-        backgroundColor: props.init.theme === "inverted" ? "#080808" : "white"
+        backgroundColor: props.init.theme === INVERTED ? "#080808" : "white"
       }}
     >
       <div
@@ -36,26 +38,20 @@ const App = props => {
         <ToolPanel>
           <Menu location={props.location} />
           <Info />
-          <div className={`ui ${props.init.theme} secondary fitted menu`}>
-            <div className="item">
-              <div
-                className={`ui mini right floated 
-                    ${props.init.theme === "inverted" ? "secondary" : "basic"} 
-                    icon buttons`}
-              >
-                <button
-                  className={`ui ${
-                    props.init.theme === "inverted" ? "active" : null
-                  } button`}
-                  title="Toggle Dark Mode"
-                  onClick={() =>
-                    props.setTheme(props.init.theme === "inverted" ? null : "inverted")
-                  }
-                >
-                  <i className="adjust icon"></i>
-                </button>
-              </div>
-            </div>
+          <div className={`ui ${props.init.theme} mini icon menu`}>
+            <a
+              className={`${
+                props.init.theme === INVERTED ? "active" : null
+              } item`}
+              title="Toggle Dark Mode"
+              onClick={() =>
+                props.setTheme(
+                  props.init.theme === INVERTED ? null : INVERTED
+                )
+              }
+            >
+              <i className="adjust icon"></i>
+            </a>
           </div>
         </ToolPanel>
         <Switch>

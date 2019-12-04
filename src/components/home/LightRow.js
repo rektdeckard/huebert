@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { convertHSBToColor, compatibleText } from "../utils";
+import { convertHSBToColor, compatibleText } from "../../utils";
 
 const LightRow = ({
   light,

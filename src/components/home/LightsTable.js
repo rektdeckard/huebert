@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { connect } from "react-redux";
-import { convertHSBToColor, compatibleText } from "../utils";
+import { convertHSBToColor, compatibleText } from "../../utils";
 import LightRow from "./LightRow";
 import {
   alertLight,
@@ -11,7 +11,7 @@ import {
   toggleRoom,
   setRoom,
   setActiveRoom
-} from "../actions";
+} from "../../actions";
 
 const LightsTable = ({
   room,
