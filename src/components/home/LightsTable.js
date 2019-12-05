@@ -83,15 +83,12 @@ const LightsTable = ({
               ? { backgroundColor: "#AAAAAA24" }
               : null
           }
-          // className={active.room && active.room.id === room.id ? "left marked secondary" : null}
         >
-          {/* <th className="collapsing">
-            <div className="ui middle aligned fitted checkbox">
+          <th>
+            {/* <div className="ui middle aligned checkbox">
               <input type="checkbox" />
               <label></label>
-            </div>
-          </th> */}
-          <th>
+            </div> */}
             <span
               className="ui fluid label"
               style={{

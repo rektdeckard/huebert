@@ -55,7 +55,7 @@ const App = props => {
           </div>
         </ToolPanel>
         <Switch>
-          <Route path="/lights" exact component={GroupsView} />
+          <Route path="/home" exact component={GroupsView} />
           <Route path="/rooms" exact component={RoomsList} />
           <Route path="/schedules" exact />
           <Route path="/rules" exact component={RulesList} />
