@@ -32,14 +32,14 @@ export const initializeApp = () => async dispatch => {
     const response = await axios.get(`https://${ip}/api/${username}`);
 
     if (response.data.config) {
+      settings.config = response.data.config;
+
       dispatch(updateLights(response.data.lights));
       dispatch(updateRooms(response.data.lights, response.data.groups));
       dispatch(updateScenes(response.data.scenes));
       dispatch(updateRules(response.data.rules));
       dispatch(updateSchedules(response.data.schedules));
       dispatch(updateSensors(response.data.sensors));
-
-      settings.config = response.data.config;
     }
 
     dispatch({

@@ -27,7 +27,7 @@ const App = props => {
   return (
     <div
       style={{
-        padding: 16,
+        padding: 24,
         backgroundColor: props.init.theme === INVERTED ? "#080808" : "white"
       }}
     >
