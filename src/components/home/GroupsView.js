@@ -1,7 +1,13 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
-import { fetchRooms, setActiveRoom, setView, setTheme, toggleExpanded } from "../../actions";
+import {
+  fetchRooms,
+  setActiveRoom,
+  setView,
+  setTheme,
+  toggleExpanded
+} from "../../actions";
 import LightsTable from "./LightsTable";
 import LightsList from "./LightsList";
 import ScenesList from "../ScenesList";
@@ -33,7 +39,11 @@ const GroupsView = ({
         return (
           <LightsTable
             room={room}
-            lights={init.expanded ? lights.filter(light => room.lights.includes(light.id)) : []}
+            lights={
+              init.expanded
+                ? lights.filter(light => room.lights.includes(light.id))
+                : []
+            }
             key={room.id}
           />
         );
@@ -69,29 +79,33 @@ const GroupsView = ({
         >
           <i className="th icon"></i>
         </div>
-        <div className="item" style={{ width: 48 }} />
-        <div className="menu">
-          <div className={`link item`} 
-            title={`${init.expanded ? "Hide" : "Show"} Lights`}
+        <div
+            className={`link item`}
+            title={`${init.expanded ? "Collapse" : "Expand"} All`}
             onClick={toggleExpanded}
           >
-            <i className={`eye ${init.expanded ? "slash" : null} icon`}></i>
+            <i
+              className={`angle double ${init.expanded ? "up" : "down"} icon`}
+            ></i>
           </div>
-          <div className={`link item`} title="Filter Groups">
+        {/* <div className="item" style={{ width: 48 }} />
+        <div className="menu">
+          
+          <div className={`disabled link item`} title="Filter Groups">
             <i className="filter icon"></i>
           </div>
-          <div className={`link item`} title="Edit Groups">
+          <div className={`disabled link item`} title="Edit Groups">
             <i className="edit icon"></i>
           </div>
-          <div className={`link item`} title="Add Group">
+          <div className={`disabled link item`} title="Add Group">
             <i className="plus icon"></i>
           </div>
         </div>
         <div className="right menu">
-          <div className={`link item`} title="Delete">
+          <div className={`disabled link item`} title="Delete">
             <i className="trash icon"></i>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   };

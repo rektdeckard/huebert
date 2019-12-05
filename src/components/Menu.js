@@ -17,19 +17,19 @@ const Menu = ({ lights, rooms, schedules, rules, sensors, location, theme }) => 
         Groups
         <div className="ui label blue">{rooms.length}</div>
       </Link> */}
-      <Link className={`item ${isActive("/schedules")}`} to="/schedules">
+      <Link className={`disabled item ${isActive("/schedules")}`} to="/schedules">
         Schedules
         <div className="ui label blue">{schedules.length}</div>
       </Link>
-      <Link className={`item disabled ${isActive("/rules")}`} to="/rules">
+      <Link className={`disabled item ${isActive("/rules")}`} to="/rules">
         Rules
         <div className="ui label blue">{rules.length}</div>
       </Link>
-      <Link className={`item disabled ${isActive("/sensors")}`} to="/sensors">
+      <Link className={`disabled item ${isActive("/sensors")}`} to="/sensors">
         Sensors
         <div className="ui label blue">{sensors.length}</div>
       </Link>
-      <Link className={`item ${isActive("/setup")}`} to="/setup">
+      <Link className={`item ${isActive("/settings")}`} to="/settings">
         Settings
       </Link>
     </div>

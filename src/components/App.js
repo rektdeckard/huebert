@@ -60,8 +60,8 @@ const App = props => {
           <Route path="/schedules" exact />
           <Route path="/rules" exact component={RulesList} />
           <Route path="/sensors" exact />
-          <Route path="/setup" exact component={Setup} />
-          <Redirect to={props.init.ip ? "/lights" : "/setup"} />;
+          <Route path="/settings" exact component={Setup} />
+          <Redirect to={props.init.ip ? "/lights" : "/settings"} />;
         </Switch>
       </div>
     </div>
