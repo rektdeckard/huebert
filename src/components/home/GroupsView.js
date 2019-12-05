@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
-import { fetchRooms, setActiveRoom, setView, setTheme } from "../../actions";
+import { fetchRooms, setActiveRoom, setView, setTheme, toggleExpanded } from "../../actions";
 import LightsTable from "./LightsTable";
 import LightsList from "./LightsList";
 import ScenesList from "../ScenesList";
@@ -19,7 +19,8 @@ const GroupsView = ({
   init,
   fetchRooms,
   setActiveRoom,
-  setView
+  setView,
+  toggleExpanded
 }) => {
   useEffect(() => {
     fetchRooms();
@@ -32,7 +33,7 @@ const GroupsView = ({
         return (
           <LightsTable
             room={room}
-            lights={lights.filter(light => room.lights.includes(light.id))}
+            lights={init.expanded ? lights.filter(light => room.lights.includes(light.id)) : []}
             key={room.id}
           />
         );
@@ -43,7 +44,7 @@ const GroupsView = ({
     return (
       <LightsList
         rooms={rooms.filter(room => room.name !== "All")}
-        lights={lights}
+        lights={init.expanded ? lights : []}
       />
     );
   };
@@ -54,93 +55,44 @@ const GroupsView = ({
         className={`ui ${init.theme} mini icon menu`}
         onClick={e => e.stopPropagation()}
       >
-        <a
-          className={`${init.view !== CARD ? "active" : null} item`}
+        <div
+          className={`${init.view !== CARD ? "active" : null} link item`}
           title="List View"
           onClick={() => setView(LIST)}
         >
-          <i className="list ul icon"></i>
-        </a>
-        <a
-          className={`${init.view === CARD ? "active" : null} item`}
+          <i className="list icon"></i>
+        </div>
+        <div
+          className={`${init.view === CARD ? "active" : null} link item`}
           title="Card View"
           onClick={() => setView(CARD)}
         >
           <i className="th icon"></i>
-        </a>
-        <div className="item" style={{ width: 36 }}/>
+        </div>
+        <div className="item" style={{ width: 48 }} />
         <div className="menu">
-          <a className={`item`} title="Hide Groups">
-            <i className="eye slash icon"></i>
-          </a>
-          <a className={`item`} title="Filter Groups">
+          <div className={`link item`} 
+            title={`${init.expanded ? "Hide" : "Show"} Lights`}
+            onClick={toggleExpanded}
+          >
+            <i className={`eye ${init.expanded ? "slash" : null} icon`}></i>
+          </div>
+          <div className={`link item`} title="Filter Groups">
             <i className="filter icon"></i>
-          </a>
-          <a className={`item`} title="Edit Groups">
+          </div>
+          <div className={`link item`} title="Edit Groups">
             <i className="edit icon"></i>
-          </a>
-          <a className={`item`} title="Add Group">
+          </div>
+          <div className={`link item`} title="Add Group">
             <i className="plus icon"></i>
-          </a>
+          </div>
         </div>
         <div className="right menu">
-          <a className={`item`} title="Delete">
+          <div className={`link item`} title="Delete">
             <i className="trash icon"></i>
-          </a>
+          </div>
         </div>
       </div>
-      // <>
-      // <div
-      //   className={`ui ${init.theme} fitted secondary menu`}
-      //   onClick={e => e.stopPropagation()}
-      // >
-      //   <div className="item">
-      //     <div
-      //       className={`ui mini left floated ${
-      //         init.theme === "inverted" ? "secondary" : "basic"
-      //       } icon buttons`}
-      //     >
-      //       <button
-      //         className={`ui ${init.view !== "card" ? "active" : null} button`}
-      //         title="List View"
-      //         onClick={() => setView(null)}
-      //       >
-      //         <i className="list ul icon"></i>
-      //       </button>
-      //       <button
-      //         className={`ui ${init.view === "card" ? "active" : null} button`}
-      //         title="Card View"
-      //         onClick={() => setView("card")}
-      //       >
-      //         <i className="th icon"></i>
-      //       </button>
-      //     </div>
-      //   </div>
-      //   <div className="item">
-      //     <div
-      //       className={`ui mini ${
-      //         init.theme === "inverted" ? "secondary" : "basic"
-      //       } icon buttons`}
-      //     >
-      //       <button className={`ui button`} title="Hide Groups">
-      //         <i className="eye slash icon"></i>
-      //       </button>
-      //       <button className={`ui button`} title="Filter Groups">
-      //         <i className="filter icon"></i>
-      //       </button>
-      //       <button className={`ui button`} title="Edit Groups">
-      //         <i className="edit icon"></i>
-      //       </button>
-      //       <button className={`ui button`} title="Add Group">
-      //         <i className="plus icon"></i>
-      //       </button>
-      //     </div>
-      //   </div>
-      //   <div className="right menu">
-      //     {}
-      //   </div>
-      // </div>
-      // </>
     );
   };
 
@@ -157,7 +109,7 @@ const GroupsView = ({
     <>
       <CenterPanel onClick={() => setActiveRoom(null)}>
         {renderToolbar()}
-        {init.view === "card" ? renderCards() : renderTables()}
+        {init.view === CARD ? renderCards() : renderTables()}
       </CenterPanel>
       {renderControls()}
     </>
@@ -177,5 +129,6 @@ export default connect(mapStateToProps, {
   fetchRooms,
   setActiveRoom,
   setView,
-  setTheme
+  setTheme,
+  toggleExpanded
 })(GroupsView);

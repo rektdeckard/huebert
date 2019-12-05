@@ -7,7 +7,14 @@ import {
   updateSchedules,
   updateSensors
 } from "../actions";
-import { INITIALIZE_APP, INITIALIZE_ERROR, CREATE_USER, SET_THEME, SET_VIEW } from "./types";
+import {
+  INITIALIZE_APP,
+  INITIALIZE_ERROR,
+  CREATE_USER,
+  SET_THEME,
+  SET_VIEW,
+  TOGGLE_EXPANDED
+} from "./types";
 
 export const initializeApp = () => async dispatch => {
   const ip = localStorage.getItem("ip");
@@ -84,4 +91,8 @@ export const setView = view => dispatch => {
     type: SET_VIEW,
     payload: view
   });
+};
+
+export const toggleExpanded = () => dispatch => {
+  dispatch({ type: TOGGLE_EXPANDED });
 };

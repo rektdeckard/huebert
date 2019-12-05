@@ -19,3 +19,4 @@ export const INITIALIZE_ERROR = "initialize_error";
 export const CREATE_USER = "create_user";
 export const SET_THEME = "set_theme";
 export const SET_VIEW = "set_view";
+export const TOGGLE_EXPANDED = "toggle_expanded";

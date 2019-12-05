@@ -49,7 +49,7 @@ const LightsTable = ({
     setRoom({ ...room, action: { bri } });
     setTimeout(() => {
       throttle.current = null;
-    }, 500);
+    }, 400);
   };
 
   const handleClick = event => {

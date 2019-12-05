@@ -3,10 +3,11 @@ import {
   INITIALIZE_ERROR,
   CREATE_USER,
   SET_THEME,
-  SET_VIEW
+  SET_VIEW,
+  TOGGLE_EXPANDED
 } from "../actions/types";
 
-export default (state = {}, action) => {
+export default (state = { expanded: true }, action) => {
   switch (action.type) {
     case INITIALIZE_APP:
       return { ...state, ...action.payload, error: null };
@@ -23,6 +24,8 @@ export default (state = {}, action) => {
       return { ...state, theme: action.payload };
     case SET_VIEW:
       return { ...state, view: action.payload };
+    case TOGGLE_EXPANDED:
+      return { ...state, expanded: !state.expanded };
     default:
       return state;
   }
