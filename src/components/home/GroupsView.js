@@ -22,7 +22,7 @@ const GroupsView = ({
   lights,
   rooms,
   active,
-  init,
+  settings,
   fetchRooms,
   setActiveRoom,
   setView,
@@ -34,13 +34,13 @@ const GroupsView = ({
 
   const renderTables = () => {
     return rooms
-      .filter(room => room.name !== "All")
+      // .filter(room => room.name !== "All")
       .map(room => {
         return (
           <LightsTable
             room={room}
             lights={
-              init.expanded
+              settings.expanded
                 ? lights.filter(light => room.lights.includes(light.id))
                 : []
             }
@@ -53,8 +53,9 @@ const GroupsView = ({
   const renderCards = () => {
     return (
       <LightsList
-        rooms={rooms.filter(room => room.name !== "All")}
-        lights={init.expanded ? lights : []}
+        // rooms={rooms.filter(room => room.name !== "All")}
+        rooms={rooms}
+        lights={settings.expanded ? lights : []}
       />
     );
   };
@@ -62,18 +63,18 @@ const GroupsView = ({
   const renderToolbar = () => {
     return (
       <div
-        className={`ui ${init.theme} mini icon menu`}
+        className={`ui ${settings.theme} mini icon menu`}
         onClick={e => e.stopPropagation()}
       >
         <div
-          className={`${init.view !== CARD ? "active" : null} link item`}
+          className={`${settings.view !== CARD ? "active" : null} link item`}
           title="List View"
           onClick={() => setView(LIST)}
         >
           <i className="list icon"></i>
         </div>
         <div
-          className={`${init.view === CARD ? "active" : null} link item`}
+          className={`${settings.view === CARD ? "active" : null} link item`}
           title="Card View"
           onClick={() => setView(CARD)}
         >
@@ -81,11 +82,11 @@ const GroupsView = ({
         </div>
         <div
             className={`link item`}
-            title={`${init.expanded ? "Collapse" : "Expand"} All`}
+            title={`${settings.expanded ? "Collapse" : "Expand"} All`}
             onClick={toggleExpanded}
           >
             <i
-              className={`angle double ${init.expanded ? "up" : "down"} icon`}
+              className={`angle double ${settings.expanded ? "up" : "down"} icon`}
             ></i>
           </div>
         {/* <div className="item" style={{ width: 48 }} />
@@ -123,7 +124,7 @@ const GroupsView = ({
     <>
       <CenterPanel onClick={() => setActiveRoom(null)}>
         {renderToolbar()}
-        {init.view === CARD ? renderCards() : renderTables()}
+        {settings.view === CARD ? renderCards() : renderTables()}
       </CenterPanel>
       {renderControls()}
     </>
@@ -135,7 +136,7 @@ const mapStateToProps = state => {
     lights: state.lights,
     rooms: state.rooms,
     active: state.active,
-    init: state.init
+    settings: state.settings
   };
 };
 

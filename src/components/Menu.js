@@ -43,7 +43,7 @@ const mapStateToProps = state => {
     schedules: state.schedules,
     rules: state.rules,
     sensors: state.sensors,
-    theme: state.init.theme
+    theme: state.settings.theme
   };
 };
 

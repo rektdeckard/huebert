@@ -28,25 +28,25 @@ const App = props => {
     <div
       style={{
         padding: 24,
-        backgroundColor: props.init.theme === INVERTED ? "#080808" : "white"
+        backgroundColor: props.settings.theme === INVERTED ? "#080808" : "white"
       }}
     >
       <div
         className="ui grid"
-        style={{ overflowY: "hidden", height: "99.5vh" }}
+        style={{ overflowY: "hidden", height: "98vh" }}
       >
         <ToolPanel>
           <Menu location={props.location} />
           <Info />
-          <div className={`ui ${props.init.theme} mini icon menu`}>
+          <div className={`ui ${props.settings.theme} mini icon menu`}>
             <a
               className={`${
-                props.init.theme === INVERTED ? "active" : null
+                props.settings.theme === INVERTED ? "active" : null
               } item`}
               title="Toggle Dark Mode"
               onClick={() =>
                 props.setTheme(
-                  props.init.theme === INVERTED ? null : INVERTED
+                  props.settings.theme === INVERTED ? null : INVERTED
                 )
               }
             >
@@ -61,7 +61,7 @@ const App = props => {
           <Route path="/rules" exact component={RulesList} />
           <Route path="/sensors" exact />
           <Route path="/settings" exact component={Setup} />
-          <Redirect to={props.init.ip ? "/lights" : "/settings"} />;
+          <Redirect to={props.settings.ip ? "/lights" : "/settings"} />;
         </Switch>
       </div>
     </div>
@@ -69,7 +69,7 @@ const App = props => {
 };
 
 const mapStateToProps = state => {
-  return { init: state.init };
+  return { settings: state.settings };
 };
 
 export default withRouter(

@@ -47,7 +47,7 @@ const ScenesList = ({ scenes, active, setRoom, theme }) => {
 };
 
 const mapStateToProps = state => {
-  return { scenes: state.scenes, active: state.active, theme: state.init.theme };
+  return { scenes: state.scenes, active: state.active, theme: state.settings.theme };
 };
 
 export default connect(mapStateToProps, { fetchScenes, fetchRooms, setRoom })(ScenesList);

@@ -4,7 +4,7 @@ import axios from "axios";
 import { initializeApp, resetApp, createUser } from "../actions";
 import FullPanel from "./FullPanel";
 
-const Setup = ({ init, createUser }) => {
+const Setup = ({ settings, createUser }) => {
   const [deviceAddress, setDeviceAddress] = useState("");
   const [expanded, setExpanded] = useState(null);
 
@@ -13,8 +13,8 @@ const Setup = ({ init, createUser }) => {
   }, []);
 
   const discoverDevices = async () => {
-    if (init.ip) {
-      setDeviceAddress(init.ip);
+    if (settings.ip) {
+      setDeviceAddress(settings.ip);
     } else {
       const response = await axios.get("https://discovery.meethue.com");
       if (response.data[0]) {
@@ -36,24 +36,24 @@ const Setup = ({ init, createUser }) => {
   };
 
   const renderMessage = () => {
-    if (init.error) {
+    if (settings.error) {
       return (
         <div
           className={`ui tiny ${
-            init.theme === "inverted" ? "inverted red" : "error"
+            settings.theme === "inverted" ? "inverted red" : "error"
           } message`}
         >
-          {/* <i className="close icon" onClick={initializeApp}></i> */}
-          <div className="header">Error: {init.error}</div>
-          {/* <p>{init.error}</p> */}
+          {/* <i className="close icon" onClick={settingsializeApp}></i> */}
+          <div className="header">Error: {settings.error}</div>
+          {/* <p>{settings.error}</p> */}
         </div>
       );
     }
-    if (init.ip && init.username && init.config) {
+    if (settings.ip && settings.username && settings.config) {
       return (
         <div
           className={`ui tiny ${
-            init.theme === "inverted" ? "inverted green" : "success"
+            settings.theme === "inverted" ? "inverted green" : "success"
           } message`}
         >
           <div className="header">Device connected</div>
@@ -64,7 +64,7 @@ const Setup = ({ init, createUser }) => {
     return (
       <div
         className={`ui tiny ${
-          init.theme === "inverted" ? "inverted" : null
+          settings.theme === "inverted" ? "inverted" : null
         } message`}
       >
         <div className="header">Device not connected</div>
@@ -74,15 +74,15 @@ const Setup = ({ init, createUser }) => {
 
   const renderHelp = () => {
     return (
-      <div className={`ui ${init.theme} segment`}>
+      <div className={`ui ${settings.theme} segment`}>
         <div
           className={`ui top attached ${
-            init.theme === "inverted" ? "black" : null
+            settings.theme === "inverted" ? "black" : null
           } label`}
         >
           HELP
         </div>
-        <div className={`ui fluid ${init.theme} accordion`}>
+        <div className={`ui fluid ${settings.theme} accordion`}>
           {/* <div className="ui top attached label">Help</div> */}
           <div
             className={`${expanded === 0 ? "active" : null} title`}
@@ -110,7 +110,7 @@ const Setup = ({ init, createUser }) => {
               >
                 Hue Discovery Tool
               </a>
-              <div className={`ui ${init.theme} ordered list`}>
+              <div className={`ui ${settings.theme} ordered list`}>
                 <div className="item">
                   In a browser, visit the Discovery Tool, making sure you are on
                   the same network as your device
@@ -136,7 +136,7 @@ const Setup = ({ init, createUser }) => {
               >
                 Hue App
               </a>
-              <div className={`ui ${init.theme} ordered list`}>
+              <div className={`ui ${settings.theme} ordered list`}>
                 <div className="item">
                   Download the official Philips Hue app
                 </div>
@@ -172,7 +172,7 @@ const Setup = ({ init, createUser }) => {
             do not see a Device IP, try obtaining it using one of the methods
             above.
             <div className="ui divider" />
-            <div className={`ui ${init.theme} ordered list`}>
+            <div className={`ui ${settings.theme} ordered list`}>
               <div className="item">
                 Enter your Device IP into the field above
               </div>
@@ -192,10 +192,10 @@ const Setup = ({ init, createUser }) => {
   return (
     <FullPanel>
       {renderMessage()}
-      <div className={`ui ${init.theme} placeholder segment`}>
+      <div className={`ui ${settings.theme} placeholder segment`}>
         <div
           className={`ui top attached ${
-            init.theme === "inverted" ? "black" : null
+            settings.theme === "inverted" ? "black" : null
           } label`}
         >
           DEVICE SETUP
@@ -227,7 +227,7 @@ const Setup = ({ init, createUser }) => {
 };
 
 const mapStateToProps = state => {
-  return { init: state.init };
+  return { settings: state.settings };
 };
 
 export default connect(mapStateToProps, { createUser, resetApp })(Setup);

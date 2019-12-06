@@ -75,7 +75,7 @@ const ColorPicker = ({ active, setLight, setRoom, theme }) => {
 const mapStateToProps = state => {
   return {
     active: state.active.light ? state.active.light : state.active.room,
-    theme: state.init.theme
+    theme: state.settings.theme
   };
 };
 

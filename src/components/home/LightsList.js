@@ -117,7 +117,7 @@ const LightsList = ({
 const mapStateToProps = state => {
   return {
     active: state.active,
-    theme: state.init.theme
+    theme: state.settings.theme
   };
 };
 

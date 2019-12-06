@@ -8,7 +8,7 @@ import schedulesReducer from './schedulesReducer';
 import rulesReducer from './rulesReducer';
 import sensorsReducer from './sensorsReducer';
 import activeReducer from './activeReducer';
-import initReducer from './initReducer';
+import settingsReducer from './settingsReducer';
 
 const rootReducer = combineReducers({
   lights: lightsReducer,
@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
   rules: rulesReducer,
   sensors: sensorsReducer,
   active: activeReducer,
-  init: initReducer
+  settings: settingsReducer
 });
 
 const store = createStore(rootReducer, {}, applyMiddleware(thunk));

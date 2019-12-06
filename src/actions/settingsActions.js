@@ -6,7 +6,7 @@ import {
   updateRules,
   updateSchedules,
   updateSensors
-} from "../actions";
+} from ".";
 import {
   INITIALIZE_APP,
   INITIALIZE_ERROR,

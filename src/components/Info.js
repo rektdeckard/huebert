@@ -72,7 +72,7 @@ const Info = ({ config, theme }) => {
 };
 
 const mapStateToProps = state => {
-  return { config: state.init.config, theme: state.init.theme };
+  return { config: state.settings.config, theme: state.settings.theme };
 };
 
 export default connect(mapStateToProps, {})(Info);
