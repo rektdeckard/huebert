@@ -102,7 +102,7 @@ const LightsTable = ({
               {room.name}
             </span>
           </th>
-          <th>
+          <th style={{ width: "40%" }}>
             <div className="slidecontainer">
               <input
                 className="middle aligned slide"
