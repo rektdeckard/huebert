@@ -22,16 +22,15 @@ module.exports = {
     publicPath: '/',
     filename: 'bundle.js'
   },
+  mode: 'development',
   module: {
-    loaders: [
-      {
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['react', 'env', 'stage-0']
-        }
-      },
-    ]
+    rules: [
+      { use: 'babel-loader' },
+      { exclude: /node_modules/ },
+      { query: {
+        presets: ['react', 'env', 'stage-0']
+      }}
+  ]
   },
   resolve: {
     extensions: ['.js', '.jsx']
