@@ -10,13 +10,15 @@ import {
   alertRoom,
   toggleRoom,
   setRoom,
-  setActiveRoom
+  setActiveRoom,
+  expand
 } from "../../actions";
 
 const LightsTable = ({
   room,
   lights,
   active,
+  expanded,
   setRoom,
   alertRoom,
   toggleRoom,
@@ -25,6 +27,7 @@ const LightsTable = ({
   alertLight,
   toggleLight,
   setActiveLight,
+  expand,
   theme
 }) => {
   const colors = [
@@ -54,6 +57,11 @@ const LightsTable = ({
 
   const handleClick = event => {
     event.ctrlKey ? alertRoom(room) : setActiveRoom(room);
+    event.stopPropagation();
+  };
+
+  const handleExpand = event => {
+    expand(room.id);
     event.stopPropagation();
   };
 
@@ -89,11 +97,15 @@ const LightsTable = ({
               <input type="checkbox" />
               <label></label>
             </div> */}
+            <i 
+              className={`caret ${expanded ? "down" : "right"} icon`} 
+              onClick={handleExpand}
+            />
             <span
               className="ui fluid label"
               style={{
                 color: textColor,
-                // width: 224,
+                width: "90%",
                 backgroundImage: `linear-gradient(to right, ${
                   colors.length > 1 ? colors : [colors[0], colors[0]]
                 })`
@@ -130,7 +142,7 @@ const LightsTable = ({
         </tr>
       </thead>
       <tbody>
-        {renderRows()}
+        {expanded ? renderRows() : null}
         {/* {active.room && active.room.id === room.id ? renderRows() : null} */}
       </tbody>
     </table>
@@ -140,7 +152,7 @@ const LightsTable = ({
 const mapStateToProps = state => {
   return {
     active: state.active,
-    theme: state.settings.theme
+    theme: state.settings.theme,
   };
 };
 
@@ -152,5 +164,6 @@ export default connect(mapStateToProps, {
   alertRoom,
   toggleRoom,
   setRoom,
-  setActiveRoom
+  setActiveRoom,
+  expand
 })(LightsTable);

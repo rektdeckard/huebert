@@ -15,25 +15,26 @@ import ToolPanel from "./ToolPanel";
 const INVERTED = "inverted";
 
 const App = props => {
-  // FIXME: Shoule use the fetchAll() function, once I make it
+  // FIXME: Should use the fetchAll() function, once I make it
   const { refresh, cancel } = useRefresh(props.fetchRooms, 5000);
 
   useEffect(() => {
     props.initializeApp();
     refresh();
+
     return cancel;
   }, []);
 
   return (
     <div
       style={{
-        padding: 24,
+        padding: 16,
         backgroundColor: props.settings.theme === INVERTED ? "#080808" : "white"
       }}
     >
       <div
         className="ui grid"
-        style={{ overflowY: "hidden", height: "98vh" }}
+        style={{ overflowY: "hidden", height: "99.5vh" }}
       >
         <ToolPanel>
           <Menu location={props.location} />
@@ -55,13 +56,13 @@ const App = props => {
           </div>
         </ToolPanel>
         <Switch>
-          <Route path="/home" exact component={GroupsView} />
-          <Route path="/rooms" exact component={RoomsList} />
-          <Route path="/schedules" exact />
-          <Route path="/rules" exact component={RulesList} />
-          <Route path="/sensors" exact />
-          <Route path="/settings" exact component={Setup} />
-          <Redirect to={props.settings.ip ? "/lights" : "/settings"} />;
+          <Route exact path="/" component={GroupsView} />
+          <Route exact path="/rooms" component={RoomsList} />
+          <Route exact path="/schedules" />
+          <Route exact path="/rules" component={RulesList} />
+          <Route exact path="/sensors" />
+          <Route exact path="/settings" component={Setup} />
+          <Redirect to={!props.settings.config ? "/" : "/settings"} />
         </Switch>
       </div>
     </div>

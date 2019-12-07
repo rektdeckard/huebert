@@ -13,7 +13,8 @@ import {
   CREATE_USER,
   SET_THEME,
   SET_VIEW,
-  TOGGLE_EXPANDED
+  TOGGLE_EXPANDED,
+  SET_EXPANDED
 } from "./types";
 
 export const initializeApp = () => async dispatch => {
@@ -93,6 +94,25 @@ export const setView = view => dispatch => {
   });
 };
 
-export const toggleExpanded = () => dispatch => {
-  dispatch({ type: TOGGLE_EXPANDED });
+export const expand = id => (dispatch, getState) => {
+  let { expanded, expandAll } = getState().settings;
+  let roomIds = getState().rooms.map(room => room.id);
+
+  expanded = expanded.includes(id)
+    ? expanded.filter(it => it !== id)
+    : [...expanded, id];
+
+  dispatch({
+    type: SET_EXPANDED,
+    payload: id
+  });
+
+  if (expanded.length == roomIds.length || expanded.length === 0 && expandAll) {
+    dispatch({ type: TOGGLE_EXPANDED, payload: roomIds });
+  }
+};
+
+export const toggleExpanded = () => (dispatch, getState) => {
+  let roomIds = getState().rooms.map(room => room.id);
+  dispatch({ type: TOGGLE_EXPANDED, payload: roomIds });
 };

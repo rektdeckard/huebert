@@ -39,11 +39,8 @@ const GroupsView = ({
         return (
           <LightsTable
             room={room}
-            lights={
-              settings.expanded
-                ? lights.filter(light => room.lights.includes(light.id))
-                : []
-            }
+            lights={ lights.filter(light => room.lights.includes(light.id)) }
+            expanded={settings.expanded.includes(room.id)}
             key={room.id}
           />
         );
@@ -55,7 +52,7 @@ const GroupsView = ({
       <LightsList
         // rooms={rooms.filter(room => room.name !== "All")}
         rooms={rooms}
-        lights={settings.expanded ? lights : []}
+        lights={settings.expandAll ? lights : []}
       />
     );
   };
@@ -82,11 +79,11 @@ const GroupsView = ({
         </div>
         <div
             className={`link item`}
-            title={`${settings.expanded ? "Collapse" : "Expand"} All`}
+            title={`${settings.expandAll ? "Collapse" : "Expand"} All`}
             onClick={toggleExpanded}
           >
             <i
-              className={`angle double ${settings.expanded ? "up" : "down"} icon`}
+              className={`angle double ${settings.expandAll ? "up" : "down"} icon`}
             ></i>
           </div>
         {/* <div className="item" style={{ width: 48 }} />
