@@ -40,10 +40,10 @@ const App = props => {
           <Menu location={props.location} />
           <Info />
           <div className={`ui ${props.settings.theme} mini icon menu`}>
-            <a
+            <div
               className={`${
                 props.settings.theme === INVERTED ? "active" : null
-              } item`}
+              } link item`}
               title="Toggle Dark Mode"
               onClick={() =>
                 props.setTheme(
@@ -52,7 +52,7 @@ const App = props => {
               }
             >
               <i className="adjust icon"></i>
-            </a>
+            </div>
           </div>
         </ToolPanel>
         <Switch>

@@ -91,10 +91,7 @@ export const setActiveGroup = group => dispatch => {
   });
 };
 
-export const deleteGroup = (id, name) => async dispatch => {
-  const confirm = window.confirm(`Delete Group ${name}?`);
-  if (!confirm) return;
-
+export const deleteGroup = id => async dispatch => {
   const response = await Hue.delete(`/groups/${id}`);
   if (response.data[0].success) {
     window.alert(`Success: ${response.data[0].success}`);
