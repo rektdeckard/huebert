@@ -7,22 +7,22 @@ import {
   toggleLight,
   setLight,
   setActiveLight,
-  alertRoom,
-  toggleRoom,
-  setRoom,
-  setActiveRoom,
+  alertGroup,
+  toggleGroup,
+  setGroup,
+  setActiveGroup,
   expand
 } from "../../actions";
 
 const LightsTable = ({
-  room,
+  group,
   lights,
   active,
   expanded,
-  setRoom,
-  alertRoom,
-  toggleRoom,
-  setActiveRoom,
+  setGroup,
+  alertGroup,
+  toggleGroup,
+  setActiveGroup,
   setLight,
   alertLight,
   toggleLight,
@@ -32,7 +32,7 @@ const LightsTable = ({
 }) => {
   const colors = [
     ...new Set(
-      room.colors
+      group.colors
         .filter(light => light.hue)
         .map(light => convertHSBToColor(light))
         .sort()
@@ -49,19 +49,19 @@ const LightsTable = ({
     }
 
     throttle.current = bri;
-    setRoom({ ...room, action: { bri } });
+    setGroup({ ...group, action: { bri } });
     setTimeout(() => {
       throttle.current = null;
     }, 400);
   };
 
   const handleClick = event => {
-    event.ctrlKey ? alertRoom(room) : setActiveRoom(room);
+    event.ctrlKey ? alertGroup(group) : setActiveGroup(group);
     event.stopPropagation();
   };
 
   const handleExpand = event => {
-    expand(room.id);
+    expand(group.id);
     event.stopPropagation();
   };
 
@@ -87,7 +87,7 @@ const LightsTable = ({
       <thead onClick={handleClick}>
         <tr
           style={
-            active.room && active.room.id === room.id
+            active.group && active.group.id === group.id
               ? { backgroundColor: "#AAAAAA24" }
               : null
           }
@@ -111,7 +111,7 @@ const LightsTable = ({
                 })`
               }}
             >
-              {room.name}
+              {group.name}
             </span>
           </th>
           <th style={{ width: "40%" }}>
@@ -121,7 +121,7 @@ const LightsTable = ({
                 type="range"
                 min={0}
                 max={254}
-                value={room.action.bri}
+                value={group.action.bri}
                 onChange={event =>
                   onChangeBrightness(Number(event.target.value))
                 }
@@ -132,8 +132,8 @@ const LightsTable = ({
             <span className="ui middle aligned toggle checkbox">
               <input
                 type="checkbox"
-                checked={room.state.any_on}
-                onChange={() => toggleRoom(room)}
+                checked={group.state.any_on}
+                onChange={() => toggleGroup(group)}
                 // disabled={!light.state.reachable}
               />
               <label></label>
@@ -143,7 +143,7 @@ const LightsTable = ({
       </thead>
       <tbody>
         {expanded ? renderRows() : null}
-        {/* {active.room && active.room.id === room.id ? renderRows() : null} */}
+        {/* {active.group && active.group.id === group.id ? renderRows() : null} */}
       </tbody>
     </table>
   );
@@ -161,9 +161,9 @@ export default connect(mapStateToProps, {
   toggleLight,
   setLight,
   setActiveLight,
-  alertRoom,
-  toggleRoom,
-  setRoom,
-  setActiveRoom,
+  alertGroup,
+  toggleGroup,
+  setGroup,
+  setActiveGroup,
   expand
 })(LightsTable);

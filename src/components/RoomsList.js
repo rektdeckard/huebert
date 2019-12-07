@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import {
-  fetchRooms,
-  alertRoom,
-  toggleRoom,
-  setRoom,
-  setActiveRoom
+  fetchGroups,
+  alertGroup,
+  toggleGroup,
+  setGroup,
+  setActiveGroup
 } from "../actions";
 import RoomItem from "./RoomItem";
 import ScenesList from "./ScenesList";
@@ -14,29 +14,29 @@ import CenterPanel from "./CenterPanel";
 import ToolPanel from './ToolPanel';
 
 const RoomsList = ({
-  rooms,
+  groups,
   active,
-  fetchRooms,
-  alertRoom,
-  toggleRoom,
-  setRoom,
-  setActiveRoom
+  fetchGroups,
+  alertGroup,
+  toggleGroup,
+  setGroup,
+  setActiveGroup
 }) => {
   useEffect(() => {
-    fetchRooms();
+    fetchGroups();
   }, []);
 
   const renderItems = () => {
-    return rooms.map(room => {
+    return groups.map(group => {
       return (
         <RoomItem
-          key={room.id}
-          room={room}
-          alert={alertRoom}
-          toggle={toggleRoom}
-          active={active.room ? room.id === active.room.id : false}
-          onSelect={setActiveRoom}
-          onDim={setRoom}
+          key={group.id}
+          group={group}
+          alert={alertGroup}
+          toggle={toggleGroup}
+          active={active.group ? group.id === active.group.id : false}
+          onSelect={setActiveGroup}
+          onDim={setGroup}
         />
       );
     });
@@ -45,17 +45,17 @@ const RoomsList = ({
   const renderControls = () => {
     return (
       <ToolPanel>
-        {active.light || active.room ? <ColorPicker /> : null}
-        {active.room ? <ScenesList /> : null}
+        {active.light || active.group ? <ColorPicker /> : null}
+        {active.group ? <ScenesList /> : null}
       </ToolPanel>
     );
   };
 
   return (
     <>
-      <CenterPanel onClick={() => setActiveRoom(null)} >
+      <CenterPanel onClick={() => setActiveGroup(null)} >
         <div className="ui three stackable link cards">
-          {rooms ? renderItems() : null}
+          {groups ? renderItems() : null}
         </div>
       </CenterPanel>
       {renderControls()}
@@ -65,15 +65,15 @@ const RoomsList = ({
 
 const mapStateToProps = state => {
   return {
-    rooms: state.rooms,
+    groups: state.groups,
     active: state.active
   };
 };
 
 export default connect(mapStateToProps, {
-  fetchRooms,
-  alertRoom,
-  toggleRoom,
-  setRoom,
-  setActiveRoom
+  fetchGroups,
+  alertGroup,
+  toggleGroup,
+  setGroup,
+  setActiveGroup
 })(RoomsList);

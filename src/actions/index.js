@@ -8,13 +8,16 @@ export {
 } from "./lightActions";
 
 export {
-  fetchRooms,
-  updateRooms,
-  setRoom,
-  alertRoom,
-  toggleRoom,
-  setActiveRoom
-} from "./roomActions";
+  fetchGroups,
+  deleteGroup,
+  updateGroups,
+  setGroup,
+  alertGroup,
+  toggleGroup,
+  addLight,
+  removeLight,
+  setActiveGroup
+} from "./groupActions";
 
 export { fetchScenes, updateScenes } from "./sceneActions";
 

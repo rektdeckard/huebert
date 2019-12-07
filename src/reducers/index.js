@@ -1,8 +1,8 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-import roomsReducer from './roomsReducer';
 import lightsReducer from './lightsReducer';
+import groupsReducer from './groupsReducer';
 import scenesReducer from './scenesReducer';
 import schedulesReducer from './schedulesReducer';
 import rulesReducer from './rulesReducer';
@@ -12,7 +12,7 @@ import settingsReducer from './settingsReducer';
 
 const rootReducer = combineReducers({
   lights: lightsReducer,
-  rooms: roomsReducer,
+  groups: groupsReducer,
   scenes: scenesReducer,
   schedules: schedulesReducer,
   rules: rulesReducer,

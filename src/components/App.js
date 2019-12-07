@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter, Switch, Route, Redirect } from "react-router-dom";
 
-import { fetchRooms, initializeApp, setTheme } from "../actions";
+import { fetchGroups, initializeApp, setTheme } from "../actions";
 import Menu from "./Menu";
 import Info from "./Info";
 import RoomsList from "./RoomsList";
@@ -16,7 +16,7 @@ const INVERTED = "inverted";
 
 const App = props => {
   // FIXME: Should use the fetchAll() function, once I make it
-  const { refresh, cancel } = useRefresh(props.fetchRooms, 5000);
+  const { refresh, cancel } = useRefresh(props.fetchGroups, 5000);
 
   useEffect(() => {
     props.initializeApp();
@@ -57,7 +57,7 @@ const App = props => {
         </ToolPanel>
         <Switch>
           <Route exact path="/" component={GroupsView} />
-          <Route exact path="/rooms" component={RoomsList} />
+          <Route exact path="/groups" component={RoomsList} />
           <Route exact path="/schedules" />
           <Route exact path="/rules" component={RulesList} />
           <Route exact path="/sensors" />
@@ -75,7 +75,7 @@ const mapStateToProps = state => {
 
 export default withRouter(
   connect(mapStateToProps, {
-    fetchRooms,
+    fetchGroups,
     initializeApp,
     setTheme
   })(App)

@@ -1,15 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchScenes, fetchRooms, setRoom } from "../actions";
+import { fetchScenes, fetchGroups, setGroup } from "../actions";
 
-const ScenesList = ({ scenes, active, setRoom, theme }) => {
-  const availableScenes = scenes.filter(scene => active.room ? scene.group === active.room.id : false)
+const ScenesList = ({ scenes, active, setGroup, theme }) => {
+  const availableScenes = scenes.filter(scene => active.group ? scene.group === active.group.id : false)
   
   const applyScene = id => {
-    // console.log(id);
-    // console.log(active);
-    if (active.room) {
-      setRoom({ id: active.room.id, action: { scene: id }})
+    if (active.group) {
+      setGroup({ id: active.group.id, action: { scene: id }})
     }
   }
 
@@ -50,4 +48,4 @@ const mapStateToProps = state => {
   return { scenes: state.scenes, active: state.active, theme: state.settings.theme };
 };
 
-export default connect(mapStateToProps, { fetchScenes, fetchRooms, setRoom })(ScenesList);
+export default connect(mapStateToProps, { fetchScenes, fetchGroups, setGroup })(ScenesList);

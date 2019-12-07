@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
   updateLights,
-  updateRooms,
+  updateGroups,
   updateScenes,
   updateRules,
   updateSchedules,
@@ -36,7 +36,7 @@ export const initializeApp = () => async dispatch => {
       settings.config = response.data.config;
 
       dispatch(updateLights(response.data.lights));
-      dispatch(updateRooms(response.data.lights, response.data.groups));
+      dispatch(updateGroups(response.data.lights, response.data.groups));
       dispatch(updateScenes(response.data.scenes));
       dispatch(updateRules(response.data.rules));
       dispatch(updateSchedules(response.data.schedules));
@@ -96,7 +96,7 @@ export const setView = view => dispatch => {
 
 export const expand = id => (dispatch, getState) => {
   let { expanded, expandAll } = getState().settings;
-  let roomIds = getState().rooms.map(room => room.id);
+  let groupIds = getState().groups.map(group => group.id);
 
   expanded = expanded.includes(id)
     ? expanded.filter(it => it !== id)
@@ -107,12 +107,12 @@ export const expand = id => (dispatch, getState) => {
     payload: id
   });
 
-  if (expanded.length == roomIds.length || expanded.length === 0 && expandAll) {
-    dispatch({ type: TOGGLE_EXPANDED, payload: roomIds });
+  if (expanded.length == groupIds.length || expanded.length === 0 && expandAll) {
+    dispatch({ type: TOGGLE_EXPANDED, payload: groupIds });
   }
 };
 
 export const toggleExpanded = () => (dispatch, getState) => {
-  let roomIds = getState().rooms.map(room => room.id);
-  dispatch({ type: TOGGLE_EXPANDED, payload: roomIds });
+  let groupIds = getState().groups.map(group => group.id);
+  dispatch({ type: TOGGLE_EXPANDED, payload: groupIds });
 };

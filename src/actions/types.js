@@ -1,6 +1,6 @@
-export const FETCH_ROOMS = "fetch_rooms";
-export const SET_ROOM = "set_room";
-export const SET_ACTIVE_ROOM = "set_active_room";
+export const FETCH_GROUPS = "fetch_groups";
+export const SET_GROUP = "set_group";
+export const SET_ACTIVE_GROUP = "set_active_group";
 
 export const FETCH_LIGHTS = "fetch_lights";
 export const SET_LIGHT = "set_light";

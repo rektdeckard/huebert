@@ -2,8 +2,11 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import {
-  fetchRooms,
-  setActiveRoom,
+  fetchGroups,
+  deleteGroup,
+  addLight,
+  removeLight,
+  setActiveGroup,
   setView,
   setTheme,
   toggleExpanded
@@ -20,41 +23,29 @@ const LIST = "list";
 
 const GroupsView = ({
   lights,
-  rooms,
+  groups,
   active,
   settings,
-  fetchRooms,
-  setActiveRoom,
+  fetchGroups,
+  deleteGroup,
+  addLight,
+  removeLight,
+  setActiveGroup,
   setView,
   toggleExpanded
 }) => {
   useEffect(() => {
-    fetchRooms();
+    fetchGroups();
   }, []);
 
-  const renderTables = () => {
-    return rooms
-      // .filter(room => room.name !== "All")
-      .map(room => {
-        return (
-          <LightsTable
-            room={room}
-            lights={ lights.filter(light => room.lights.includes(light.id)) }
-            expanded={settings.expanded.includes(room.id)}
-            key={room.id}
-          />
-        );
-      });
+  const handleCreate = () => {
+    console.log("create group");
   };
 
-  const renderCards = () => {
-    return (
-      <LightsList
-        // rooms={rooms.filter(room => room.name !== "All")}
-        rooms={rooms}
-        lights={settings.expandAll ? lights : []}
-      />
-    );
+  const handleDelete = () => {
+    if (active.group) {
+      deleteGroup(active.group.id, active.group.name);
+    }
   };
 
   const renderToolbar = () => {
@@ -78,14 +69,16 @@ const GroupsView = ({
           <i className="th icon"></i>
         </div>
         <div
-            className={`link item`}
-            title={`${settings.expandAll ? "Collapse" : "Expand"} All`}
-            onClick={toggleExpanded}
-          >
-            <i
-              className={`angle double ${settings.expandAll ? "up" : "down"} icon`}
-            ></i>
-          </div>
+          className={`link item`}
+          title={`${settings.expandAll ? "Collapse" : "Expand"} All`}
+          onClick={toggleExpanded}
+        >
+          <i
+            className={`angle double ${
+              settings.expandAll ? "up" : "down"
+            } icon`}
+          ></i>
+        </div>
         {/* <div className="item" style={{ width: 48 }} />
         <div className="menu">
           
@@ -95,31 +88,61 @@ const GroupsView = ({
           <div className={`disabled link item`} title="Edit Groups">
             <i className="edit icon"></i>
           </div>
-          <div className={`disabled link item`} title="Add Group">
+          
+        </div> */}
+        <div className="right menu">
+          <div
+            className="link item"
+            title="Create Group"
+            onClick={handleCreate}
+          >
             <i className="plus icon"></i>
           </div>
-        </div>
-        <div className="right menu">
-          <div className={`disabled link item`} title="Delete">
+          <div
+            className={`${
+              active.light || active.group ? null : "disabled"
+            } link item`}
+            title="Delete"
+            onClick={handleDelete}
+          >
             <i className="trash icon"></i>
           </div>
-        </div> */}
+        </div>
       </div>
+    );
+  };
+
+  const renderTables = () => {
+    return groups.map(group => {
+      return (
+        <LightsTable
+          group={group}
+          lights={lights.filter(light => group.lights.includes(light.id))}
+          expanded={settings.expanded.includes(group.id)}
+          key={group.id}
+        />
+      );
+    });
+  };
+
+  const renderCards = () => {
+    return (
+      <LightsList groups={groups} lights={settings.expandAll ? lights : []} />
     );
   };
 
   const renderControls = () => {
     return (
       <ToolPanel>
-        {active.light || active.room ? <ColorPicker /> : null}
-        {active.room ? <ScenesList /> : null}
+        {active.light || active.group ? <ColorPicker /> : null}
+        {active.group ? <ScenesList /> : null}
       </ToolPanel>
     );
   };
 
   return (
     <>
-      <CenterPanel onClick={() => setActiveRoom(null)}>
+      <CenterPanel onClick={() => setActiveGroup(null)}>
         {renderToolbar()}
         {settings.view === CARD ? renderCards() : renderTables()}
       </CenterPanel>
@@ -131,15 +154,18 @@ const GroupsView = ({
 const mapStateToProps = state => {
   return {
     lights: state.lights,
-    rooms: state.rooms,
+    groups: state.groups,
     active: state.active,
     settings: state.settings
   };
 };
 
 export default connect(mapStateToProps, {
-  fetchRooms,
-  setActiveRoom,
+  fetchGroups,
+  deleteGroup,
+  addLight,
+  removeLight,
+  setActiveGroup,
   setView,
   setTheme,
   toggleExpanded

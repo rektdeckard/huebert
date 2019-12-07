@@ -1,4 +1,4 @@
-import { SET_ACTIVE_LIGHT, SET_ACTIVE_ROOM } from "../actions/types";
+import { SET_ACTIVE_LIGHT, SET_ACTIVE_GROUP } from "../actions/types";
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -7,11 +7,11 @@ export default (state = {}, action) => {
         return {};
       }
       return { light: action.payload };
-    case SET_ACTIVE_ROOM:
-      if (state.room === action.payload) {
+    case SET_ACTIVE_GROUP:
+      if (state.group === action.payload) {
         return {};
       }
-      return { room: action.payload };
+      return { group: action.payload };
     default:
       return state;
   }
