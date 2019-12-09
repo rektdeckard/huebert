@@ -103,14 +103,14 @@ var Saturation = exports.Saturation = function (_ref) {
             position: 'absolute',
             top: -(this.props.hsv.v * 100) + 100 + '%',
             left: this.props.hsv.s * 100 + '%',
-            cursor: 'default'
+            cursor: 'grab'
           },
           circle: {
-            width: '4px',
-            height: '4px',
+            width: '5px',
+            height: '5px',
             boxShadow: '0 0 0 1.5px #fff, inset 0 0 1px 1px rgba(0,0,0,.3),\n            0 0 1px 2px rgba(0,0,0,.4)',
             borderRadius: '50%',
-            cursor: 'hand',
+            cursor: 'grab',
             transform: 'translate(-2px, -2px)'
           }
         },
