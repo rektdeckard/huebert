@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { Button, Header, Icon, Modal, Menu } from "semantic-ui-react";
 
 import {
   fetchGroups,
@@ -44,43 +45,42 @@ const GroupsView = ({
 
   const handleDelete = () => {
     if (active.group) {
-      const confirm = window.confirm(`Delete Group ${active.group.name}?`);
-      if (!confirm) return;
       deleteGroup(active.group.id, active.group.name);
-    };
+      setActiveGroup(null);
+    } else if (active.light) {
+      // TODO: implement remove handleDelete from LightsTable
+      return;
+    }
   };
 
   const renderToolbar = () => {
     return (
-      <div
-        className={`ui ${settings.theme} mini icon menu`}
+      <Menu
+        inverted={settings.theme === "inverted"}
+        size="mini"
+        icon
         onClick={e => e.stopPropagation()}
       >
-        <div
-          className={`${settings.view !== CARD ? "active" : null} link item`}
+        <Menu.Item
+          link
+          active={settings.view !== CARD}
           title="List View"
+          icon="list"
           onClick={() => setView(LIST)}
-        >
-          <i className="list icon"></i>
-        </div>
-        <div
-          className={`${settings.view === CARD ? "active" : null} link item`}
+        />
+        <Menu.Item
+          link
+          active={settings.view === CARD}
+          icon="th"
           title="Card View"
           onClick={() => setView(CARD)}
-        >
-          <i className="th icon"></i>
-        </div>
-        <div
-          className={`link item`}
+        />
+        <Menu.Item
+          link
           title={`${settings.expandAll ? "Collapse" : "Expand"} All`}
+          icon={`angle double ${settings.expandAll ? "up" : "down"}`}
           onClick={toggleExpanded}
-        >
-          <i
-            className={`angle double ${
-              settings.expandAll ? "up" : "down"
-            } icon`}
-          ></i>
-        </div>
+        />
         {/* <div className="item" style={{ width: 48 }} />
         <div className="menu">
           
@@ -92,25 +92,44 @@ const GroupsView = ({
           </div>
           
         </div> */}
-        <div className="right menu">
-          <div
-            className="link item"
+        <Menu.Menu position="right">
+          <Menu.Item
+            link
+            disabled
             title="Create Group"
+            icon="plus"
             onClick={handleCreate}
-          >
-            <i className="plus icon"></i>
-          </div>
-          <div
-            className={`${
-              active.light || active.group ? null : "disabled"
-            } link item`}
-            title="Delete"
-            onClick={handleDelete}
-          >
-            <i className="trash icon"></i>
-          </div>
-        </div>
-      </div>
+          />
+          <Modal
+            size="small"
+            dimmer={settings.theme === "inverted" ? true : "inverted"}
+            trigger={
+              <Menu.Item
+                link
+                disabled={!(active.light || active.group)}
+                title="Delete"
+                icon="trash"
+              />
+            }
+            content={`Are you sure you want to delete ${
+              active.group
+                ? active.group.name
+                : active.light
+                ? active.light.name
+                : null
+            }?`}
+            actions={[
+              "Cancel",
+              {
+                key: "done",
+                content: "Delete",
+                negative: true,
+                onClick: handleDelete
+              }
+            ]}
+          />
+        </Menu.Menu>
+      </Menu>
     );
   };
 

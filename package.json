@@ -20,6 +20,7 @@
     "reactcss": "^1.2.3",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
+    "semantic-ui-react": "^0.88.2",
     "text-contrast": "^1.0.2",
     "tinycolor": "^0.0.1"
   },

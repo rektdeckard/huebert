@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import { convertHSBToColor, compatibleText } from "../utils";
 
-const RoomItem = ({ room, toggle, alert, active, onSelect, onDim }) => {
+const RoomItem = ({ group, toggle, alert, active, onSelect, onDim }) => {
   const colors = [
     ...new Set(
-      room.colors
+      group.colors
         .filter(light => light.hue)
         .map(light => convertHSBToColor(light))
         .sort()
@@ -21,20 +21,20 @@ const RoomItem = ({ room, toggle, alert, active, onSelect, onDim }) => {
     }
 
     throttle.current = bri;
-    onDim({ ...room, action: { bri } });
+    onDim({ ...group, action: { bri } });
     setTimeout(() => {
       throttle.current = null;
     }, 500);
   };
 
   const handleSelect = event => {
-    onSelect(room);
+    onSelect(group);
     event.stopPropagation();
   };
 
   const handleAlert = event => {
     if (event.ctrlKey) {
-      alert(room);
+      alert(group);
       event.stopPropagation();
     }
   }
@@ -55,7 +55,7 @@ const RoomItem = ({ room, toggle, alert, active, onSelect, onDim }) => {
           style={{ color: textColor, opacity: 0.7, userSelect: "none" }}
           onClick={handleAlert}
         >
-          {room.name}
+          {group.name}
           <span className="ui right floated icon">
             <i
               className={`${active ? "check" : null} icon`}
@@ -71,7 +71,7 @@ const RoomItem = ({ room, toggle, alert, active, onSelect, onDim }) => {
             type="range"
             min={0}
             max={254}
-            value={room.action.bri}
+            value={group.action.bri}
             onChange={event => onChangeBrightness(Number(event.target.value))}
           />
         </div>
@@ -80,8 +80,8 @@ const RoomItem = ({ room, toggle, alert, active, onSelect, onDim }) => {
         <span className="ui fitted right floated toggle checkbox">
           <input
             type="checkbox"
-            checked={room.state.any_on}
-            onChange={() => toggle(room)}
+            checked={group.state.any_on}
+            onChange={() => toggle(group)}
             // disabled={!light.state.reachable}
           />
           <label></label>
