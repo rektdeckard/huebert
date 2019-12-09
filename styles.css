@@ -15,6 +15,7 @@
   /* opacity: 0.7; Set transparency (for mouse-over effects on hover) */
   -webkit-transition: .2s; /* 0.2 seconds transition on hover */
   transition: opacity .2s;
+  cursor: pointer;
 }
 
 /* Mouse-over effects */
@@ -29,27 +30,40 @@
   width: 20px; /* Set a specific slider handle width */
   height: 20px; /* Slider handle height */
   border-radius: 10px;
-  /* background: #F6F6F6; */
-  /* background: #2185D0; 
-  -webkit-box-shadow: 0 1px 2px 0 rgba(34,36,38,.15),0 0 0 1px rgba(34,36,38,.15);
-  box-shadow: 0 1px 2px 0 rgba(34,36,38,.15),0 0 0 1px rgba(34,36,38,.15); */
   background:#fff -webkit-gradient(linear,left top,left bottom,from(transparent),to(rgba(0,0,0,.05)));
   background:#fff -webkit-linear-gradient(transparent,rgba(0,0,0,.05));
   background:#fff linear-gradient(transparent,rgba(0,0,0,.05));
   border-radius:100%;-webkit-box-shadow:0 1px 2px 0 rgba(34,36,38,.15),0 0 0 1px rgba(34,36,38,.15) inset;
   box-shadow:0 1px 2px 0 rgba(34,36,38,.15),0 0 0 1px rgba(34,36,38,.15) inset;
   -webkit-transition:background .3s ease;transition:background .3s ease;
-  cursor: pointer; /* Cursor on hover */
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab; /* Cursor on hover */
+  cursor: -webkit-grab; 
+}
+
+.slide::-moz-range-thumb:active {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
 }
 
 .slide::-moz-range-thumb {
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
-  border-radius: 8px;
-  background: #2185D0; /* Green background */
+  width: 20px; /* Set a specific slider handle width */
+  height: 20px; /* Slider handle height */
+  border-radius: 10px;
+  background:#fff linear-gradient(transparent,rgba(0,0,0,.05));
+  border-radius: 100%;
   box-shadow: 0 1px 2px 0 rgba(34,36,38,.15),0 0 0 1px rgba(34,36,38,.15);
-  cursor: pointer; /* Cursor on hover */
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab; /* Cursor on hover */
+  cursor: -moz-grab;
 } 
+
+.slide::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
 
 /* .ui.toggle.checkbox input:checked~.box:before, .ui.toggle.checkbox input:checked~label:before {
   background-color: #FFFFFF!important;
