@@ -47,6 +47,7 @@ const GroupsView = ({
       const confirm = window.confirm(`Delete Group ${active.group.name}?`);
       if (!confirm) return;
       deleteGroup(active.group.id, active.group.name);
+      setActiveGroup(null);
     };
   };
 

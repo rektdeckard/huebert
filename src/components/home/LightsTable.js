@@ -98,7 +98,8 @@ const LightsTable = ({
               <label></label>
             </div> */}
             <i 
-              className={`caret ${expanded ? "down" : "right"} icon`} 
+              className={`caret ${expanded ? "down" : "right"} icon`}
+              style={{ cursor: "pointer" }}
               onClick={handleExpand}
             />
             <span
@@ -106,6 +107,7 @@ const LightsTable = ({
               style={{
                 color: textColor,
                 width: "90%",
+                cursor: "pointer",
                 backgroundImage: `linear-gradient(to right, ${
                   colors.length > 1 ? colors : [colors[0], colors[0]]
                 })`
