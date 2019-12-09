@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { Menu, Label } from 'semantic-ui-react';
 
 const NavigationMenu = ({ lights, rooms, schedules, rules, sensors, location, theme }) => {
   const isActive = path => {
@@ -8,31 +9,31 @@ const NavigationMenu = ({ lights, rooms, schedules, rules, sensors, location, th
   };
 
   return (
-    <div className={`ui fluid ${theme} vertical menu`}>
-      <Link className={`item ${isActive("/home")}`} to="/">
+    <Menu 
+      fluid
+      vertical
+      inverted={theme === "inverted"}
+    >
+      <Link className={`item ${isActive("/")}`} to="/">
         Home
-        <div className="ui label blue">{lights.length}</div>
+        <Label color="blue">{lights.length}</Label>
       </Link>
-      {/* <Link className={`item ${isActive("/groups")}`} to="/groups">
-        Groups
-        <div className="ui label blue">{rooms.length}</div>
-      </Link> */}
       <Link className={`disabled item ${isActive("/schedules")}`} to="/schedules">
         Schedules
-        <div className="ui label blue">{schedules.length}</div>
+        <Label color="blue">{schedules.length}</Label>
       </Link>
       <Link className={`disabled item ${isActive("/rules")}`} to="/rules">
         Rules
-        <div className="ui label blue">{rules.length}</div>
+        <Label color="blue">{rules.length}</Label>
       </Link>
       <Link className={`disabled item ${isActive("/sensors")}`} to="/sensors">
         Sensors
-        <div className="ui label blue">{sensors.length}</div>
+        <Label color="blue">{sensors.length}</Label>
       </Link>
       <Link className={`item ${isActive("/settings")}`} to="/settings">
         Settings
       </Link>
-    </div>
+    </Menu>
   );
 };
 
