@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { convertHSBToColor, compatibleText } from "../../utils";
 
-const LightItem = ({ light, toggle, alert, active, onSelect, onDim }) => {
+const LightItem = ({ light, group, toggle, alert, active, onSelect, onDim }) => {
   const color = convertHSBToColor(light.state);
   const textColor = compatibleText(color);
 
@@ -20,7 +20,7 @@ const LightItem = ({ light, toggle, alert, active, onSelect, onDim }) => {
   };
 
   const handleSelect = event => {
-    onSelect(light);
+    onSelect(light, group);
     event.stopPropagation();
   };
 

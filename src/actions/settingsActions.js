@@ -107,7 +107,7 @@ export const expand = id => (dispatch, getState) => {
     payload: id
   });
 
-  if (expanded.length == groupIds.length || expanded.length === 0 && expandAll) {
+  if (expanded.length === groupIds.length || (expanded.length === 0 && expandAll)) {
     dispatch({ type: TOGGLE_EXPANDED, payload: groupIds });
   }
 };

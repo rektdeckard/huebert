@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter, Switch, Route, Redirect } from "react-router-dom";
+import { Grid, Menu } from "semantic-ui-react";
 
 import { fetchGroups, initializeApp, setTheme } from "../actions";
-import Menu from "./Menu";
+import NavigationMenu from "./NavigationMenu";
 import Info from "./Info";
 import RoomsList from "./RoomsList";
 import RulesList from "./RulesList";
@@ -32,28 +33,22 @@ const App = props => {
         backgroundColor: props.settings.theme === INVERTED ? "#080808" : "white"
       }}
     >
-      <div
-        className="ui grid"
-        style={{ overflowY: "hidden", height: "99.5vh" }}
-      >
+      <Grid style={{ overflowY: "hidden", height: "99.5vh" }}>
         <ToolPanel>
-          <Menu location={props.location} />
+          <NavigationMenu location={props.location} />
           <Info />
-          <div className={`ui ${props.settings.theme} mini icon menu`}>
-            <div
-              className={`${
-                props.settings.theme === INVERTED ? "active" : null
-              } link item`}
+          <Menu inverted={props.settings.theme === INVERTED} size="mini" icon>
+            <Menu.Item
+              active={props.settings.theme === INVERTED}
               title="Toggle Dark Mode"
+              icon="adjust"
               onClick={() =>
                 props.setTheme(
                   props.settings.theme === INVERTED ? null : INVERTED
                 )
               }
-            >
-              <i className="adjust icon"></i>
-            </div>
-          </div>
+            />
+          </Menu>
         </ToolPanel>
         <Switch>
           <Route exact path="/" component={GroupsView} />
@@ -62,9 +57,9 @@ const App = props => {
           <Route exact path="/rules" component={RulesList} />
           <Route exact path="/sensors" />
           <Route exact path="/settings" component={Setup} />
-          <Redirect to={!props.settings.config ? "/" : "/settings"} />
+          <Redirect to={!props.settings.config ? "/settings" : "/"} />
         </Switch>
-      </div>
+      </Grid>
     </div>
   );
 };

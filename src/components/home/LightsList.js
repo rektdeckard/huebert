@@ -81,7 +81,7 @@ const LightsList = ({
             </div> */}
             <div className="ui three doubling stackable link cards">
               {renderItems(
-                lights.filter(light => group.lights.includes(light.id))
+                lights.filter(light => group.lights.includes(light.id)), group
               )}
             </div>
             {/* <div className="ui stackable link cards"><div className="fluid card">sadfsad</div></div> */}
@@ -90,12 +90,13 @@ const LightsList = ({
       });
   };
 
-  const renderItems = lights => {
+  const renderItems = (lights, group) => {
     return lights.map(light => {
       return (
         <LightItem
           key={light.id}
           light={light}
+          group={group}
           toggle={toggleLight}
           alert={alertLight}
           active={active.light ? light.id === active.light.id : false}

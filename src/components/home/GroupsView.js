@@ -117,7 +117,8 @@ const GroupsView = ({
                       {
                         key: "e",
                         text: "Entertainment",
-                        value: "Entertainment"
+                        value: "Entertainment",
+                        disabled: true
                       }
                     ]}
                   />

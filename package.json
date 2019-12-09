@@ -1,6 +1,6 @@
 {
   "name": "huebert-web",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "homepage": "https://rektdeckard.github.io/huebert/",
   "private": true,
   "dependencies": {

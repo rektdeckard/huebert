@@ -91,6 +91,11 @@ export const setActiveGroup = group => dispatch => {
   });
 };
 
+export const createGroup = group => async dispatch => {
+  await Hue.post("/groups", group);
+  dispatch(fetchGroups());
+};
+
 export const deleteGroup = id => async dispatch => {
   const response = await Hue.delete(`/groups/${id}`);
   if (response.data[0].error) {
@@ -106,10 +111,9 @@ export const addLight = (group, light) => async dispatch => {
 };
 
 export const removeLight = light => async dispatch => {
-  const response = await Hue.put(
-    `/groups/${light.group.id}`,
-    { lights: light.group.lights.filter(id => id !== light.id) }
-  );
+  const response = await Hue.put(`/groups/${light.group.id}`, {
+    lights: light.group.lights.filter(id => id !== light.id)
+  });
   // console.log(response);
   // TODO: check for errors and display relevant popup
   dispatch(fetchGroups());

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-const Menu = ({ lights, rooms, schedules, rules, sensors, location, theme }) => {
+const NavigationMenu = ({ lights, rooms, schedules, rules, sensors, location, theme }) => {
   const isActive = path => {
     return path === location.pathname ? "active" : "";
   };
@@ -47,4 +47,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {})(Menu);
+export default connect(mapStateToProps, {})(NavigationMenu);
