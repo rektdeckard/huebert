@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Button, Header, Icon, Modal, Menu } from "semantic-ui-react";
+import { Modal, Form, Menu } from "semantic-ui-react";
 
 import {
   fetchGroups,
@@ -48,8 +48,7 @@ const GroupsView = ({
       deleteGroup(active.group.id, active.group.name);
       setActiveGroup(null);
     } else if (active.light) {
-      // TODO: implement remove handleDelete from LightsTable
-      return;
+      removeLight(active.light);
     }
   };
 
@@ -93,12 +92,58 @@ const GroupsView = ({
           
         </div> */}
         <Menu.Menu position="right">
-          <Menu.Item
-            link
-            disabled
-            title="Create Group"
-            icon="plus"
-            onClick={handleCreate}
+          <Modal
+            size="small"
+            as={Form}
+            dimmer={settings.theme === "inverted" ? true : "inverted"}
+            trigger={<Menu.Item link title="Create Group" icon="plus" />}
+            header={{ icon: "plus", content: "Create Group" }}
+            content={
+              <Modal.Content>
+                <Form.Group widths="equal">
+                  <Form.Input
+                    name="group"
+                    label="Group Name"
+                    placeholder="My Group"
+                  />
+                  <Form.Select
+                    name="type"
+                    label="Type"
+                    placeholder="LightGroup"
+                    options={[
+                      { key: "l", text: "LightGroup", value: "LightGroup" },
+                      { key: "r", text: "Room", value: "Room" },
+                      { key: "z", text: "Zone", value: "Zone" },
+                      {
+                        key: "e",
+                        text: "Entertainment",
+                        value: "Entertainment"
+                      }
+                    ]}
+                  />
+                </Form.Group>
+                <Form.Dropdown
+                  name="lights"
+                  label="Lights"
+                  placeholder="Select Lights"
+                  search
+                  multiple
+                  selection
+                  options={lights.map(light => {
+                    return { text: light.name, value: light.id };
+                  })}
+                />
+              </Modal.Content>
+            }
+            actions={[
+              "Cancel",
+              {
+                key: "done",
+                content: "Save",
+                positive: true,
+                onClick: handleCreate
+              }
+            ]}
           />
           <Modal
             size="small"
@@ -111,13 +156,14 @@ const GroupsView = ({
                 icon="trash"
               />
             }
+            header={`Delete ${active.group ? "Group" : "Light"}`}
             content={`Are you sure you want to delete ${
               active.group
                 ? active.group.name
                 : active.light
-                ? active.light.name
+                ? active.light.name + " from " + active.light.group.name
                 : null
-            }?`}
+            }? This action cannot be undone.`}
             actions={[
               "Cancel",
               {

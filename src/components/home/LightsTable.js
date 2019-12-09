@@ -70,6 +70,7 @@ const LightsTable = ({
       return (
         <LightRow
           light={light}
+          group={group}
           active={active.light && active.light.id === light.id}
           setLight={setLight}
           setActiveLight={setActiveLight}

@@ -3,6 +3,7 @@ import { convertHSBToColor, compatibleText } from "../../utils";
 
 const LightRow = ({
   light,
+  group,
   active,
   setLight,
   setActiveLight,
@@ -27,7 +28,7 @@ const LightRow = ({
   };
 
   const handleClick = event => {
-    event.ctrlKey ? alertLight(light) : setActiveLight(light);
+    event.ctrlKey ? alertLight(light) : setActiveLight(light, group);
     event.stopPropagation();
   };
 

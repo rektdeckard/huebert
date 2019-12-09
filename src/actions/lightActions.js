@@ -38,9 +38,9 @@ export const toggleLight = light => async dispatch => {
   dispatch(fetchLights());
 };
 
-export const setActiveLight = light => dispatch => {
+export const setActiveLight = (light, group) => dispatch => {
   dispatch({
     type: SET_ACTIVE_LIGHT,
-    payload: light
+    payload: { ...light, group }
   });
 };

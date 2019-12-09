@@ -105,10 +105,12 @@ export const addLight = (group, light) => async dispatch => {
   dispatch(fetchGroups());
 };
 
-export const removeLight = (group, light) => async dispatch => {
-  await Hue.put(
-    `/groups/${group.id}/lights`,
-    group.lights.filter(id => id !== light.id)
+export const removeLight = light => async dispatch => {
+  const response = await Hue.put(
+    `/groups/${light.group.id}`,
+    { lights: light.group.lights.filter(id => id !== light.id) }
   );
+  // console.log(response);
+  // TODO: check for errors and display relevant popup
   dispatch(fetchGroups());
 };
