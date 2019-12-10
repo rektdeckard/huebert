@@ -17,7 +17,7 @@ import {
 import { initializeApp, resetApp, createUser } from "../actions";
 import FullPanel from "./FullPanel";
 
-const Setup = ({ settings, createUser }) => {
+const SettingsView = ({ settings, createUser }) => {
   const [deviceAddress, setDeviceAddress] = useState("");
 
   useEffect(() => {
@@ -238,4 +238,4 @@ const mapStateToProps = state => {
   return { settings: state.settings };
 };
 
-export default connect(mapStateToProps, { createUser, resetApp })(Setup);
+export default connect(mapStateToProps, { createUser, resetApp })(SettingsView);

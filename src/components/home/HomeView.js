@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, createRef } from "react";
 import { connect } from "react-redux";
-import { Menu } from "semantic-ui-react";
+import { Menu, Sticky, Ref } from "semantic-ui-react";
 
 import {
   fetchGroups,
@@ -24,7 +24,7 @@ import DeleteItemModal from "../modals/DeleteItemModal";
 const CARD = "card";
 const LIST = "list";
 
-const GroupsView = ({
+const HomeView = ({
   lights,
   groups,
   active,
@@ -37,13 +37,11 @@ const GroupsView = ({
   setView,
   toggleExpanded
 }) => {
+  const contextRef = createRef();
+
   useEffect(() => {
     fetchGroups();
   }, []);
-
-  const handleCreate = () => {
-    console.log("create group");
-  };
 
   const handleDelete = () => {
     if (active.group) {
@@ -97,7 +95,6 @@ const GroupsView = ({
           <CreateGroupModal
             lights={lights}
             theme={settings.theme}
-            onSubmit={handleCreate}
             trigger={<Menu.Item link title="Create Group" icon="plus" />}
           />
           <DeleteItemModal
@@ -139,10 +136,14 @@ const GroupsView = ({
 
   return (
     <>
-      <CenterPanel onClick={() => setActiveGroup(null)}>
-        {renderToolbar()}
-        {settings.view === CARD ? renderCards() : renderTables()}
-      </CenterPanel>
+      <Ref innerRef={contextRef}>
+        <CenterPanel onClick={() => setActiveGroup(null)}>
+          <Sticky context={contextRef} offset={16}>
+            {renderToolbar()}
+          </Sticky>
+          {settings.view === CARD ? renderCards() : renderTables()}
+        </CenterPanel>
+      </Ref>
       <ToolPanel>
         {active.light || active.group ? <ColorPicker /> : null}
         {active.group ? <ScenesList /> : null}
@@ -169,4 +170,4 @@ export default connect(mapStateToProps, {
   setView,
   setTheme,
   toggleExpanded
-})(GroupsView);
+})(HomeView);

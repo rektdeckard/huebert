@@ -4,14 +4,14 @@ import { withRouter, Switch, Route, Redirect } from "react-router-dom";
 import { Grid, Menu } from "semantic-ui-react";
 
 import { fetchGroups, initializeApp, setTheme } from "../actions";
+import useRefresh from "../hooks/useRefresh";
+import ToolPanel from "./ToolPanel";
 import NavigationMenu from "./NavigationMenu";
 import Info from "./Info";
-import RulesList from "./RulesList";
-import Setup from "./Setup";
-import useRefresh from "../hooks/useRefresh";
-import GroupsView from "./home/GroupsView";
-import RoomsList from "./home/RoomsList";
-import ToolPanel from "./ToolPanel";
+import HomeView from "./home/HomeView";
+import RulesView from "./RulesView";
+import SettingsView from "./SettingsView";
+import SchedulesView from "./SchedulesView";
 
 const INVERTED = "inverted";
 
@@ -51,12 +51,11 @@ const App = props => {
           </Menu>
         </ToolPanel>
         <Switch>
-          <Route exact path="/" component={GroupsView} />
-          <Route exact path="/groups" component={RoomsList} />
-          <Route exact path="/schedules" />
-          <Route exact path="/rules" component={RulesList} />
+          <Route exact path="/" component={HomeView} />
+          <Route exact path="/schedules" component={SchedulesView}/>
+          <Route exact path="/rules" component={RulesView} />
           <Route exact path="/sensors" />
-          <Route exact path="/settings" component={Setup} />
+          <Route exact path="/settings" component={SettingsView} />
           <Redirect to={!props.settings.config ? "/settings" : "/"} />
         </Switch>
       </Grid>
