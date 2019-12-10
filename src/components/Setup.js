@@ -1,12 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import {
+  Segment,
+  Accordion,
+  Label,
+  Header,
+  Icon,
+  Form,
+  Divider,
+  List,
+  Input,
+  Button
+} from "semantic-ui-react";
+
 import { initializeApp, resetApp, createUser } from "../actions";
 import FullPanel from "./FullPanel";
 
 const Setup = ({ settings, createUser }) => {
   const [deviceAddress, setDeviceAddress] = useState("");
-  const [expanded, setExpanded] = useState(null);
 
   useEffect(() => {
     discoverDevices();
@@ -27,14 +39,6 @@ const Setup = ({ settings, createUser }) => {
     createUser(deviceAddress);
   };
 
-  const expand = index => {
-    if (index === expanded) {
-      setExpanded(null);
-    } else {
-      setExpanded(index);
-    }
-  };
-
   const renderMessage = () => {
     if (settings.error) {
       return (
@@ -43,9 +47,7 @@ const Setup = ({ settings, createUser }) => {
             settings.theme === "inverted" ? "inverted red" : "error"
           } message`}
         >
-          {/* <i className="close icon" onClick={settingsializeApp}></i> */}
           <div className="header">Error: {settings.error}</div>
-          {/* <p>{settings.error}</p> */}
         </div>
       );
     }
@@ -57,7 +59,6 @@ const Setup = ({ settings, createUser }) => {
           } message`}
         >
           <div className="header">Device connected</div>
-          {/* <p>Device connected</p> */}
         </div>
       );
     }
@@ -72,26 +73,13 @@ const Setup = ({ settings, createUser }) => {
     );
   };
 
-  const renderHelp = () => {
-    return (
-      <div className={`ui ${settings.theme} segment`}>
-        <div
-          className={`ui top attached ${
-            settings.theme === "inverted" ? "black" : null
-          } label`}
-        >
-          HELP
-        </div>
-        <div className={`ui fluid ${settings.theme} accordion`}>
-          {/* <div className="ui top attached label">Help</div> */}
-          <div
-            className={`${expanded === 0 ? "active" : null} title`}
-            onClick={() => expand(0)}
-          >
-            <i className="dropdown icon"></i>
-            Finding your Device IP
-          </div>
-          <div className={`${expanded === 0 ? "active" : null} content`}>
+  const helpPanels = [
+    {
+      key: "finding-ip",
+      title: "Finding your Device IP",
+      content: {
+        content: (
+          <div>
             <div>
               If your device is not automatically discovered, you must manually
               enter the device IP address above.
@@ -100,7 +88,7 @@ const Setup = ({ settings, createUser }) => {
               Your IP address can be found by using one of the following
               methods:
             </div>
-            <div className="ui divider" />
+            <Divider />
             <div>
               Use the{" "}
               <a
@@ -110,23 +98,29 @@ const Setup = ({ settings, createUser }) => {
               >
                 Hue Discovery Tool
               </a>
-              <div className={`ui ${settings.theme} ordered list`}>
-                <div className="item">
-                  In a browser, visit the Discovery Tool, making sure you are on
-                  the same network as your device
-                </div>
-                <div className="item">
-                  If a device is found, the IP address will appear next to{" "}
-                  <code>"internalipaddress":</code>
-                </div>
-              </div>
+              <List
+                ordered
+                inverted={settings.theme === "inverted"}
+                items={[
+                  "In a browser, visit the Discovery Tool, making sure you are on the same network as your device",
+                  {
+                    key: "ip-2",
+                    content: (
+                      <>
+                        If a device is found, the IP address will appear next to{" "}
+                        <code>"internalipaddress":</code>
+                      </>
+                    )
+                  }
+                ]}
+              ></List>
             </div>
-            <div className="ui divider" />
+            <Divider />
             <div>
               Log into your wireless router and look Philips Hue up in the DHCP
               table
             </div>
-            <div className="ui divider" />
+            <Divider />
             <div>
               Use the official{" "}
               <a
@@ -136,37 +130,41 @@ const Setup = ({ settings, createUser }) => {
               >
                 Hue App
               </a>
-              <div className={`ui ${settings.theme} ordered list`}>
-                <div className="item">
-                  Download the official Philips Hue app
-                </div>
-                <div className="item">
-                  Connect your phone to the network the hue bridge is on
-                </div>
-                <div className="item">Start the hue app</div>
-                <div className="item">Push link connect to the bridge</div>
-                <div className="item">
-                  Go to <b> Settings > My Bridge > Network </b> and switch off
-                  the DHCP toggle
-                </div>
-                <div className="item">
-                  Note the IP address, then switch DHCP back on
-                </div>
-              </div>
+              <List
+                ordered
+                inverted={settings.theme === "inverted"}
+                items={[
+                  "Download the official Philips Hue app",
+                  "Connect your phone to the network the hue bridge is on",
+                  "Start the hue app",
+                  "Push link connect to the bridge",
+                  {
+                    key: "setup-5",
+                    content: (
+                      <>
+                        Go to <b> Settings > My Bridge > Network </b> and switch
+                        off the DHCP toggle
+                      </>
+                    )
+                  },
+                  "Note the IP address, then switch DHCP back on"
+                ]}
+              />
             </div>
-            <div className="ui divider" />
+            <Divider />
             <div>
               Use a UPnP discovery app to find Philips Hue in your network
             </div>
           </div>
-          <div
-            className={`${expanded === 1 ? "active" : null} title`}
-            onClick={() => expand(1)}
-          >
-            <i className="dropdown icon"></i>
-            Connecting to your Philips Hue Bridge
-          </div>
-          <div className={`${expanded === 1 ? "active" : null} content`}>
+        )
+      }
+    },
+    {
+      key: "connecting-to-bridge",
+      title: "Connecting to your Philips Hue Bridge",
+      content: {
+        content: (
+          <div>
             Your device should be automatically detected if it is on the same
             network as your computer. If you are on the same network and still
             do not see a Device IP, try obtaining it using one of the methods
@@ -184,45 +182,55 @@ const Setup = ({ settings, createUser }) => {
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        )
+      }
+    }
+  ];
+
+  const renderHelp = () => {
+    return (
+      <Segment inverted={settings.theme === "inverted"}>
+        <Label
+          attached="top"
+          color={settings.theme === "inverted" ? "black" : null}
+          content="HELP"
+        />
+        <Accordion
+          fluid
+          inverted={settings.theme === "inverted"}
+          panels={helpPanels}
+        />
+      </Segment>
     );
   };
 
   return (
     <FullPanel>
       {renderMessage()}
-      <div className={`ui ${settings.theme} placeholder segment`}>
-        <div
-          className={`ui top attached ${
-            settings.theme === "inverted" ? "black" : null
-          } label`}
-        >
-          DEVICE SETUP
-        </div>
-        <div className="ui icon header">
-          <i className={deviceAddress ? "wifi icon" : "exclamation icon"} />
+      <Segment placeholder inverted={settings.theme === "inverted"}>
+        <Label
+          attached="top"
+          color={settings.theme === "inverted" ? "black" : null}
+          content="DEVICE SETUP"
+        />
+        <Header icon>
+          <Icon name={deviceAddress ? "wifi" : "exclamation"} />
           Connect to Philips Hue
-        </div>
-        <form className="form" onSubmit={handleSubmit}>
-          <div className="field">
-            <div className="ui inline labeled action input">
-              <div className="ui label">http://</div>
-              <input
-                type="text"
-                placeholder={deviceAddress || "Device IP Address"}
-                value={deviceAddress}
-                onChange={event => setDeviceAddress(event.target.value)}
-              />
-              <button type="submit" value="Submit" className="ui button blue">
-                Connect
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
+        </Header>
+        <Form onSubmit={handleSubmit}>
+          <Form.Field>
+            <Input 
+              action={<Button type="submit" color="blue" content="Connect" />}
+              label="http://"
+              placeholder={deviceAddress || "Device IP Address"} 
+              value={deviceAddress}
+              onChange={event => setDeviceAddress(event.target.value)}
+            />
+          </Form.Field>
+        </Form>
+      </Segment>
       {renderHelp()}
-      </FullPanel>
+    </FullPanel>
   );
 };
 

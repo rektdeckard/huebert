@@ -12,7 +12,7 @@ import {
   setActiveGroup
 } from "../../actions";
 import LightItem from "./LightItem";
-import RoomItem from "../RoomItem";
+import RoomItem from "./RoomItem";
 
 const LightsList = ({
   lights,

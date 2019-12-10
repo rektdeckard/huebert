@@ -199,22 +199,16 @@ const GroupsView = ({
     );
   };
 
-  const renderControls = () => {
-    return (
-      <ToolPanel>
-        {active.light || active.group ? <ColorPicker /> : null}
-        {active.group ? <ScenesList /> : null}
-      </ToolPanel>
-    );
-  };
-
   return (
     <>
       <CenterPanel onClick={() => setActiveGroup(null)}>
         {renderToolbar()}
         {settings.view === CARD ? renderCards() : renderTables()}
       </CenterPanel>
-      {renderControls()}
+      <ToolPanel>
+        {active.light || active.group ? <ColorPicker /> : null}
+        {active.group ? <ScenesList /> : null}
+      </ToolPanel>
     </>
   );
 };

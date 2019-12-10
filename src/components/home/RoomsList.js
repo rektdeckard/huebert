@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { Card } from 'semantic-ui-react';
+
 import {
   fetchGroups,
   alertGroup,
   toggleGroup,
   setGroup,
   setActiveGroup
-} from "../actions";
+} from "../../actions";
 import RoomItem from "./RoomItem";
-import ScenesList from "./ScenesList";
-import ColorPicker from "./ColorPicker";
-import CenterPanel from "./CenterPanel";
-import ToolPanel from './ToolPanel';
+import ScenesList from "../ScenesList";
+import ColorPicker from "../ColorPicker";
+import CenterPanel from "../CenterPanel";
+import ToolPanel from '../ToolPanel';
 
 const RoomsList = ({
   groups,
@@ -54,9 +56,9 @@ const RoomsList = ({
   return (
     <>
       <CenterPanel onClick={() => setActiveGroup(null)} >
-        <div className="ui three stackable link cards">
+        <Card.Group stackable itemsPerRow={3}>
           {groups ? renderItems() : null}
-        </div>
+        </Card.Group>
       </CenterPanel>
       {renderControls()}
     </>

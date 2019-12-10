@@ -1,16 +1,14 @@
 import React from "react";
+import {Grid } from 'semantic-ui-react'
 
 const FullPanel = ({ onClick, children }) => {
   return (
-    <>
-      <div
-        className="twelve wide column"
-        style={{ overflowY: "auto", height: "100%" }}
-        onClick={onClick}
-      >
-        {children}
-      </div>
-    </>
+    <Grid.Column 
+      width={12}
+      style={{ overflowY: "auto", height: "100%" }}
+      children={children}
+      onClick={onClick}
+    />
   );
 };
 

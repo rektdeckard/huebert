@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
-import { convertHSBToColor, compatibleText } from "../utils";
+import { Card, Icon, Checkbox } from "semantic-ui-react";
+import { convertHSBToColor, compatibleText } from "../../utils";
 
 const RoomItem = ({ group, toggle, alert, active, onSelect, onDim }) => {
   const colors = [
@@ -37,11 +38,10 @@ const RoomItem = ({ group, toggle, alert, active, onSelect, onDim }) => {
       alert(group);
       event.stopPropagation();
     }
-  }
+  };
 
   return (
-    <div
-      className="ui card"
+    <Card
       style={{
         backgroundImage: `linear-gradient(to right, ${
           colors.length > 1 ? colors : [colors[0], colors[0]]
@@ -50,21 +50,20 @@ const RoomItem = ({ group, toggle, alert, active, onSelect, onDim }) => {
       }}
       onClick={handleSelect}
     >
-      <div className="content">
+      <Card.Content>
         <div
           style={{ color: textColor, opacity: 0.7, userSelect: "none" }}
           onClick={handleAlert}
         >
           {group.name}
-          <span className="ui right floated icon">
-            <i
-              className={`${active ? "check" : null} icon`}
-              style={{ color: textColor, opacity: 0.7 }}
-            />
-          </span>
+          <Icon
+            className="right floated"
+            name={active ? "check" : null}
+            style={{ color: textColor, opacity: 0.7 }}
+          />
         </div>
-      </div>
-      <div className="extra content" style={{ backgroundColor: "#FFFFFF48" }}>
+      </Card.Content>
+      <Card.Content extra style={{ backgroundColor: "#FFFFFF48" }}>
         <div className="slidecontainer">
           <input
             className="slide"
@@ -75,19 +74,17 @@ const RoomItem = ({ group, toggle, alert, active, onSelect, onDim }) => {
             onChange={event => onChangeBrightness(Number(event.target.value))}
           />
         </div>
-      </div>
-      <div className="extra content" style={{ backgroundColor: "#FFFFFF48" }}>
-        <span className="ui fitted right floated toggle checkbox">
-          <input
-            type="checkbox"
-            checked={group.state.any_on}
-            onChange={() => toggle(group)}
-            // disabled={!light.state.reachable}
-          />
-          <label></label>
-        </span>
-      </div>
-    </div>
+      </Card.Content>
+      <Card.Content extra style={{ backgroundColor: "#FFFFFF48" }}>
+        <Checkbox
+          className="right floated"
+          fitted
+          toggle
+          checked={group.state.any_on}
+          onChange={() => toggle(group)}
+        />
+      </Card.Content>
+    </Card>
   );
 };
 

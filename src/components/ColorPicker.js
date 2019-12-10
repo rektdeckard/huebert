@@ -1,8 +1,15 @@
 import React, { useRef } from "react";
 import SketchPicker from "./picker/components/sketch/Sketch";
 import { connect } from "react-redux";
+import { Segment, Label } from "semantic-ui-react";
+
 import { setLight, setGroup } from "../actions";
-import { convertHSBToColor, convertHSVToHSB, convertHSVToCT, isAdjustable } from "../utils";
+import {
+  convertHSBToColor,
+  convertHSVToHSB,
+  convertHSVToCT,
+  isAdjustable
+} from "../utils";
 
 const LIGHT_ELEMENT = 100;
 const GROUP_ELEMENT = 500;
@@ -59,16 +66,19 @@ const ColorPicker = ({ active, setLight, setGroup, theme }) => {
   };
 
   return (
-    <div className={`ui ${theme} segment`}>
-      {/* <div className={`ui top attached ${active ? "blue" : ""} label`}>{active ? active.name : "Color"}</div> */}
-      <div className={`ui top attached ${theme === "inverted" ? "black" : null} label`}>{active ? active.name.toUpperCase() : "Color"}</div>
+    <Segment inverted={theme === "inverted"}>
+      <Label
+        attached="top"
+        color={theme === "inverted" ? "black" : null}
+        content={active ? active.name.toUpperCase() : "Color"}
+      />
       <SketchPicker
         width={null}
         color={extractColor()}
         onChange={handleChange}
         disableAlpha
       />
-    </div>
+    </Segment>
   );
 };
 

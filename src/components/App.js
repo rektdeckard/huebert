@@ -6,11 +6,11 @@ import { Grid, Menu } from "semantic-ui-react";
 import { fetchGroups, initializeApp, setTheme } from "../actions";
 import NavigationMenu from "./NavigationMenu";
 import Info from "./Info";
-import RoomsList from "./RoomsList";
 import RulesList from "./RulesList";
 import Setup from "./Setup";
 import useRefresh from "../hooks/useRefresh";
 import GroupsView from "./home/GroupsView";
+import RoomsList from "./home/RoomsList";
 import ToolPanel from "./ToolPanel";
 
 const INVERTED = "inverted";
