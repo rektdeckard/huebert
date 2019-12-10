@@ -92,7 +92,8 @@ export const setActiveGroup = group => dispatch => {
 };
 
 export const createGroup = group => async dispatch => {
-  await Hue.post("/groups", group);
+  const response = await Hue.post("/groups", group);
+  console.log(response.data);
   dispatch(fetchGroups());
 };
 

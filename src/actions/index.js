@@ -9,6 +9,7 @@ export {
 
 export {
   fetchGroups,
+  createGroup,
   deleteGroup,
   updateGroups,
   setGroup,
