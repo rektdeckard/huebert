@@ -145,9 +145,7 @@ const LightsTable = ({
           </Table.HeaderCell>
         </Table.Row>
       </Table.Header>
-      <Table.Body>
-        {expanded ? renderRows() : null}
-      </Table.Body>
+      <Table.Body>{expanded ? renderRows() : null}</Table.Body>
     </Table>
   );
 };

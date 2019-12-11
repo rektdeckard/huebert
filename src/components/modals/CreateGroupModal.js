@@ -3,9 +3,10 @@ import { Modal, Form, Divider } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { createGroup } from "../../actions";
 
-const CreateGroupModal = ({ trigger, lights, theme, createGroup }) => {
+const CreateGroupModal = ({ trigger, lights, theme, createGroup, version }) => {
   const [name, setName] = useState("");
   const [type, setType] = useState(null);
+  const [clazz, setClazz] = useState(null);
   const [selected, setSelected] = useState([]);
 
   // Lights already assigned to a Room cannot be assigned to another
@@ -17,7 +18,20 @@ const CreateGroupModal = ({ trigger, lights, theme, createGroup }) => {
       type,
       lights: selected
     };
+
+    if (type === "Room") {
+      newGroup.class = clazz;
+    }
+
     createGroup(newGroup);
+    cleanup();
+  };
+
+  const cleanup = () => {
+    setName("");
+    setType(null);
+    setClazz(null);
+    setSelected([]);
   };
 
   return (
@@ -52,6 +66,7 @@ const CreateGroupModal = ({ trigger, lights, theme, createGroup }) => {
               label="Group Name"
               placeholder="Enter name"
               required
+              value={name}
               onChange={(e, { value }) => setName(value)}
             />
             <Form.Select
@@ -61,16 +76,58 @@ const CreateGroupModal = ({ trigger, lights, theme, createGroup }) => {
               required
               options={[
                 { key: "l", text: "LightGroup", value: "LightGroup" },
-                { key: "r", text: "Room", value: "Room" },
-                { key: "z", text: "Zone", value: "Zone" },
+                { 
+                  key: "r",
+                  text: "Room",
+                  value: "Room",
+                  disabled: version < 111 
+                },
+                { 
+                  key: "z",
+                  text: "Zone",
+                  value: "Zone",
+                  disabled: version < 130
+                },
                 {
                   key: "e",
                   text: "Entertainment",
                   value: "Entertainment",
-                  disabled: true
+                  disabled: true || version < 122
                 }
               ]}
+              value={type}
               onChange={(e, { value }) => setType(value)}
+            />
+            <Form.Select
+              name="class"
+              label="Class"
+              search
+              disabled={type !== "Room"}
+              required={type === "Room"}
+              placeholder="Select class"
+              options={[
+                { key: 1, text: "Living room", value: "Living room" },
+                { key: 2, text: "Kitchen", value: "Kitchen" },
+                { key: 3, text: "Dining", value: "Dining" },
+                { key: 4, text: "Bedroom", value: "Bedroom" },
+                { key: 5, text: "Kids bedroom", value: "Kids bedroom" },
+                { key: 6, text: "Bathroom", value: "Bathroom" },
+                { key: 7, text: "Nursery", value: "Nursery" },
+                { key: 8, text: "Recreation", value: "Recreation" },
+                { key: 9, text: "Office", value: "Office" },
+                { key: 10, text: "Gym", value: "Gym" },
+                { key: 11, text: "Hallway", value: "Hallway" },
+                { key: 12, text: "Toilet", value: "Toilet" },
+                { key: 13, text: "Front door", value: "Front door" },
+                { key: 14, text: "Garage", value: "Garage" },
+                { key: 15, text: "Terrace", value: "Terrace" },
+                { key: 16, text: "Garden", value: "Garden" },
+                { key: 17, text: "Driveway", value: "Driveway" },
+                { key: 18, text: "Carport", value: "Carport" },
+                { key: 19, text: "Other", value: "Other" }
+              ]}
+              value={clazz}
+              onChange={(e, { value }) => setClazz(value)}
             />
           </Form.Group>
           <Form.Dropdown
@@ -91,7 +148,11 @@ const CreateGroupModal = ({ trigger, lights, theme, createGroup }) => {
         </Modal.Content>
       }
       actions={[
-        "Cancel",
+        {
+          key: "cancel",
+          content: "Cancel",
+          onClick: cleanup
+        },
         {
           key: "done",
           content: "Save",
@@ -99,7 +160,7 @@ const CreateGroupModal = ({ trigger, lights, theme, createGroup }) => {
           disabled:
             name.length === 0 ||
             !type ||
-            (type === "Room" && selected.length === 0),
+            (type !== "Zone" && selected.length === 0),
           onClick: handleCreate
         }
       ]}
@@ -107,4 +168,12 @@ const CreateGroupModal = ({ trigger, lights, theme, createGroup }) => {
   );
 };
 
-export default connect(null, { createGroup })(CreateGroupModal);
+const mapStateToProps = state => {
+  return {
+    version: state.settings.config
+      ? state.settings.config.apiversion.split(".").slice(0, 2).join("")
+      : "0"
+  };
+};
+
+export default connect(mapStateToProps, { createGroup })(CreateGroupModal);
