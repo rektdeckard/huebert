@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "59458173b8a6d33853847e4b1cc9f1ee",
+    "revision": "0b94d4a7d3d8cda70863543395c826b4",
     "url": "/huebert/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/huebert/static/js/2.0756059d.chunk.js.LICENSE"
   },
   {
-    "revision": "d0891abc2bb676ab8718",
-    "url": "/huebert/static/js/main.ac149be3.chunk.js"
+    "revision": "f1d3509c227d8c3ed105",
+    "url": "/huebert/static/js/main.c604b777.chunk.js"
   },
   {
     "revision": "37ba64eb672f97a4adab",
