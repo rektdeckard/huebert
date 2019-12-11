@@ -169,18 +169,83 @@ const SettingsView = ({ settings, createUser }) => {
             network as your computer. If you are on the same network and still
             do not see a Device IP, try obtaining it using one of the methods
             above.
-            <div className="ui divider" />
-            <div className={`ui ${settings.theme} ordered list`}>
-              <div className="item">
-                Enter your Device IP into the field above
-              </div>
-              <div className="item">
-                Press the <b> Pair </b> button on your Hue Bridge device
-              </div>
-              <div className="item">
-                Press the <b> Connect </b> button
-              </div>
-            </div>
+            <Divider />
+            <List
+              ordered
+              inverted={settings.theme === "inverted"}
+              items={[
+                "Enter your Device IP into the field above",
+                {
+                  key: 2,
+                  content: (
+                    <>
+                      Press the <b> Pair </b> button on your Hue Bridge device
+                    </>
+                  )
+                },
+                {
+                  key: 3,
+                  content: (
+                    <>
+                      Press the <b> Connect </b> button
+                    </>
+                  )
+                }
+              ]}
+            />
+          </div>
+        )
+      }
+    },
+    {
+      key: "connection-error",
+      title: "Clicking the Connect button does nothing",
+      content: {
+        content: (
+          <div>
+            If clicking the <b> Connect </b> button has no apparent effect and
+            no errors are present, you may have to allow your browser to make
+            CORS requests:
+            <Divider />
+            <List
+              ordered
+              inverted={settings.theme === "inverted"}
+              items={[
+                "Make sure your Device was discovered and your computer is on the same network",
+                {
+                  key: 2,
+                  content: (
+                    <>
+                      Follow{" "}
+                      <u>
+                        <a
+                          href={`https://${deviceAddress}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          this link
+                        </a>
+                      </u>{" "}
+                      to attempt to communicate with your Hue Bridge
+                    </>
+                  )
+                },
+                {
+                  key: 3,
+                  content: (
+                    <>
+                      You may see a warning message about continuing to the next
+                      page. Accept and proceed by clicking
+                      <b> Details </b> or <b> Advanced </b>, depending on your
+                      browser, and clicking the link to continue to allow your
+                      browser to make CORS requests.
+                    </>
+                  )
+                },
+                "You should see a webpage with the Philips Hue logo and information about software licensing. You can now use Huebert to control your lights.",
+                "Close the window and refresh the Huebert app, then proceed with normal setup"
+              ]}
+            />
           </div>
         )
       }
@@ -219,10 +284,10 @@ const SettingsView = ({ settings, createUser }) => {
         </Header>
         <Form onSubmit={handleSubmit}>
           <Form.Field>
-            <Input 
+            <Input
               action={<Button type="submit" color="blue" content="Connect" />}
               label="http://"
-              placeholder={deviceAddress || "Device IP Address"} 
+              placeholder={deviceAddress || "Device IP Address"}
               value={deviceAddress}
               onChange={event => setDeviceAddress(event.target.value)}
             />
