@@ -1,4 +1,4 @@
-import React, { useEffect, createRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { Menu, Sticky, Ref, Transition, List } from "semantic-ui-react";
 
@@ -37,7 +37,7 @@ const HomeView = ({
   setView,
   toggleExpanded
 }) => {
-  const contextRef = createRef();
+  const contextRef = useRef();
 
   useEffect(() => {
     fetchGroups();
@@ -80,17 +80,6 @@ const HomeView = ({
           icon={`angle double ${settings.expandAll ? "up" : "down"}`}
           onClick={toggleExpanded}
         />
-        {/* <div className="item" style={{ width: 48 }} />
-        <div className="menu">
-          
-          <div className={`disabled link item`} title="Filter Groups">
-            <i className="filter icon"></i>
-          </div>
-          <div className={`disabled link item`} title="Edit Groups">
-            <i className="edit icon"></i>
-          </div>
-          
-        </div> */}
         <Menu.Menu position="right">
           <CreateGroupModal
             lights={lights}
