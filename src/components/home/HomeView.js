@@ -1,6 +1,6 @@
 import React, { useEffect, createRef } from "react";
 import { connect } from "react-redux";
-import { Menu, Sticky, Ref } from "semantic-ui-react";
+import { Menu, Sticky, Ref, Transition, List } from "semantic-ui-react";
 
 import {
   fetchGroups,
@@ -118,12 +118,14 @@ const HomeView = ({
   const renderTables = () => {
     return groups.map(group => {
       return (
+        // <List.Item key={group.id}>
         <LightsTable
           group={group}
           lights={lights.filter(light => group.lights.includes(light.id))}
           expanded={settings.expanded.includes(group.id)}
           key={group.id}
         />
+        // </List.Item>
       );
     });
   };
@@ -141,7 +143,9 @@ const HomeView = ({
           <Sticky context={contextRef} offset={16}>
             {renderToolbar()}
           </Sticky>
-          {settings.view === CARD ? renderCards() : renderTables()}
+          {/* <Transition.Group animation="fade right" duration={500} as={List}> */}
+            {settings.view === CARD ? renderCards() : renderTables()}
+          {/* </Transition.Group> */}
         </CenterPanel>
       </Ref>
       <ToolPanel>

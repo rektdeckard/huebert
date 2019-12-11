@@ -30,10 +30,11 @@ const App = props => {
     <div
       style={{
         padding: 16,
-        backgroundColor: props.settings.theme === INVERTED ? "#080808" : "white"
+        backgroundColor: props.settings.theme === INVERTED ? "#080808" : "white",
+        height: "100vh"
       }}
     >
-      <Grid style={{ overflowY: "hidden", height: "99.5vh" }}>
+      <Grid style={{ overflowY: "hidden", height: "100%" }}>
         <ToolPanel>
           <NavigationMenu location={props.location} />
           <Info />
