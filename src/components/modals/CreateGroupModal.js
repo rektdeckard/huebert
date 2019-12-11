@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Modal, Form, Menu } from "semantic-ui-react";
-import {connect } from 'react-redux';
-import { createGroup } from '../../actions';
+import { Modal, Form, Divider } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { createGroup } from "../../actions";
 
 const CreateGroupModal = ({ trigger, lights, theme, createGroup }) => {
   const [name, setName] = useState("");
@@ -15,7 +15,7 @@ const CreateGroupModal = ({ trigger, lights, theme, createGroup }) => {
     const newGroup = {
       name,
       type,
-      lights: selected,
+      lights: selected
     };
     createGroup(newGroup);
   };
@@ -29,18 +29,35 @@ const CreateGroupModal = ({ trigger, lights, theme, createGroup }) => {
       header="Create Group"
       content={
         <Modal.Content>
+          <Modal.Description>
+            <b>Note</b>: Lights can only belong to a single{" "}
+            <i>
+              <code>Room</code>
+            </i>{" "}
+            at a time. A{" "}
+            <i>
+              <code>Zone</code>
+            </i>{" "}
+            can group lights from multiple rooms, or within a certain area of a
+            room. A{" "}
+            <i>
+              <code>LightGroup</code>
+            </i>{" "}
+            is similar to a Zone, but will not appear in other Hue applications.
+          </Modal.Description>
+          <Divider />
           <Form.Group widths="equal">
             <Form.Input
               name="group"
               label="Group Name"
-              placeholder="My Group"
+              placeholder="Enter name"
               required
               onChange={(e, { value }) => setName(value)}
             />
             <Form.Select
               name="type"
               label="Type"
-              placeholder="LightGroup"
+              placeholder="Select type"
               required
               options={[
                 { key: "l", text: "LightGroup", value: "LightGroup" },
@@ -59,13 +76,16 @@ const CreateGroupModal = ({ trigger, lights, theme, createGroup }) => {
           <Form.Dropdown
             name="lights"
             label="Lights"
-            placeholder="Select Lights"
+            placeholder="Select lights"
             search
             multiple
             selection
-            options={lights.filter(it => !assigned.includes(it)).map(light => {
-              return { text: light.name, value: light.id };
-            })}
+            required={type === "Room"}
+            options={lights
+              .filter(it => !assigned.includes(it))
+              .map(light => {
+                return { text: light.name, value: light.id };
+              })}
             onChange={(e, { value }) => setSelected(value)}
           />
         </Modal.Content>
@@ -76,7 +96,10 @@ const CreateGroupModal = ({ trigger, lights, theme, createGroup }) => {
           key: "done",
           content: "Save",
           positive: true,
-          disabled: name.length === 0 || !type || (type === "Room" && selected.length === 0),
+          disabled:
+            name.length === 0 ||
+            !type ||
+            (type === "Room" && selected.length === 0),
           onClick: handleCreate
         }
       ]}
