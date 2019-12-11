@@ -1,5 +1,7 @@
 import React, { useRef } from "react";
 import { connect } from "react-redux";
+import { Table, Checkbox, Icon, Label } from "semantic-ui-react";
+
 import { convertHSBToColor, compatibleText } from "../../utils";
 import LightRow from "./LightRow";
 import {
@@ -38,6 +40,13 @@ const LightsTable = ({
         .sort()
     )
   ];
+
+  if (colors.length === 0) {
+    colors.push(
+      ...new Set(group.colors.map(light => convertHSBToColor(light)).sort())
+    );
+  }
+
   const textColor = compatibleText(colors[0] || "#FFFFFF");
   // const iconColor = compatibleText(colors[colors.length - 1] || "#FFFFFF");
 
@@ -76,7 +85,6 @@ const LightsTable = ({
           setActiveLight={setActiveLight}
           alertLight={alertLight}
           toggleLight={toggleLight}
-          theme={theme}
           key={light.id}
         />
       );
@@ -84,27 +92,23 @@ const LightsTable = ({
   };
 
   return (
-    <table className={`ui selectable large single line ${theme} table`}>
-      <thead onClick={handleClick}>
-        <tr
+    <Table size="large" selectable singleLine inverted={theme === "inverted"}>
+      <Table.Header onClick={handleClick}>
+        <Table.Row
           style={
             active.group && active.group.id === group.id
               ? { backgroundColor: "#AAAAAA24" }
               : null
           }
         >
-          <th>
-            {/* <div className="ui middle aligned checkbox">
-              <input type="checkbox" />
-              <label></label>
-            </div> */}
-            <i 
-              className={`caret ${expanded ? "down" : "right"} icon`}
+          <Table.HeaderCell>
+            <Icon
+              name={`caret ${expanded ? "down" : "right"}`}
               style={{ cursor: "pointer" }}
               onClick={handleExpand}
             />
-            <span
-              className="ui fluid label"
+            <Label
+              fluid="true"
               style={{
                 color: textColor,
                 width: "90%",
@@ -113,11 +117,10 @@ const LightsTable = ({
                   colors.length > 1 ? colors : [colors[0], colors[0]]
                 })`
               }}
-            >
-              {group.name}
-            </span>
-          </th>
-          <th style={{ width: "40%" }}>
+              content={group.name}
+            />
+          </Table.HeaderCell>
+          <Table.HeaderCell style={{ width: "40%" }}>
             <div className="slidecontainer">
               <input
                 className="middle aligned slide"
@@ -130,32 +133,29 @@ const LightsTable = ({
                 }
               />
             </div>
-          </th>
-          <th className="collapsing">
-            <span className="ui middle aligned toggle checkbox">
-              <input
-                type="checkbox"
-                checked={group.state.any_on}
-                onChange={() => toggleGroup(group)}
-                // disabled={!light.state.reachable}
-              />
-              <label></label>
-            </span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
+          </Table.HeaderCell>
+          <Table.HeaderCell collapsing>
+            <Checkbox
+              className="middle aligned"
+              toggle
+              label={""}
+              checked={group.state.any_on}
+              onChange={() => toggleGroup(group)}
+            />
+          </Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
         {expanded ? renderRows() : null}
-        {/* {active.group && active.group.id === group.id ? renderRows() : null} */}
-      </tbody>
-    </table>
+      </Table.Body>
+    </Table>
   );
 };
 
 const mapStateToProps = state => {
   return {
     active: state.active,
-    theme: state.settings.theme,
+    theme: state.settings.theme
   };
 };
 
