@@ -11,6 +11,13 @@ const RoomItem = ({ group, toggle, alert, active, onSelect, onDim }) => {
         .sort()
     )
   ];
+  
+  if (colors.length === 0) {
+    colors.push(
+      ...new Set(group.colors.map(light => convertHSBToColor(light)).sort())
+    );
+  }
+
   const textColor = compatibleText(colors[0] || "#FFFFFF");
   // const iconColor = compatibleText(colors[colors.length - 1] || "#FFFFFF");
 
