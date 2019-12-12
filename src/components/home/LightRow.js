@@ -33,9 +33,7 @@ const LightRow = ({
   };
 
   const renderCheckbox = () => (
-    <Table.Cell collapsing>
       <Checkbox className="middle aligned" fitted />
-    </Table.Cell>
   );
 
   return (
@@ -49,6 +47,7 @@ const LightRow = ({
         <Label
           style={{
             color: textColor,
+            marginLeft: 32,
             backgroundColor: `${convertHSBToColor(light.state)}`
           }}
           content={light.name}

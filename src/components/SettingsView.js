@@ -23,7 +23,6 @@ const SettingsView = ({ settings, createUser }) => {
   useEffect(() => {
     discoverDevices();
   }, []);
-
   const discoverDevices = async () => {
     if (settings.ip) {
       setDeviceAddress(settings.ip);
@@ -237,13 +236,13 @@ const SettingsView = ({ settings, createUser }) => {
                       You may see a warning message about continuing to the next
                       page. Accept and proceed by clicking
                       <b> Details </b> or <b> Advanced </b>, depending on your
-                      browser, and clicking the link to continue to allow your
-                      browser to make CORS requests.
+                      browser, and clicking the link to continue to the requested page.
                     </>
                   )
                 },
-                "You should see a webpage with the Philips Hue logo and information about software licensing. You can now use Huebert to control your lights.",
-                "Close the window and refresh the Huebert app, then proceed with normal setup"
+                "If you see a webpage with the Philips Hue logo and information about software licensing, CORS is now enabled",
+                "Close the window and refresh the Huebert app",
+                "Proceed with normal setup"
               ]}
             />
           </div>
