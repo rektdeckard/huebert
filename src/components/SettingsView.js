@@ -23,6 +23,7 @@ const SettingsView = ({ settings, createUser }) => {
   useEffect(() => {
     discoverDevices();
   }, []);
+
   const discoverDevices = async () => {
     if (settings.ip) {
       setDeviceAddress(settings.ip);
@@ -236,7 +237,8 @@ const SettingsView = ({ settings, createUser }) => {
                       You may see a warning message about continuing to the next
                       page. Accept and proceed by clicking
                       <b> Details </b> or <b> Advanced </b>, depending on your
-                      browser, and clicking the link to continue to the requested page.
+                      browser, and clicking the link to continue to the
+                      requested page.
                     </>
                   )
                 },
