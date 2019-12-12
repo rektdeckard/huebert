@@ -21,9 +21,10 @@ Head to https://rektdeckard.github.io/huebert for the web app, or use the instal
 ## Installation
 
 ### Build from source
-Clone the repository into the directory of your choice. Install dependencies with `npm` or `yarn`, and start up the development server:
+Clone the repository into the directory of your choice and checkout the `electron` branch. Install dependencies with `npm` or `yarn`, and start up the development server:
 ```bash
 $ cd path/to/huebert
+$ git checkout electron
 $ yarn install
 $ yarn start
 ```
