@@ -1,13 +1,20 @@
 import React, { useRef } from "react";
 import SketchPicker from "./picker/components/sketch/Sketch";
 import { connect } from "react-redux";
-import { setLight, setRoom } from "../actions";
-import { convertHSBToColor, convertHSVToHSB, convertHSVToCT, isAdjustable } from "../utils";
+import { Segment, Label } from "semantic-ui-react";
+
+import { setLight, setGroup } from "../actions";
+import {
+  convertHSBToColor,
+  convertHSVToHSB,
+  convertHSVToCT,
+  isAdjustable
+} from "../utils";
 
 const LIGHT_ELEMENT = 100;
 const GROUP_ELEMENT = 500;
 
-const ColorPicker = ({ active, setLight, setRoom, theme }) => {
+const ColorPicker = ({ active, setLight, setGroup, theme }) => {
   // Throttle calls to handleChange()
   let bufferedColor = useRef(null);
 
@@ -46,8 +53,8 @@ const ColorPicker = ({ active, setLight, setRoom, theme }) => {
         break;
       case GROUP_ELEMENT:
         const { hue, sat, bri } = convertHSVToHSB(color);
-        const newRoom = { id: active.id, action: { hue, sat, bri } };
-        setRoom(newRoom);
+        const newGroup = { id: active.id, action: { hue, sat, bri } };
+        setGroup(newGroup);
         break;
       default:
         break;
@@ -59,24 +66,27 @@ const ColorPicker = ({ active, setLight, setRoom, theme }) => {
   };
 
   return (
-    <div className={`ui ${theme} segment`}>
-      {/* <div className={`ui top attached ${active ? "blue" : ""} label`}>{active ? active.name : "Color"}</div> */}
-      <div className={`ui top attached ${theme === "inverted" ? "black" : null} label`}>{active ? active.name.toUpperCase() : "Color"}</div>
+    <Segment inverted={theme === "inverted"}>
+      <Label
+        attached="top"
+        color={theme === "inverted" ? "black" : null}
+        content={active ? active.name.toUpperCase() : "Color"}
+      />
       <SketchPicker
         width={null}
         color={extractColor()}
         onChange={handleChange}
         disableAlpha
       />
-    </div>
+    </Segment>
   );
 };
 
 const mapStateToProps = state => {
   return {
-    active: state.active.light ? state.active.light : state.active.room,
-    theme: state.init.theme
+    active: state.active.light ? state.active.light : state.active.group,
+    theme: state.settings.theme
   };
 };
 
-export default connect(mapStateToProps, { setLight, setRoom })(ColorPicker);
+export default connect(mapStateToProps, { setLight, setGroup })(ColorPicker);

@@ -6,75 +6,74 @@ import {
   toggleLight,
   setLight,
   setActiveLight,
-  setRoom,
-  alertRoom,
-  toggleRoom,
-  setActiveRoom
-} from "../actions";
+  setGroup,
+  alertGroup,
+  toggleGroup,
+  setActiveGroup
+} from "../../actions";
 import LightItem from "./LightItem";
 import RoomItem from "./RoomItem";
 
 const LightsList = ({
   lights,
-  rooms,
+  groups,
   active,
   fetchLights,
   alertLight,
   toggleLight,
   setLight,
   setActiveLight,
-  setRoom,
-  alertRoom,
-  toggleRoom,
-  setActiveRoom,
+  setGroup,
+  alertGroup,
+  toggleGroup,
+  setActiveGroup,
   theme
 }) => {
   useEffect(() => {
     fetchLights();
   }, []);
 
-  const handleSelect = (event, room) => {
-    setActiveRoom(room);
+  const handleSelect = (event, group) => {
+    setActiveGroup(group);
     event.stopPropagation();
   };
 
-  const handleAlert = (event, room) => {
+  const handleAlert = (event, group) => {
     if (event.ctrlKey) {
-      alertRoom(room);
+      alertGroup(group);
       event.stopPropagation();
     }
   };
 
   const renderGroups = () => {
-    return rooms
-      .filter(room => room.name !== "All")
-      .map(room => {
+    return groups
+      .map(group => {
         return (
           <div
             className={`ui ${theme} segment`}
-            key={room.id}
-            onClick={event => handleSelect(event, room)}
+            key={group.id}
+            onClick={event => handleSelect(event, group)}
           >
             <RoomItem
-              room={room}
-              alert={alertRoom}
-              toggle={toggleRoom}
-              active={active.room ? room.id === active.room.id : false}
-              onSelect={setActiveRoom}
-              onDim={setRoom}
+              group={group}
+              alert={alertGroup}
+              toggle={toggleGroup}
+              active={active.group ? group.id === active.group.id : false}
+              onSelect={setActiveGroup}
+              onDim={setGroup}
             />
             {/* <div
               className={`ui top attached ${
-                active.room && active.room.id == room.id ? "blue" : ""
+                active.group && active.group.id == group.id ? "blue" : ""
               } label`}
               style={{ cursor: "pointer" }}
-              onClick={event => handleAlert(event, room)}
+              onClick={event => handleAlert(event, group)}
             >
-              {room.name}
+              {group.name}
               <span className="ui right floated icon">
                 <i
                   className={`${
-                    active.room && active.room.id == room.id ? "check" : ""
+                    active.group && active.group.id == group.id ? "check" : ""
                   } icon`}
                   style={{ float: "right", margin: 0 }}
                 ></i>
@@ -82,7 +81,7 @@ const LightsList = ({
             </div> */}
             <div className="ui three doubling stackable link cards">
               {renderItems(
-                lights.filter(light => room.lights.includes(light.id))
+                lights.filter(light => group.lights.includes(light.id)), group
               )}
             </div>
             {/* <div className="ui stackable link cards"><div className="fluid card">sadfsad</div></div> */}
@@ -91,12 +90,13 @@ const LightsList = ({
       });
   };
 
-  const renderItems = lights => {
+  const renderItems = (lights, group) => {
     return lights.map(light => {
       return (
         <LightItem
           key={light.id}
           light={light}
+          group={group}
           toggle={toggleLight}
           alert={alertLight}
           active={active.light ? light.id === active.light.id : false}
@@ -117,10 +117,8 @@ const LightsList = ({
 
 const mapStateToProps = state => {
   return {
-    lights: state.lights,
-    rooms: state.rooms,
     active: state.active,
-    theme: state.init.theme
+    theme: state.settings.theme
   };
 };
 
@@ -130,8 +128,8 @@ export default connect(mapStateToProps, {
   toggleLight,
   setLight,
   setActiveLight,
-  setRoom,
-  alertRoom,
-  toggleRoom,
-  setActiveRoom
+  setGroup,
+  alertGroup,
+  toggleGroup,
+  setActiveGroup
 })(LightsList);

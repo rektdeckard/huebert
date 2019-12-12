@@ -25,12 +25,16 @@ module.exports = {
   mode: 'development',
   module: {
     rules: [
-      { use: 'babel-loader' },
-      { exclude: /node_modules/ },
-      { query: {
-        presets: ['react', 'env', 'stage-0']
-      }}
-  ]
+      {
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['react', 'env', 'stage-0']
+          }
+        }
+      }
+    ]
   },
   resolve: {
     extensions: ['.js', '.jsx']

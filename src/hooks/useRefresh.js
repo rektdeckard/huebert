@@ -7,8 +7,7 @@ export default (action, interval) => {
   useEffect(() => {   
     ipcRenderer.on("app:focus", () => {
       console.log("starting refresh");
-      action();
-      refresh();
+      doAction();
     });
 
     ipcRenderer.on("app:blur", () => {
@@ -21,6 +20,11 @@ export default (action, interval) => {
       ipcRenderer.removeListener("app:blur");
     }
   }, []);
+
+  const doAction = () => {
+    action();
+    refresh();
+  }
 
   const refresh = useCallback(() => {
     if (intervalRef.current !== null) {

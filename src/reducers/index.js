@@ -1,24 +1,24 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-import roomsReducer from './roomsReducer';
 import lightsReducer from './lightsReducer';
+import groupsReducer from './groupsReducer';
 import scenesReducer from './scenesReducer';
 import schedulesReducer from './schedulesReducer';
 import rulesReducer from './rulesReducer';
 import sensorsReducer from './sensorsReducer';
 import activeReducer from './activeReducer';
-import initReducer from './initReducer';
+import settingsReducer from './settingsReducer';
 
 const rootReducer = combineReducers({
   lights: lightsReducer,
-  rooms: roomsReducer,
+  groups: groupsReducer,
   scenes: scenesReducer,
   schedules: schedulesReducer,
   rules: rulesReducer,
   sensors: sensorsReducer,
   active: activeReducer,
-  init: initReducer
+  settings: settingsReducer
 });
 
 const store = createStore(rootReducer, {}, applyMiddleware(thunk));

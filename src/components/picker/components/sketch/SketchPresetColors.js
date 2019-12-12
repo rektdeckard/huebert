@@ -32,7 +32,7 @@ var SketchPresetColors = exports.SketchPresetColors = function SketchPresetColor
       colors: {
         margin: '0 -10px',
         padding: '10px 0 0 10px',
-        borderTop: '1px solid #eee',
+        borderTop: '1px solid #80808040',
         display: 'flex',
         flexWrap: 'wrap',
         position: 'relative'

@@ -1,53 +1,60 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchScenes, fetchRooms, setRoom } from "../actions";
+import { Segment, Label, List } from "semantic-ui-react";
+import { fetchScenes, fetchGroups, setGroup } from "../actions";
 
-const ScenesList = ({ scenes, active, setRoom, theme }) => {
-  const availableScenes = scenes.filter(scene => active.room? scene.group === active.room.id : false)
-  
+const ScenesList = ({ scenes, active, setGroup, theme }) => {
+  const availableScenes = scenes.filter(scene =>
+    active.group ? scene.group === active.group.id : false
+  );
+
   const applyScene = id => {
-    // console.log(id);
-    // console.log(active);
-    if (active.room) {
-      setRoom({ id: active.room.id, action: { scene: id }})
+    if (active.group) {
+      setGroup({ id: active.group.id, action: { scene: id } });
     }
-  }
+  };
 
   const renderScenes = () => {
     return availableScenes.map(scene => {
-        return (
-          <div 
-            className="item" 
-            key={scene.id}
-            onClick={() => applyScene(scene.id)}
-          >
-            <div className="content">
-              {scene.name}
-            </div>
-          </div>
-        );
-      });
+      return (
+        <List.Item
+          key={scene.id}
+          content={scene.name}
+          onClick={() => applyScene(scene.id)}
+        />
+      );
+    });
   };
 
   return (
-      <div className={`ui ${theme} segment`} style={{ overflowY: "hidden", height: "48vh" }}>
-        {/* <div className="ui top attached blue label"> */}
-        <div className={`ui top attached ${theme === "inverted" ? "black" : null} label`}>
-          SCENES
-          {/* <div className="ui horizontal right label blue">{availableScenes.length}</div> */}
-        </div>
-        <div
-          className={`ui middle aligned ${theme} selection list`}
-          style={{ overflowY: "auto", height: "102%" }}
-        >
-          {renderScenes()}
-        </div>
-      </div>
+    <Segment
+      inverted={theme === "inverted"}
+      style={{ overflowY: "hidden", height: "48vh" }}
+    >
+      <Label
+        attached="top"
+        color={theme === "inverted" ? "black" : null}
+        content="SCENES"
+      />
+      <List
+        className="middle aligned"
+        selection
+        inverted={theme === "inverted"}
+        style={{ overflowY: "auto", height: "102%" }}
+        items={renderScenes()}
+      />
+    </Segment>
   );
 };
 
 const mapStateToProps = state => {
-  return { scenes: state.scenes, active: state.active, theme: state.init.theme };
+  return {
+    scenes: state.scenes,
+    active: state.active,
+    theme: state.settings.theme
+  };
 };
 
-export default connect(mapStateToProps, { fetchScenes, fetchRooms, setRoom })(ScenesList);
+export default connect(mapStateToProps, { fetchScenes, fetchGroups, setGroup })(
+  ScenesList
+);

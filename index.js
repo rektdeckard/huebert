@@ -7,7 +7,7 @@ let mainWindow;
 app.on("ready", () => {
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1440,
+    width: 1350,
     height: 900,
     darkTheme: false,
     icon: __dirname + '/assets/icon.png',

@@ -70,7 +70,7 @@ var Sketch = exports.Sketch = function Sketch(_ref) {
         shadow: 'inset 0 0 0 1px rgba(0,0,0,.15), inset 0 0 4px rgba(0,0,0,.25)'
       },
       controls: {
-        display: 'flex'
+        display: 'flex',
       },
       sliders: {
         padding: '4px 0',
@@ -93,7 +93,7 @@ var Sketch = exports.Sketch = function Sketch(_ref) {
       hue: {
         position: 'relative',
         height: '10px',
-        overflow: 'hidden'
+        overflow: 'hidden',
       },
       Hue: {
         radius: '2px',

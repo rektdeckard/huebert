@@ -1,5 +1,6 @@
 export {
   fetchLights,
+  updateLights,
   setLight,
   alertLight,
   toggleLight,
@@ -7,19 +8,32 @@ export {
 } from "./lightActions";
 
 export {
-  fetchRooms,
-  setRoom,
-  alertRoom,
-  toggleRoom,
-  setActiveRoom
-} from "./roomActions";
+  fetchGroups,
+  createGroup,
+  deleteGroup,
+  updateGroups,
+  setGroup,
+  alertGroup,
+  toggleGroup,
+  addLight,
+  removeLight,
+  setActiveGroup
+} from "./groupActions";
 
-export { fetchScenes } from "./sceneActions";
+export { fetchScenes, updateScenes } from "./sceneActions";
 
-export { fetchSchedules } from "./scheduleActions";
+export { fetchSchedules, updateSchedules } from "./scheduleActions";
 
-export { fetchRules } from "./ruleActions";
+export { fetchRules, updateRules } from "./ruleActions";
 
-export { fetchSensors } from "./sensorActions";
+export { fetchSensors, updateSensors } from "./sensorActions";
 
-export { initializeApp, resetApp, createUser, setTheme, setView } from "./initActions";
+export {
+  initializeApp,
+  resetApp,
+  createUser,
+  setTheme,
+  setView,
+  expand,
+  toggleExpanded
+} from "./settingsActions";
