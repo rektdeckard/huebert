@@ -13,7 +13,7 @@ Huebert is a web and desktop client for Philips Hue lighting and home automation
 [![](https://img.shields.io/badge/paypal-buy%20me%20a%20coffee-green.svg?style=flat-square)](https://paypal.me/TobiasFried)
 
 ## Screenshots
-<img src="https://i.imgur.com/CUF5LBD.jpg" align="center" />
+<img src="https://i.imgur.com/oFrJEbZ.jpg" align="center" />
 
 ## Usage
 Head to https://rektdeckard.github.io/huebert for the web app, or use the install instructions below for the offline app.
