@@ -8,6 +8,7 @@ import {
   fetchSensors
 } from "../actions";
 import { INITIALIZE_APP, CREATE_USER, SET_THEME, SET_VIEW } from "./types";
+import { ipcRenderer } from "electron";
 
 export const initializeApp = () => async dispatch => {
   const ip = localStorage.getItem("ip");
@@ -69,6 +70,7 @@ export const createUser = ip => async dispatch => {
       payload: { error: response.data[0].error.description }
     });
   }
+  ipcRenderer.send("window:refresh");
 };
 
 export const setTheme = theme => dispatch => {
