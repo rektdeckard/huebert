@@ -21,9 +21,10 @@ Head to https://rektdeckard.github.io/huebert for the web app, or use the instal
 ## Installation
 
 ### Build from source
-Clone the repository into the directory of your choice. Install dependencies with `npm` or `yarn`, and start up the development server:
+Clone the repository into the directory of your choice and checkout the `electron` branch. Install dependencies with `npm` or `yarn`, and start up the development server:
 ```bash
 $ cd path/to/huebert
+$ git checkout electron
 $ yarn install
 $ yarn start
 ```
@@ -36,7 +37,12 @@ $ yarn run it
 ### Binaries
 Download one of the linked binaries:
 
-- [Windows](https://github.com/rektdeckard/huebert/releases/download/v0.1.3/huebert-0.1.3.Setup.exe)
-- macOS [coming soon]
-- Linux [coming soon]
+#### Windows
+- [Windows Installer](https://github.com/rektdeckard/huebert/releases/download/v0.1.3/huebert-0.1.3.Setup.exe)
+
+#### macOS
+- macOS Installer [coming soon]
+
+#### Linux
+- [Debian/Ubuntu Package](https://github.com/rektdeckard/huebert/releases/download/v0.1.3/huebert_0.1.3_amd64.deb)
   
