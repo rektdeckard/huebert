@@ -7,7 +7,7 @@ const CreateSceneModal = ({ trigger, lights, group, theme, createScene }) => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(null);
   const [name, setName] = useState("");
-  const [type, setType] = useState("GroupScene");
+  const [type, setType] = useState(null);
   const [recycle, setRecycle] = useState(false);
   const [selected, setSelected] = useState([]);
   const [transition, setTransition] = useState(false);
@@ -125,7 +125,7 @@ const CreateSceneModal = ({ trigger, lights, group, theme, createScene }) => {
             })}
             onChange={(e, { value }) => setSelected(value)}
           />
-          <Divider />
+          {/* <Divider /> */}
           <Form.Field inline label="Transition Time" width="10" />
           <Form.Checkbox
             name="transition"
@@ -134,22 +134,21 @@ const CreateSceneModal = ({ trigger, lights, group, theme, createScene }) => {
             checked={transition}
             onChange={(e, { checked }) => setTransition(checked)}
           />
-          <Form.Group widths="equal" disabled={!transition}>
-            <Form.Field inline>
+          <Form.Group widths="equal">
+            <Form.Field inline disabled={!transition}>
               <label>Milliseconds:</label> {tenths * 100}
               <div className="slidecontainer">
                 <input
                   className="middle aligned slide"
                   type="range"
-                  min={1}
+                  min={0}
                   max={10}
-                  disabled={!transition}
                   value={tenths}
                   onChange={event => setTenths(Number(event.target.value))}
                 />
               </div>
             </Form.Field>
-            <Form.Field inline>
+            <Form.Field inline disabled={!transition}>
               <label>Seconds:</label> {seconds}
               <div className="slidecontainer">
                 <input
@@ -157,21 +156,19 @@ const CreateSceneModal = ({ trigger, lights, group, theme, createScene }) => {
                   type="range"
                   min={0}
                   max={60}
-                  disabled={!transition}
                   value={seconds}
                   onChange={event => setSeconds(Number(event.target.value))}
                 />
               </div>
             </Form.Field>
-            <Form.Field inline>
+            <Form.Field inline disabled={!transition}>
               <label>Minutes:</label> {minutes}
               <div className="slidecontainer">
                 <input
                   className="middle aligned slide"
                   type="range"
                   min={0}
-                  max={30}
-                  disabled={!transition}
+                  max={60}
                   value={minutes}
                   onChange={event => setMinutes(Number(event.target.value))}
                 />
