@@ -3,7 +3,14 @@ import { Modal, Form, Divider, Message } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { createGroup } from "../../actions";
 
-const CreateGroupModal = ({ triggerView, lights, groups, theme, createGroup, version }) => {
+const CreateGroupModal = ({
+  trigger,
+  lights,
+  groups,
+  theme,
+  createGroup,
+  version
+}) => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(null);
   const [assigned, setAssigned] = useState([]);
@@ -13,10 +20,58 @@ const CreateGroupModal = ({ triggerView, lights, groups, theme, createGroup, ver
   const [clazz, setClazz] = useState(null);
   const [selected, setSelected] = useState([]);
 
+  const roomClasses = [
+    { key: 1, text: "Living room", value: "Living room" },
+    { key: 2, text: "Kitchen", value: "Kitchen" },
+    { key: 3, text: "Dining", value: "Dining" },
+    { key: 4, text: "Bedroom", value: "Bedroom" },
+    { key: 5, text: "Kids bedroom", value: "Kids bedroom" },
+    { key: 6, text: "Bathroom", value: "Bathroom" },
+    { key: 7, text: "Nursery", value: "Nursery" },
+    { key: 8, text: "Recreation", value: "Recreation" },
+    { key: 9, text: "Office", value: "Office" },
+    { key: 10, text: "Gym", value: "Gym" },
+    { key: 11, text: "Hallway", value: "Hallway" },
+    { key: 12, text: "Toilet", value: "Toilet" },
+    { key: 13, text: "Front door", value: "Front door" },
+    { key: 14, text: "Garage", value: "Garage" },
+    { key: 15, text: "Terrace", value: "Terrace" },
+    { key: 16, text: "Garden", value: "Garden" },
+    { key: 17, text: "Driveway", value: "Driveway" },
+    { key: 18, text: "Carport", value: "Carport" },
+    { key: 19, text: "Other", value: "Other" }
+  ];
+
+  if (version >= 130) {
+    roomClasses.push(...[
+      { key: 20, text: "Home", value: "Home" },
+      { key: 22, text: "Downstairs", value: "Downstairs" },
+      { key: 21, text: "Upstairs", value: "Upstairs" },
+      { key: 23, text: "Top floor", value: "Top floor" },
+      { key: 24, text: "Attic", value: "Attic" },
+      { key: 25, text: "Guest room", value: "Guest room" },
+      { key: 26, text: "Staircase", value: "Staircase" },
+      { key: 27, text: "Lounge", value: "Lounge" },
+      { key: 28, text: "Man cave", value: "Man cave" },
+      { key: 29, text: "Computer", value: "Computer" },
+      { key: 30, text: "Studio", value: "Studio" },
+      { key: 31, text: "Music", value: "Music" },
+      { key: 32, text: "TV", value: "TV" },
+      { key: 33, text: "Reading", value: "Reading" },
+      { key: 34, text: "Closet", value: "Closet" },
+      { key: 35, text: "Storage", value: "Storage" },
+      { key: 36, text: "Laundry room", value: "Laundry room" },
+      { key: 37, text: "Balcony", value: "Balcony" },
+      { key: 38, text: "Porch", value: "Porch" },
+      { key: 39, text: "Barbecue", value: "Barbecue" },
+      { key: 40, text: "Pool", value: "Pool" }
+    ]);
+  }
+
   // Lights already assigned to a Room cannot be assigned to another
   useEffect(() => {
     setAssigned([...new Set(groups.map(group => group.lights).flat())]);
-  }, [groups])
+  }, [groups]);
 
   const handleCreate = async event => {
     event.preventDefault();
@@ -53,9 +108,15 @@ const CreateGroupModal = ({ triggerView, lights, groups, theme, createGroup, ver
       size="small"
       as={Form}
       dimmer={theme === "inverted" ? true : "inverted"}
-      trigger={<triggerView.type {...triggerView.props} onClick={() => setOpen(true)} />}
+      trigger={
+        <trigger.type {...trigger.props} onClick={() => setOpen(true)} />
+      }
       open={open}
-      onActionClick={(event, data) => { if (data.key === "cancel") cleanup(); }}
+      // closeOnDimmerClick={true}
+      // closeOnEscape={true}
+      onActionClick={(_, data) => {
+        if (data.key === "cancel") cleanup();
+      }}
       header="Create Group"
       content={
         <Modal.Content>
@@ -92,13 +153,13 @@ const CreateGroupModal = ({ triggerView, lights, groups, theme, createGroup, ver
               required
               options={[
                 { key: "l", text: "LightGroup", value: "LightGroup" },
-                { 
+                {
                   key: "r",
                   text: "Room",
                   value: "Room",
-                  disabled: version < 111 
+                  disabled: version < 111
                 },
-                { 
+                {
                   key: "z",
                   text: "Zone",
                   value: "Zone",
@@ -121,27 +182,7 @@ const CreateGroupModal = ({ triggerView, lights, groups, theme, createGroup, ver
               disabled={type !== "Room"}
               required={type === "Room"}
               placeholder="Select class"
-              options={[
-                { key: 1, text: "Living room", value: "Living room" },
-                { key: 2, text: "Kitchen", value: "Kitchen" },
-                { key: 3, text: "Dining", value: "Dining" },
-                { key: 4, text: "Bedroom", value: "Bedroom" },
-                { key: 5, text: "Kids bedroom", value: "Kids bedroom" },
-                { key: 6, text: "Bathroom", value: "Bathroom" },
-                { key: 7, text: "Nursery", value: "Nursery" },
-                { key: 8, text: "Recreation", value: "Recreation" },
-                { key: 9, text: "Office", value: "Office" },
-                { key: 10, text: "Gym", value: "Gym" },
-                { key: 11, text: "Hallway", value: "Hallway" },
-                { key: 12, text: "Toilet", value: "Toilet" },
-                { key: 13, text: "Front door", value: "Front door" },
-                { key: 14, text: "Garage", value: "Garage" },
-                { key: 15, text: "Terrace", value: "Terrace" },
-                { key: 16, text: "Garden", value: "Garden" },
-                { key: 17, text: "Driveway", value: "Driveway" },
-                { key: 18, text: "Carport", value: "Carport" },
-                { key: 19, text: "Other", value: "Other" }
-              ]}
+              options={roomClasses}
               value={clazz}
               onChange={(e, { value }) => setClazz(value)}
             />
@@ -155,13 +196,20 @@ const CreateGroupModal = ({ triggerView, lights, groups, theme, createGroup, ver
             selection
             required={type === "Room"}
             options={lights
-              .filter(it => type === "Room" ? !assigned.includes(it.id) : true)
+              .filter(it =>
+                type === "Room" ? !assigned.includes(it.id) : true
+              )
               .map(light => {
                 return { text: light.name, value: light.id };
               })}
             onChange={(e, { value }) => setSelected(value)}
           />
-          <Message size="tiny" negative hidden={error == null} content={error} />
+          <Message
+            size="tiny"
+            negative
+            hidden={error == null}
+            content={error}
+          />
         </Modal.Content>
       }
       actions={[
@@ -188,9 +236,14 @@ const CreateGroupModal = ({ triggerView, lights, groups, theme, createGroup, ver
 const mapStateToProps = state => {
   return {
     version: state.settings.config
-      ? state.settings.config.apiversion.split(".").slice(0, 2).join("")
+      ? state.settings.config.apiversion
+          .split(".")
+          .slice(0, 2)
+          .join("")
       : "0",
-    groups: state.groups
+    lights: state.lights,
+    groups: state.groups,
+    theme: state.settings.theme
   };
 };
 

@@ -82,9 +82,7 @@ const HomeView = ({
         />
         <Menu.Menu position="right">
           <CreateGroupModal
-            lights={lights}
-            theme={settings.theme}
-            triggerView={<Menu.Item link title="Create Group" icon="plus" />}
+            trigger={<Menu.Item link title="Create Group" icon="plus" />}
           />
           <DeleteItemModal
             active={active}
