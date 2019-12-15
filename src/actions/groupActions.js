@@ -93,8 +93,13 @@ export const setActiveGroup = group => dispatch => {
 
 export const createGroup = group => async dispatch => {
   const response = await Hue.post("/groups", group);
-  console.log(response.data);
-  dispatch(fetchGroups());
+  if (response.data[0].error) {
+    // window.alert(`Error: ${response.data[0].error.description}`);
+    return { error: response.data[0].error.description };
+  } else {
+    dispatch(fetchGroups());
+    return { success: response.data };
+  }
 };
 
 export const deleteGroup = id => async dispatch => {

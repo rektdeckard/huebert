@@ -1,18 +1,26 @@
-import React, { useState } from "react";
-import { Modal, Form, Divider } from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
+import { Modal, Form, Divider, Message } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { createGroup } from "../../actions";
 
-const CreateGroupModal = ({ trigger, lights, theme, createGroup, version }) => {
+const CreateGroupModal = ({ triggerView, lights, groups, theme, createGroup, version }) => {
+  const [open, setOpen] = useState(false);
+  const [error, setError] = useState(null);
+  const [assigned, setAssigned] = useState([]);
+
   const [name, setName] = useState("");
   const [type, setType] = useState(null);
   const [clazz, setClazz] = useState(null);
   const [selected, setSelected] = useState([]);
 
   // Lights already assigned to a Room cannot be assigned to another
-  const assigned = [];
+  useEffect(() => {
+    setAssigned([...new Set(groups.map(group => group.lights).flat())]);
+  }, [groups])
 
-  const handleCreate = () => {
+  const handleCreate = async event => {
+    event.preventDefault();
+    event.stopPropagation();
     const newGroup = {
       name,
       type,
@@ -23,8 +31,13 @@ const CreateGroupModal = ({ trigger, lights, theme, createGroup, version }) => {
       newGroup.class = clazz;
     }
 
-    createGroup(newGroup);
-    cleanup();
+    const response = await createGroup(newGroup);
+    console.log(response);
+    if (response.success) {
+      cleanup();
+    } else {
+      setError(response.error);
+    }
   };
 
   const cleanup = () => {
@@ -32,6 +45,8 @@ const CreateGroupModal = ({ trigger, lights, theme, createGroup, version }) => {
     setType(null);
     setClazz(null);
     setSelected([]);
+    setError(null);
+    setOpen(false);
   };
 
   return (
@@ -39,7 +54,9 @@ const CreateGroupModal = ({ trigger, lights, theme, createGroup, version }) => {
       size="small"
       as={Form}
       dimmer={theme === "inverted" ? true : "inverted"}
-      trigger={trigger}
+      trigger={<triggerView.type {...triggerView.props} onClick={() => setOpen(true)} />}
+      open={open}
+      onActionClick={(event, data) => { if (data.key === "cancel") cleanup(); }}
       header="Create Group"
       content={
         <Modal.Content>
@@ -139,12 +156,13 @@ const CreateGroupModal = ({ trigger, lights, theme, createGroup, version }) => {
             selection
             required={type === "Room"}
             options={lights
-              .filter(it => !assigned.includes(it))
+              .filter(it => type === "Room" ? !assigned.includes(it.id) : true)
               .map(light => {
                 return { text: light.name, value: light.id };
               })}
             onChange={(e, { value }) => setSelected(value)}
           />
+          <Message size="tiny" negative hidden={error == null} content={error} />
         </Modal.Content>
       }
       actions={[
@@ -172,7 +190,8 @@ const mapStateToProps = state => {
   return {
     version: state.settings.config
       ? state.settings.config.apiversion.split(".").slice(0, 2).join("")
-      : "0"
+      : "0",
+    groups: state.groups
   };
 };
 
