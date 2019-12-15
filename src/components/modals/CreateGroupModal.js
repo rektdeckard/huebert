@@ -32,7 +32,6 @@ const CreateGroupModal = ({ triggerView, lights, groups, theme, createGroup, ver
     }
 
     const response = await createGroup(newGroup);
-    console.log(response);
     if (response.success) {
       cleanup();
     } else {
