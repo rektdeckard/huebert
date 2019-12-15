@@ -1,19 +1,15 @@
 import React from "react";
 import { Modal } from "semantic-ui-react";
 
-const DeleteItemModal = ({ trigger, active, theme, onSubmit }) => {
+const DeleteItemModal = ({ header, trigger, itemName, groupName, theme, onSubmit }) => {
   return (
     <Modal
       size="small"
       dimmer={theme === "inverted" ? true : "inverted"}
       trigger={trigger}
-      header={`Delete ${active.group ? "Group" : "Light"}`}
-      content={`Are you sure you want to delete ${
-        active.group
-          ? active.group.name
-          : active.light
-          ? active.light.name + " from " + active.light.group.name
-          : null
+      header={header}
+      content={`Are you sure you want to delete ${itemName}${
+        groupName ? " from " + groupName : ""
       }? This action cannot be undone.`}
       actions={[
         "Cancel",

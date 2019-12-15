@@ -10,22 +10,22 @@ import {
   setActiveScene
 } from "../actions";
 import CreateSceneModal from "./modals/CreateSceneModal";
+import DeleteItemModal from './modals/DeleteItemModal';
 
 const ScenesList = ({
   scenes,
   active,
   setGroup,
   theme,
-  createScene,
   deleteScene,
   setActiveScene
 }) => {
   const availableScenes = scenes.filter(scene =>
     active.group
-      // ? active.group.type === "Room"
-        ? scene.group === active.group.id
-        // : scene.type === "LightScene"
-      : false
+      ? // ? active.group.type === "Room"
+        scene.group === active.group.id
+      : // : scene.type === "LightScene"
+        false
   );
 
   const handleApplyScene = scene => {
@@ -35,20 +35,10 @@ const ScenesList = ({
     }
   };
 
-  const handleCreateScene = () => {
-    const newScene = {
-      name: "MyTestScene",
-      recycle: true,
-      group: active.group.id,
-      type: "GroupScene"
-    };
-    createScene(newScene);
-  };
-
   const handleOverwriteScene = () => {};
 
   const handleDeleteScene = () => {
-    deleteScene(active.scene.id);
+    if (active.scene) deleteScene(active.scene.id);
   };
 
   const renderToolbar = () => (
@@ -81,13 +71,28 @@ const ScenesList = ({
         onClick={handleOverwriteScene}
       />
       <Menu.Menu position="right">
-        <Menu.Item
+        <DeleteItemModal
+          header="Delete Scene"
+          itemName={active.scene ? active.scene.name : ""}
+          groupName={active.group ? active.group.name : ""}
+          theme={theme}
+          onSubmit={handleDeleteScene}
+          trigger={
+            <Menu.Item
+              link
+              disabled={!active.group || !active.scene}
+              title="Delete Scene"
+              icon="trash"
+            />
+          }
+        />
+        {/* <Menu.Item
           link
           title="Delete Scene"
           disabled={!active.group || !active.scene}
           icon="trash"
           onClick={handleDeleteScene}
-        />
+        /> */}
       </Menu.Menu>
     </Menu>
   );

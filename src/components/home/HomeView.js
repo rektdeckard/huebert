@@ -85,7 +85,9 @@ const HomeView = ({
             trigger={<Menu.Item link title="Create Group" icon="plus" />}
           />
           <DeleteItemModal
-            active={active}
+            header={`Delete ${active.group ? "Group" : "Light"}`}
+            itemName={active.light ? active.light.name : active.group ? active.group.name : null}
+            groupName={active.light ? active.light.group.name : null}
             theme={settings.theme}
             onSubmit={handleDelete}
             trigger={
@@ -131,7 +133,7 @@ const HomeView = ({
             {renderToolbar()}
           </Sticky>
           {/* <Transition.Group animation="fade right" duration={500} as={List}> */}
-            {settings.view === CARD ? renderCards() : renderTables()}
+          {settings.view === CARD ? renderCards() : renderTables()}
           {/* </Transition.Group> */}
         </CenterPanel>
       </Ref>
