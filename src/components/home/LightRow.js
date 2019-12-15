@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Table, Label, Icon, checkbox, Checkbox } from "semantic-ui-react";
+import { Table, Label, Icon, Form, Checkbox } from "semantic-ui-react";
 import { convertHSBToColor, compatibleText } from "../../utils";
 
 const LightRow = ({
@@ -54,22 +54,26 @@ const LightRow = ({
         />
       </Table.Cell>
       <Table.Cell>
-        <div className="slidecontainer">
-          <input
-            className="middle aligned slide"
-            type="range"
-            min={1}
-            max={254}
-            value={light.state.bri}
-            onChange={event => onChangeBrightness(Number(event.target.value))}
-          />
-        </div>
+        <Form>
+          <Form.Field disabled={!light.state.reachable}>
+            <div className="slidecontainer">
+              <input
+                className="middle aligned slide"
+                type="range"
+                min={1}
+                max={254}
+                value={light.state.bri}
+                onChange={event => onChangeBrightness(Number(event.target.value))}
+              />
+            </div>
+          </Form.Field>
+        </Form>
       </Table.Cell>
       <Table.Cell>
         <Checkbox
           className="middle aligned"
           toggle
-          checked={light.state.on}
+          checked={light.state.on && light.state.reachable}
           onChange={() => toggleLight(light)}
           disabled={!light.state.reachable}
         />
