@@ -5,7 +5,7 @@ const FullPanel = ({ onClick, children }) => {
   return (
     <Grid.Column 
       width={12}
-      style={{ overflowY: "auto", height: "100%" }}
+      style={{ overflowY: "auto", height: "100%", paddingLeft: 0 }}
       children={children}
       onClick={onClick}
     />
