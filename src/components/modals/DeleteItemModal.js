@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Menu } from "semantic-ui-react";
+import { Modal } from "semantic-ui-react";
 
 const DeleteItemModal = ({ trigger, active, theme, onSubmit }) => {
   return (
