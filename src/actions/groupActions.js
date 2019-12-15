@@ -6,6 +6,7 @@ import {
   SET_GROUP,
   SET_ACTIVE_GROUP
 } from "./types";
+import { setActiveScene } from ".";
 
 export const fetchGroups = () => async dispatch => {
   const groupsResponse = await Hue.get("/groups");
@@ -60,9 +61,13 @@ export const updateGroups = (lightsData, groupsData) => dispatch => {
   });
 };
 
-export const setGroup = group => async dispatch => {
+export const setGroup = (group, clearActiveScene = true) => async dispatch => {
   await Hue.put(`/groups/${group.id}/action`, group.action);
   dispatch(fetchGroups());
+
+  if (clearActiveScene) {
+    dispatch(setActiveScene(null));
+  }
 };
 
 export const alertGroup = group => async () => {
@@ -94,7 +99,6 @@ export const setActiveGroup = group => dispatch => {
 export const createGroup = group => async dispatch => {
   const response = await Hue.post("/groups", group);
   if (response.data[0].error) {
-    // window.alert(`Error: ${response.data[0].error.description}`);
     return { error: response.data[0].error.description };
   } else {
     dispatch(fetchGroups());
@@ -105,6 +109,7 @@ export const createGroup = group => async dispatch => {
 export const deleteGroup = id => async dispatch => {
   const response = await Hue.delete(`/groups/${id}`);
   if (response.data[0].error) {
+    // TODO: handle like create
     window.alert(`Error: ${response.data[0].error.description}`);
   }
 

@@ -20,7 +20,13 @@ export {
   setActiveGroup
 } from "./groupActions";
 
-export { fetchScenes, updateScenes } from "./sceneActions";
+export {
+  fetchScenes,
+  updateScenes,
+  createScene,
+  deleteScene,
+  setActiveScene
+} from "./sceneActions";
 
 export { fetchSchedules, updateSchedules } from "./scheduleActions";
 

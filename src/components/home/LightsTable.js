@@ -118,6 +118,7 @@ const LightsTable = ({
                 })`
               }}
               content={group.name}
+              // detail={group.lights.length}
             />
           </Table.HeaderCell>
           <Table.HeaderCell style={{ width: "40%" }}>

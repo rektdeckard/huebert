@@ -42,31 +42,29 @@ const CreateGroupModal = ({
     { key: 19, text: "Other", value: "Other" }
   ];
 
-  if (version >= 130) {
-    roomClasses.push(...[
-      { key: 20, text: "Home", value: "Home" },
-      { key: 22, text: "Downstairs", value: "Downstairs" },
-      { key: 21, text: "Upstairs", value: "Upstairs" },
-      { key: 23, text: "Top floor", value: "Top floor" },
-      { key: 24, text: "Attic", value: "Attic" },
-      { key: 25, text: "Guest room", value: "Guest room" },
-      { key: 26, text: "Staircase", value: "Staircase" },
-      { key: 27, text: "Lounge", value: "Lounge" },
-      { key: 28, text: "Man cave", value: "Man cave" },
-      { key: 29, text: "Computer", value: "Computer" },
-      { key: 30, text: "Studio", value: "Studio" },
-      { key: 31, text: "Music", value: "Music" },
-      { key: 32, text: "TV", value: "TV" },
-      { key: 33, text: "Reading", value: "Reading" },
-      { key: 34, text: "Closet", value: "Closet" },
-      { key: 35, text: "Storage", value: "Storage" },
-      { key: 36, text: "Laundry room", value: "Laundry room" },
-      { key: 37, text: "Balcony", value: "Balcony" },
-      { key: 38, text: "Porch", value: "Porch" },
-      { key: 39, text: "Barbecue", value: "Barbecue" },
-      { key: 40, text: "Pool", value: "Pool" }
-    ]);
-  }
+  if (version >= 130) roomClasses.push(
+    { key: 20, text: "Home", value: "Home" },
+    { key: 22, text: "Downstairs", value: "Downstairs" },
+    { key: 21, text: "Upstairs", value: "Upstairs" },
+    { key: 23, text: "Top floor", value: "Top floor" },
+    { key: 24, text: "Attic", value: "Attic" },
+    { key: 25, text: "Guest room", value: "Guest room" },
+    { key: 26, text: "Staircase", value: "Staircase" },
+    { key: 27, text: "Lounge", value: "Lounge" },
+    { key: 28, text: "Man cave", value: "Man cave" },
+    { key: 29, text: "Computer", value: "Computer" },
+    { key: 30, text: "Studio", value: "Studio" },
+    { key: 31, text: "Music", value: "Music" },
+    { key: 32, text: "TV", value: "TV" },
+    { key: 33, text: "Reading", value: "Reading" },
+    { key: 34, text: "Closet", value: "Closet" },
+    { key: 35, text: "Storage", value: "Storage" },
+    { key: 36, text: "Laundry room", value: "Laundry room" },
+    { key: 37, text: "Balcony", value: "Balcony" },
+    { key: 38, text: "Porch", value: "Porch" },
+    { key: 39, text: "Barbecue", value: "Barbecue" },
+    { key: 40, text: "Pool", value: "Pool" }
+  );
 
   // Lights already assigned to a Room cannot be assigned to another
   useEffect(() => {

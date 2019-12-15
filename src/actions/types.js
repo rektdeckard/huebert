@@ -7,6 +7,7 @@ export const SET_LIGHT = "set_light";
 export const SET_ACTIVE_LIGHT = "set_active_light";
 
 export const FETCH_SCENES = "fetch_scenes";
+export const SET_ACTIVE_SCENE = "set_active_scene";
 
 export const FETCH_SCHEDULES = "fetch_schedules";
 

@@ -1,5 +1,5 @@
 import Hue from "../api/Hue";
-import { FETCH_SCENES } from "./types";
+import { FETCH_SCENES, SET_ACTIVE_SCENE } from "./types";
 
 export const fetchScenes = () => async dispatch => {
   const response = await Hue.get("/scenes");
@@ -16,6 +16,30 @@ export const updateScenes = data => dispatch => {
   dispatch({
     type: FETCH_SCENES,
     payload: scenes
+  });
+};
+
+export const createScene = scene => async dispatch => {
+  const response = await Hue.post("/scenes", scene);
+  if(response.data[0].error) {
+    return { error: response.data[0].error.description };
+  } else {
+    dispatch(fetchScenes());
+    dispatch(setActiveScene({ id: response.data[0].success.id }));
+    return { success: response.data[0].success }
+  }
+};
+
+export const deleteScene = id => async dispatch => {
+  await Hue.delete(`/scenes/${id}`);
+  dispatch(fetchScenes());
+  dispatch(setActiveScene(null));
+};
+
+export const setActiveScene = scene => dispatch => {
+  dispatch({
+    type: SET_ACTIVE_SCENE,
+    payload: scene
   });
 };
 

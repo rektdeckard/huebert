@@ -1,17 +1,19 @@
-import { SET_ACTIVE_LIGHT, SET_ACTIVE_GROUP } from "../actions/types";
+import { SET_ACTIVE_LIGHT, SET_ACTIVE_GROUP, SET_ACTIVE_SCENE } from "../actions/types";
 
 export default (state = {}, action) => {
   switch (action.type) {
     case SET_ACTIVE_LIGHT:
       if (state.light === action.payload) {
-        return {};
+        return { ...state, light: null };
       }
-      return { light: action.payload };
+      return { ...state, light: action.payload, group: null };
     case SET_ACTIVE_GROUP:
       if (state.group === action.payload) {
-        return {};
+        return { ...state, group: null };
       }
-      return { group: action.payload };
+      return { ...state, group: action.payload, light: null };
+    case SET_ACTIVE_SCENE:
+      return { ...state, scene: action.payload }
     default:
       return state;
   }

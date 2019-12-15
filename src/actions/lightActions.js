@@ -4,6 +4,7 @@ import {
   FETCH_LIGHTS,
   SET_ACTIVE_LIGHT
 } from "./types";
+import { setActiveScene } from ".";
 
 export const fetchLights = () => async dispatch => {
   const { data } = await Hue.get("/lights");
@@ -19,13 +20,17 @@ export const updateLights = data => dispatch => {
   });
 }
 
-export const setLight = light => async dispatch => {
+export const setLight = (light, clearActiveScene = true) => async dispatch => {
   await Hue.put(`/lights/${light.id}/state`, light.state);
   // If malformed request, return early
   // if(response.data.filter(it => it.error)) {
   //   return;
   // }
   dispatch(fetchLights());
+
+  if (clearActiveScene) {
+    dispatch(setActiveScene(null));
+  }
 };
 
 export const alertLight = light => async () => {
