@@ -8,7 +8,7 @@ const CreateSceneModal = ({ trigger, lights, group, theme, createScene }) => {
   const [error, setError] = useState(null);
   const [name, setName] = useState("");
   const [type, setType] = useState(null);
-  const [recycle, setRecycle] = useState(false);
+  const [recycle, setRecycle] = useState(true);
   const [selected, setSelected] = useState([]);
   const [transition, setTransition] = useState(false);
   const [tenths, setTenths] = useState(4);
@@ -35,7 +35,7 @@ const CreateSceneModal = ({ trigger, lights, group, theme, createScene }) => {
   const cleanup = () => {
     setName("");
     setType(null);
-    setRecycle(false);
+    setRecycle(true);
     setSelected([]);
     setTransition(false);
     setTenths(4);
