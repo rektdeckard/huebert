@@ -21,19 +21,19 @@ const SettingsView = ({ settings, createUser }) => {
   const [deviceAddress, setDeviceAddress] = useState("");
 
   useEffect(() => {
-    discoverDevices();
-  }, []);
-
-  const discoverDevices = async () => {
-    if (settings.ip) {
-      setDeviceAddress(settings.ip);
-    } else {
-      const response = await axios.get("https://discovery.meethue.com");
-      if (response.data[0]) {
-        setDeviceAddress(response.data[0].internalipaddress || "");
+    const discoverDevices = async () => {
+      if (settings.ip) {
+        setDeviceAddress(settings.ip);
+      } else {
+        const response = await axios.get("https://discovery.meethue.com");
+        if (response.data[0]) {
+          setDeviceAddress(response.data[0].internalipaddress || "");
+        }
       }
-    }
-  };
+    };
+
+    discoverDevices();
+  }, [settings]);
 
   const handleSubmit = () => {
     createUser(deviceAddress);

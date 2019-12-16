@@ -41,7 +41,7 @@ const HomeView = ({
 
   useEffect(() => {
     fetchGroups();
-  }, []);
+  }, [fetchGroups]);
 
   const handleDelete = () => {
     if (active.group) {
@@ -86,7 +86,13 @@ const HomeView = ({
           />
           <DeleteItemModal
             header={`Delete ${active.group ? "Group" : "Light"}`}
-            itemName={active.light ? active.light.name : active.group ? active.group.name : null}
+            itemName={
+              active.light
+                ? active.light.name
+                : active.group
+                ? active.group.name
+                : null
+            }
             groupName={active.light ? active.light.group.name : null}
             theme={settings.theme}
             onSubmit={handleDelete}
@@ -139,6 +145,7 @@ const HomeView = ({
       </Ref>
       <ToolPanel>
         {active.light || active.group ? <ColorPicker /> : null}
+        {/* <ScenesList /> */}
         {active.group ? <ScenesList /> : null}
       </ToolPanel>
     </>

@@ -11,20 +11,21 @@ import Info from "./Info";
 import HomeView from "./home/HomeView";
 import RulesView from "./RulesView";
 import SettingsView from "./SettingsView";
-import SchedulesView from "./SchedulesView";
+import RoutinesView from "./routines/RoutinesView";
 
 const INVERTED = "inverted";
 
 const App = props => {
+  const { initializeApp } = props;
   // FIXME: Should use the fetchAll() function, once I make it
   const { refresh, cancel } = useRefresh(props.fetchGroups, 5000);
 
   useEffect(() => {
-    props.initializeApp();
+    initializeApp();
     refresh();
 
     return cancel;
-  }, []);
+  }, [initializeApp, refresh, cancel]);
 
   return (
     <div
@@ -55,7 +56,7 @@ const App = props => {
         </ToolPanel>
         <Switch>
           <Route exact path="/" component={HomeView} />
-          <Route exact path="/schedules" component={SchedulesView}/>
+          <Route exact path="/routines" component={RoutinesView}/>
           <Route exact path="/rules" component={RulesView} />
           <Route exact path="/sensors" />
           <Route exact path="/settings" component={SettingsView} />

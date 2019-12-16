@@ -31,7 +31,7 @@ const LightsList = ({
 }) => {
   useEffect(() => {
     fetchLights();
-  }, []);
+  }, [fetchLights]);
 
   const handleSelect = (event, group) => {
     setActiveGroup(group);
@@ -46,23 +46,22 @@ const LightsList = ({
   };
 
   const renderGroups = () => {
-    return groups
-      .map(group => {
-        return (
-          <div
-            className={`ui ${theme} segment`}
-            key={group.id}
-            onClick={event => handleSelect(event, group)}
-          >
-            <RoomItem
-              group={group}
-              alert={alertGroup}
-              toggle={toggleGroup}
-              active={active.group ? group.id === active.group.id : false}
-              onSelect={setActiveGroup}
-              onDim={setGroup}
-            />
-            {/* <div
+    return groups.map(group => {
+      return (
+        <div
+          className={`ui ${theme} segment`}
+          key={group.id}
+          onClick={event => handleSelect(event, group)}
+        >
+          <RoomItem
+            group={group}
+            alert={alertGroup}
+            toggle={toggleGroup}
+            active={active.group ? group.id === active.group.id : false}
+            onSelect={setActiveGroup}
+            onDim={setGroup}
+          />
+          {/* <div
               className={`ui top attached ${
                 active.group && active.group.id == group.id ? "blue" : ""
               } label`}
@@ -79,15 +78,16 @@ const LightsList = ({
                 ></i>
               </span>
             </div> */}
-            <div className="ui three doubling stackable link cards">
-              {renderItems(
-                lights.filter(light => group.lights.includes(light.id)), group
-              )}
-            </div>
-            {/* <div className="ui stackable link cards"><div className="fluid card">sadfsad</div></div> */}
+          <div className="ui three doubling stackable link cards">
+            {renderItems(
+              lights.filter(light => group.lights.includes(light.id)),
+              group
+            )}
           </div>
-        );
-      });
+          {/* <div className="ui stackable link cards"><div className="fluid card">sadfsad</div></div> */}
+        </div>
+      );
+    });
   };
 
   const renderItems = (lights, group) => {
