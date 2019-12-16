@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchSchedules } from "../actions";
+import { fetchSchedules } from "../../actions";
 
-const SchedulesView = ({ schedules }) => {
+const RoutinesView = ({ schedules }) => {
   return <div>SchedulesList</div>;
 };
 
@@ -10,4 +10,4 @@ const mapStateToProps = state => {
   return { rules: state.schedules };
 };
 
-export default connect(mapStateToProps, { fetchSchedules })(SchedulesView);
+export default connect(mapStateToProps, { fetchSchedules })(RoutinesView);
