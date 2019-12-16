@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^2.1.1"
+    "gh-pages": "^2.1.1",
+    "react-codemod": "^5.1.1"
   }
 }

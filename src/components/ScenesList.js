@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Segment, Label, List, Menu } from "semantic-ui-react";
+import { Segment, Label, List, Menu, Dimmer } from "semantic-ui-react";
 import {
   fetchScenes,
   fetchGroups,
@@ -114,10 +114,12 @@ const ScenesList = ({
   return (
     <>
       {renderToolbar()}
-      <Segment
+      {/* <Segment */}
+      <Dimmer.Dimmable as={Segment} dimmed={true}
         inverted={theme === "inverted"}
         style={{ overflowY: "hidden", height: "48vh" }}
-      >
+      > 
+        {/* <Dimmer active={availableScenes.length === 0} inverted={theme !== "inverted"} /> */}
         <Label
           attached="top"
           color={theme === "inverted" ? "black" : null}
@@ -130,7 +132,8 @@ const ScenesList = ({
           style={{ overflowY: "auto", height: "90%" }}
           items={renderScenes()}
         />
-      </Segment>
+      </Dimmer.Dimmable>
+      {/* </Segment> */}
     </>
   );
 };

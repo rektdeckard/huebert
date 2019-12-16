@@ -18,8 +18,8 @@ const NavigationMenu = ({ lights, rooms, schedules, rules, sensors, location, th
         Home
         <Label color="blue">{lights.length}</Label>
       </Link>
-      <Link className={`disabled item ${isActive("/schedules")}`} to="/schedules">
-        Schedules
+      <Link className={`item ${isActive("/routines")}`} to="/routines">
+        Routines
         <Label color="blue">{schedules.length}</Label>
       </Link>
       <Link className={`disabled item ${isActive("/rules")}`} to="/rules">
