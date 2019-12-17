@@ -25,6 +25,7 @@ export {
   updateScenes,
   createScene,
   deleteScene,
+  modifyScene,
   setActiveScene
 } from "./sceneActions";
 

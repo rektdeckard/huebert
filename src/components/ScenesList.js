@@ -1,25 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Segment, Label, List, Menu, Dimmer } from "semantic-ui-react";
+import { Segment, Label, List, Menu, Dimmer, Confirm } from "semantic-ui-react";
 import {
   fetchScenes,
   fetchGroups,
   setGroup,
   createScene,
   deleteScene,
+  modifyScene,
   setActiveScene
 } from "../actions";
 import CreateSceneModal from "./modals/CreateSceneModal";
-import DeleteItemModal from './modals/DeleteItemModal';
+import DeleteItemModal from "./modals/DeleteItemModal";
 
 const ScenesList = ({
   scenes,
+  lights,
   active,
   setGroup,
   theme,
   deleteScene,
+  modifyScene,
   setActiveScene
 }) => {
+  const [confirmState, setConfirmState] = useState(false);
+
   const availableScenes = scenes.filter(scene =>
     active.group
       ? // ? active.group.type === "Room"
@@ -35,7 +40,36 @@ const ScenesList = ({
     }
   };
 
-  const handleOverwriteScene = () => {};
+  const handleModifyScene = async () => {
+    const lightStates = lights
+      .filter(light => active.scene.lights.includes(light.id))
+      .reduce((acc, curr) => {
+        const state = getModifiableKeys(curr);
+        removeEmptyKeys(state);
+        acc[curr.id] = state;
+        return acc;
+      }, {});
+    console.log(lightStates);
+
+    const response = await modifyScene({
+      id: active.scene.id,
+      lightstates: lightStates
+    });
+    if (response.error) {
+      window.alert(response.error);
+    } else {
+      setConfirmState(false);
+    }
+  };
+
+  const getModifiableKeys = light => {
+    const { on, bri, hue, sat, effect, xy, ct, ...rest } = light.state;
+    return { on, bri, hue, sat, effect, xy, ct };
+  };
+
+  const removeEmptyKeys = obj => {
+    Object.keys(obj).forEach(key => obj[key] == null && delete obj[key]);
+  };
 
   const handleDeleteScene = () => {
     if (active.scene) deleteScene(active.scene.id);
@@ -52,47 +86,43 @@ const ScenesList = ({
         group={active.group}
         theme={theme}
         trigger={
-          <Menu.Item
-            link
-            title="Save Current as New Scene"
-            disabled={!active.group}
-            icon="plus"
-          />
+          <Menu.Item link title="Save Current as New Scene" icon="plus" />
         }
       />
       <Menu.Item
         link
         title="Update Active Scene"
-        disabled={
-          !(active.group && active.scene) ||
-          active.scene.group !== active.group.id
-        }
+        disabled={!active.scene || active.scene.group !== active.group.id}
         icon="save"
-        onClick={handleOverwriteScene}
+        onClick={() => setConfirmState(true)}
+      />
+      <Confirm
+        open={confirmState}
+        header="Overwrite Scene"
+        content={`Are you sure you want to overwrite ${
+          active.scene ? active.scene.name : ""
+        } with current settings?`}
+        onConfirm={handleModifyScene}
+        onCancel={() => setConfirmState(false)}
+        closeOnDimmerClick
+        closeOnEscape
       />
       <Menu.Menu position="right">
         <DeleteItemModal
           header="Delete Scene"
           itemName={active.scene ? active.scene.name : ""}
-          groupName={active.group ? active.group.name : ""}
+          groupName={active.group.name}
           theme={theme}
           onSubmit={handleDeleteScene}
           trigger={
             <Menu.Item
               link
-              disabled={!active.group || !active.scene}
+              disabled={!active.scene}
               title="Delete Scene"
               icon="trash"
             />
           }
         />
-        {/* <Menu.Item
-          link
-          title="Delete Scene"
-          disabled={!active.group || !active.scene}
-          icon="trash"
-          onClick={handleDeleteScene}
-        /> */}
       </Menu.Menu>
     </Menu>
   );
@@ -111,14 +141,18 @@ const ScenesList = ({
     });
   };
 
+  if (!active.group) return null;
+
   return (
     <>
       {renderToolbar()}
       {/* <Segment */}
-      <Dimmer.Dimmable as={Segment} dimmed={true}
+      <Dimmer.Dimmable
+        as={Segment}
+        dimmed={true}
         inverted={theme === "inverted"}
         style={{ overflowY: "hidden", height: "48vh" }}
-      > 
+      >
         {/* <Dimmer active={availableScenes.length === 0} inverted={theme !== "inverted"} /> */}
         <Label
           attached="top"
@@ -141,6 +175,7 @@ const ScenesList = ({
 const mapStateToProps = state => {
   return {
     scenes: state.scenes,
+    lights: state.lights,
     active: state.active,
     theme: state.settings.theme
   };
@@ -152,5 +187,6 @@ export default connect(mapStateToProps, {
   setGroup,
   createScene,
   deleteScene,
+  modifyScene,
   setActiveScene
 })(ScenesList);

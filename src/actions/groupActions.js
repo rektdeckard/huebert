@@ -66,7 +66,7 @@ export const setGroup = (group, clearActiveScene = true) => async dispatch => {
   dispatch(fetchGroups());
 
   if (clearActiveScene) {
-    dispatch(setActiveScene(null));
+    // dispatch(setActiveScene(null));
   }
 };
 
