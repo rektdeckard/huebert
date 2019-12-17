@@ -1,7 +1,16 @@
 import React, { useRef } from "react";
+import { Card, Icon, Checkbox } from "semantic-ui-react";
 import { convertHSBToColor, compatibleText } from "../../utils";
 
-const LightItem = ({ light, group, toggle, alert, active, onSelect, onDim }) => {
+const LightItem = ({
+  light,
+  group,
+  toggle,
+  alert,
+  active,
+  onSelect,
+  onDim
+}) => {
   const color = convertHSBToColor(light.state);
   const textColor = compatibleText(color);
 
@@ -32,39 +41,21 @@ const LightItem = ({ light, group, toggle, alert, active, onSelect, onDim }) => 
   };
 
   return (
-    <div
-      className="ui card"
-      style={{ backgroundColor: color }}
-      onClick={handleSelect}
-    >
-      <div className="content" style={{ backgroundColor: color }}>
-        {/* <i className="lightbulb outline icon"></i> */}
-        {/* {light.name} */}
+    <Card style={{ backgroundColor: color }} onClick={handleSelect}>
+      <Card.Content>
         <div
           style={{ color: textColor, opacity: 0.7, userSelect: "none" }}
-          // onDoubleClick={() => alert(light)}
           onClick={handleAlert}
         >
           {light.name}
-          <span className="ui right floated icon">
-            <i
-              className={`${active ? "check" : null} icon`}
-              style={{ color: textColor, opacity: 0.7 }}
-            ></i>
-          </span>
+          <Icon
+            className="right floated"
+            name={active ? "check" : null}
+            style={{ color: textColor, opacity: 0.7 }}
+          />
         </div>
-        {/* <span
-          className="ui right floated avatar image"
-          style={{
-            flex: 1,
-            minWidth: 20,
-            minHeight: 20,
-            backgroundColor: color
-          }}
-          onClick={() => alert(light)}
-        /> */}
-      </div>
-      <div className="extra content" style={{ backgroundColor: "#FFFFFF48" }}>
+      </Card.Content>
+      <Card.Content style={{ backgroundColor: "#FFFFFF48" }}>
         <div className="slidecontainer">
           <input
             className="slide"
@@ -75,19 +66,18 @@ const LightItem = ({ light, group, toggle, alert, active, onSelect, onDim }) => 
             onChange={event => onChangeBrightness(Number(event.target.value))}
           />
         </div>
-      </div>
-      <div className="extra content" style={{ backgroundColor: "#FFFFFF48" }}>
-        <span className="ui fitted right floated toggle checkbox">
-          <input
-            type="checkbox"
-            checked={light.state.on}
-            onChange={() => toggle(light)}
-            disabled={!light.state.reachable}
-          />
-          <label></label>
-        </span>
-      </div>
-    </div>
+      </Card.Content>
+      <Card.Content style={{ backgroundColor: "#FFFFFF48" }}>
+        <Checkbox
+          className="right floated"
+          fitted
+          toggle
+          checked={light.state.on}
+          onChange={() => toggle(light)}
+          disabled={!light.state.reachable}
+        />
+      </Card.Content>
+    </Card>
   );
 };
 

@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { Card, Segment } from "semantic-ui-react";
+
 import {
   fetchLights,
   alertLight,
@@ -38,13 +40,6 @@ const LightsList = ({
     event.stopPropagation();
   };
 
-  const handleAlert = (event, group) => {
-    if (event.ctrlKey) {
-      alertGroup(group);
-      event.stopPropagation();
-    }
-  };
-
   const renderGroups = () => {
     return groups.map(group => {
       return (
@@ -61,30 +56,12 @@ const LightsList = ({
             onSelect={setActiveGroup}
             onDim={setGroup}
           />
-          {/* <div
-              className={`ui top attached ${
-                active.group && active.group.id == group.id ? "blue" : ""
-              } label`}
-              style={{ cursor: "pointer" }}
-              onClick={event => handleAlert(event, group)}
-            >
-              {group.name}
-              <span className="ui right floated icon">
-                <i
-                  className={`${
-                    active.group && active.group.id == group.id ? "check" : ""
-                  } icon`}
-                  style={{ float: "right", margin: 0 }}
-                ></i>
-              </span>
-            </div> */}
-          <div className="ui three doubling stackable link cards">
+          <Card.Group doubling stackable itemsPerRow={3}>
             {renderItems(
               lights.filter(light => group.lights.includes(light.id)),
               group
             )}
-          </div>
-          {/* <div className="ui stackable link cards"><div className="fluid card">sadfsad</div></div> */}
+          </Card.Group>
         </div>
       );
     });
@@ -107,12 +84,7 @@ const LightsList = ({
     });
   };
 
-  return (
-    <div className="ui segments">
-      {/* <div className="ui top attached label">Groups</div> */}
-      {lights ? renderGroups() : null}
-    </div>
-  );
+  return <Segment.Group>{lights ? renderGroups() : null}</Segment.Group>;
 };
 
 const mapStateToProps = state => {
