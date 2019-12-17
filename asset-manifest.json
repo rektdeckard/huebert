@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/huebert/static/js/main.5a2e3909.chunk.js",
-    "main.js.map": "/huebert/static/js/main.5a2e3909.chunk.js.map",
+    "main.js": "/huebert/static/js/main.0820204d.chunk.js",
+    "main.js.map": "/huebert/static/js/main.0820204d.chunk.js.map",
     "runtime-main.js": "/huebert/static/js/runtime-main.07d2b816.js",
     "runtime-main.js.map": "/huebert/static/js/runtime-main.07d2b816.js.map",
-    "static/js/2.0756059d.chunk.js": "/huebert/static/js/2.0756059d.chunk.js",
-    "static/js/2.0756059d.chunk.js.map": "/huebert/static/js/2.0756059d.chunk.js.map",
+    "static/js/2.4ba067a5.chunk.js": "/huebert/static/js/2.4ba067a5.chunk.js",
+    "static/js/2.4ba067a5.chunk.js.map": "/huebert/static/js/2.4ba067a5.chunk.js.map",
     "index.html": "/huebert/index.html",
-    "precache-manifest.d3059f5bf8f6e9cd344dba90bb4179e1.js": "/huebert/precache-manifest.d3059f5bf8f6e9cd344dba90bb4179e1.js",
+    "precache-manifest.8557f4096423f5b33025e1763217a114.js": "/huebert/precache-manifest.8557f4096423f5b33025e1763217a114.js",
     "service-worker.js": "/huebert/service-worker.js",
-    "static/js/2.0756059d.chunk.js.LICENSE": "/huebert/static/js/2.0756059d.chunk.js.LICENSE"
+    "static/js/2.4ba067a5.chunk.js.LICENSE": "/huebert/static/js/2.4ba067a5.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.07d2b816.js",
-    "static/js/2.0756059d.chunk.js",
-    "static/js/main.5a2e3909.chunk.js"
+    "static/js/2.4ba067a5.chunk.js",
+    "static/js/main.0820204d.chunk.js"
   ]
 }
