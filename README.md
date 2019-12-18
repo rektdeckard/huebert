@@ -38,11 +38,11 @@ $ yarn run it
 Download one of the linked binaries:
 
 #### Windows
-- [Windows Installer](https://github.com/rektdeckard/huebert/releases/download/v0.1.3/huebert-0.1.3.Setup.exe)
+- [Windows Installer](https://github.com/rektdeckard/huebert/releases/download/v0.1.3/huebert-0.1.3-windows.exe)
 
 #### macOS
-- macOS Installer [coming soon]
+- [macOS App](https://github.com/rektdeckard/huebert/releases/download/v0.1.3/huebert-0.1.3-mac.dmg)
 
 #### Linux
-- [Debian/Ubuntu Package](https://github.com/rektdeckard/huebert/releases/download/v0.1.3/huebert_0.1.3_amd64.deb)
+- [Debian/Ubuntu Package](https://github.com/rektdeckard/huebert/releases/download/v0.1.3/huebert-0.1.3-debian-ubuntu-amd64.deb)
   
