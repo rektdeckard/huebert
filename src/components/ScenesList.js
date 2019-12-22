@@ -63,7 +63,7 @@ const ScenesList = ({
   };
 
   const getModifiableKeys = light => {
-    const { on, bri, hue, sat, effect, xy, ct, ...rest } = light.state;
+    const { on, bri, hue, sat, effect, xy, ct } = light.state;
     return { on, bri, hue, sat, effect, xy, ct };
   };
 
@@ -100,7 +100,7 @@ const ScenesList = ({
         open={confirmState}
         header="Overwrite Scene"
         content={`Are you sure you want to overwrite ${
-          active.scene ? active.scene.name : ""
+          active.scene?.name ?? ""
         } with current settings?`}
         onConfirm={handleModifyScene}
         onCancel={() => setConfirmState(false)}
@@ -110,7 +110,7 @@ const ScenesList = ({
       <Menu.Menu position="right">
         <DeleteItemModal
           header="Delete Scene"
-          itemName={active.scene ? active.scene.name : ""}
+          itemName={active.scene?.name ?? ""}
           groupName={active.group.name}
           theme={theme}
           onSubmit={handleDeleteScene}

@@ -70,7 +70,7 @@ const ColorPicker = ({ active, setLight, setGroup, theme }) => {
       <Label
         attached="top"
         color={theme === "inverted" ? "black" : null}
-        content={active ? active.name.toUpperCase() : "Color"}
+        content={active?.name.toUpperCase() ?? "Color"}
       />
       <SketchPicker
         width={null}
@@ -84,7 +84,7 @@ const ColorPicker = ({ active, setLight, setGroup, theme }) => {
 
 const mapStateToProps = state => {
   return {
-    active: state.active.light ? state.active.light : state.active.group,
+    active: state.active?.light ?? state.active.group,
     theme: state.settings.theme
   };
 };

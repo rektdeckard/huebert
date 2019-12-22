@@ -86,14 +86,8 @@ const HomeView = ({
           />
           <DeleteItemModal
             header={`Delete ${active.group ? "Group" : "Light"}`}
-            itemName={
-              active.light
-                ? active.light.name
-                : active.group
-                ? active.group.name
-                : null
-            }
-            groupName={active.light ? active.light.group.name : null}
+            itemName={active.light?.name ?? active.group?.name}
+            groupName={active.light?.group.name}
             theme={settings.theme}
             onSubmit={handleDelete}
             trigger={
