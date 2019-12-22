@@ -138,9 +138,8 @@ const HomeView = ({
         </CenterPanel>
       </Ref>
       <ToolPanel>
-        {active.light || active.group ? <ColorPicker /> : null}
-        {/* <ScenesList /> */}
-        {active.group ? <ScenesList /> : null}
+        <ColorPicker />
+        <ScenesList />
       </ToolPanel>
     </>
   );

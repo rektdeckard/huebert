@@ -49,13 +49,13 @@ const ScenesList = ({
         acc[curr.id] = state;
         return acc;
       }, {});
-    console.log(lightStates);
 
     const response = await modifyScene({
       id: active.scene.id,
       lightstates: lightStates
     });
     if (response.error) {
+      // TODO: reflect error in UI not alert
       window.alert(response.error);
     } else {
       setConfirmState(false);
@@ -82,26 +82,30 @@ const ScenesList = ({
       icon
       onClick={e => e.stopPropagation()}
     >
-      <CreateSceneModal
-        group={active.group}
-        theme={theme}
-        trigger={
-          <Menu.Item link title="Save Current as New Scene" icon="plus" />
-        }
-      />
+      {active.group ? (
+        <CreateSceneModal
+          group={active.group}
+          theme={theme}
+          trigger={
+            <Menu.Item link title="Save Current as New Scene" icon="plus" />
+          }
+        />
+      ) : (
+        <Menu.Item disabled link title="Save Current as New Scene" icon="plus" />
+      )}
+
       <Menu.Item
         link
         title="Update Active Scene"
-        disabled={!active.scene || active.scene.group !== active.group.id}
+        disabled={!active?.scene || active?.scene.group !== active?.group.id}
         icon="save"
         onClick={() => setConfirmState(true)}
       />
       <Confirm
         open={confirmState}
         header="Overwrite Scene"
-        content={`Are you sure you want to overwrite ${
-          active.scene?.name ?? ""
-        } with current settings?`}
+        content={`Are you sure you want to overwrite ${active.scene?.name ??
+          ""} with current settings?`}
         onConfirm={handleModifyScene}
         onCancel={() => setConfirmState(false)}
         closeOnDimmerClick
@@ -111,7 +115,7 @@ const ScenesList = ({
         <DeleteItemModal
           header="Delete Scene"
           itemName={active.scene?.name ?? ""}
-          groupName={active.group.name}
+          groupName={active.group?.name ?? ""}
           theme={theme}
           onSubmit={handleDeleteScene}
           trigger={
@@ -141,7 +145,7 @@ const ScenesList = ({
     });
   };
 
-  if (!active.group) return null;
+  // if (!active.group) return null;
 
   return (
     <>
@@ -153,7 +157,6 @@ const ScenesList = ({
         inverted={theme === "inverted"}
         style={{ overflowY: "hidden", height: "48vh" }}
       >
-        {/* <Dimmer active={availableScenes.length === 0} inverted={theme !== "inverted"} /> */}
         <Label
           attached="top"
           color={theme === "inverted" ? "black" : null}
@@ -165,6 +168,10 @@ const ScenesList = ({
           inverted={theme === "inverted"}
           style={{ overflowY: "auto", height: "90%" }}
           items={renderScenes()}
+        />
+        <Dimmer
+          active={!active?.group ?? true}
+          inverted={theme !== "inverted"}
         />
       </Dimmer.Dimmable>
       {/* </Segment> */}

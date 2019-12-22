@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import SketchPicker from "./picker/components/sketch/Sketch";
 import { connect } from "react-redux";
-import { Segment, Label } from "semantic-ui-react";
+import { Segment, Label, Dimmer } from "semantic-ui-react";
 
 import { setLight, setGroup } from "../actions";
 import {
@@ -18,9 +18,9 @@ const ColorPicker = ({ active, setLight, setGroup, theme }) => {
   // Throttle calls to handleChange()
   let bufferedColor = useRef(null);
 
-  if (!isAdjustable(active.action || active.state)) {
-    return null;
-  }
+  // if (!isAdjustable(active?.action || active?.state)) {
+  //   return null;
+  // }
 
   const type = active ? (active.action ? GROUP_ELEMENT : LIGHT_ELEMENT) : null;
 
@@ -66,11 +66,16 @@ const ColorPicker = ({ active, setLight, setGroup, theme }) => {
   };
 
   return (
-    <Segment inverted={theme === "inverted"}>
+    <Dimmer.Dimmable
+      as={Segment}
+      dimmed={true}
+      inverted={theme === "inverted"}
+    >
+      {/* <Segment inverted={theme === "inverted"}> */}
       <Label
         attached="top"
         color={theme === "inverted" ? "black" : null}
-        content={active?.name.toUpperCase() ?? "Color"}
+        content={active?.name.toUpperCase() ?? "COLOR"}
       />
       <SketchPicker
         width={null}
@@ -78,7 +83,12 @@ const ColorPicker = ({ active, setLight, setGroup, theme }) => {
         onChange={handleChange}
         disableAlpha
       />
-    </Segment>
+      <Dimmer
+        active={!active}
+        inverted={theme !== "inverted"}
+      />
+      {/* </Segment> */}
+    </Dimmer.Dimmable>
   );
 };
 
