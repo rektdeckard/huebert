@@ -12,20 +12,21 @@ import HomeView from "./home/HomeView";
 import RulesView from "./RulesView";
 import SettingsView from "./SettingsView";
 import RoutinesView from "./routines/RoutinesView";
+import SensorsView from "./sensors/SensorsView";
 
 const INVERTED = "inverted";
 
 const App = props => {
-  const { initializeApp } = props;
+  const { initializeApp, fetchGroups } = props;
   // FIXME: Should use the fetchAll() function, once I make it
-  const { refresh, cancel } = useRefresh(props.fetchGroups, 5000);
+  const [ beginRefresh, cancelRefresh ] = useRefresh(fetchGroups, 5000);
 
   useEffect(() => {
     initializeApp();
-    refresh();
+    beginRefresh();
 
-    return cancel;
-  }, [initializeApp, refresh, cancel]);
+    return cancelRefresh;
+  }, [initializeApp, beginRefresh, cancelRefresh]);
 
   return (
     <div
@@ -57,8 +58,8 @@ const App = props => {
         <Switch>
           <Route exact path="/" component={HomeView} />
           <Route exact path="/routines" component={RoutinesView}/>
+          <Route exact path="/sensors" component={SensorsView}/>
           <Route exact path="/rules" component={RulesView} />
-          <Route exact path="/sensors" />
           <Route exact path="/settings" component={SettingsView} />
           <Redirect to={!props.settings.config ? "/settings" : "/"} />
         </Switch>

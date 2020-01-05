@@ -65,9 +65,10 @@ export const setGroup = (group, clearActiveScene = true) => async dispatch => {
   await Hue.put(`/groups/${group.id}/action`, group.action);
   dispatch(fetchGroups());
 
-  if (clearActiveScene) {
-    // dispatch(setActiveScene(null));
-  }
+  // TODO: keep scene active when changing the group's state??
+  // if (clearActiveScene) {
+  //   dispatch(setActiveScene(null));
+  // }
 };
 
 export const alertGroup = group => async () => {

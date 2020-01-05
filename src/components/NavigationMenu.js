@@ -22,13 +22,13 @@ const NavigationMenu = ({ lights, rooms, schedules, rules, sensors, location, th
         Routines
         <Label color="blue">{schedules.length}</Label>
       </Link>
+      <Link className={`item ${isActive("/sensors")}`} to="/sensors">
+        Sensors
+        <Label color="blue">{sensors.length}</Label>
+      </Link>
       <Link className={`disabled item ${isActive("/rules")}`} to="/rules">
         Rules
         <Label color="blue">{rules.length}</Label>
-      </Link>
-      <Link className={`disabled item ${isActive("/sensors")}`} to="/sensors">
-        Sensors
-        <Label color="blue">{sensors.length}</Label>
       </Link>
       <Link className={`item ${isActive("/settings")}`} to="/settings">
         Settings
