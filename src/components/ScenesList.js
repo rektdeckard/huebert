@@ -29,8 +29,7 @@ const ScenesList = ({
     active.group
       ? // ? active.group.type === "Room"
         scene.group === active.group.id
-      : // : scene.type === "LightScene"
-        false
+      : scene.type === "LightScene"
   );
 
   const handleApplyScene = scene => {
@@ -91,13 +90,18 @@ const ScenesList = ({
           }
         />
       ) : (
-        <Menu.Item disabled link title="Save Current as New Scene" icon="plus" />
+        <Menu.Item
+          disabled
+          link
+          title="Save Current as New Scene"
+          icon="plus"
+        />
       )}
 
       <Menu.Item
         link
         title="Update Active Scene"
-        disabled={!active?.scene || active?.scene.group !== active?.group.id}
+        disabled={!active.scene || active.scene?.group !== active.group?.id}
         icon="save"
         onClick={() => setConfirmState(true)}
       />
@@ -121,7 +125,7 @@ const ScenesList = ({
           trigger={
             <Menu.Item
               link
-              disabled={!active.scene}
+              disabled={!active.scene || active.scene.locked}
               title="Delete Scene"
               icon="trash"
             />
