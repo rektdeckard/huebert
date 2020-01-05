@@ -14,3 +14,14 @@ export const updateSensors = data => dispatch => {
     payload: sensors
   });
 };
+
+export const toggleSensor = sensor => async dispatch => {
+  await Hue.put(`/sensors/${sensor.id}/config`, { on: !sensor.config.on });
+  dispatch(fetchSensors());
+};
+
+export const configureSensor = (id, config) => async dispatch => {
+  const response = await Hue.put(`/sensors/${id}/config`, config);
+  console.log(response);
+  dispatch(fetchSensors());
+};

@@ -33,7 +33,7 @@ export { fetchSchedules, updateSchedules } from "./scheduleActions";
 
 export { fetchRules, updateRules } from "./ruleActions";
 
-export { fetchSensors, updateSensors } from "./sensorActions";
+export { fetchSensors, updateSensors, toggleSensor, configureSensor } from "./sensorActions";
 
 export {
   initializeApp,
