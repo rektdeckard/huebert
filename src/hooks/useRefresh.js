@@ -7,8 +7,9 @@ export default (action, interval) => {
     if (intervalRef.current !== null) 
       return;
 
+    action();
     intervalRef.current = setInterval(() => {
-      // console.log("refreshing");
+      console.log("refreshing");
       action();
     }, interval);
   }, [action, interval]);
@@ -17,7 +18,7 @@ export default (action, interval) => {
     if (intervalRef.current === null)
       return;
 
-    // console.log("cancelling refresh");
+    console.log("cancelling refresh");
     clearInterval(intervalRef.current);
     intervalRef.current = null;
   }, [intervalRef]);
@@ -32,5 +33,5 @@ export default (action, interval) => {
     };
   }, [refresh, cancel]);
 
-  return { refresh, cancel };
+  return [ refresh, cancel ];
 };
