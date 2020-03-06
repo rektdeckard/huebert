@@ -1,6 +1,6 @@
 import { useRef, useEffect, useCallback } from "react";
 
-export default (callback, delay, dependencies) => {
+export default (callback, delay, dependencies = []) => {
   const throttleRef = useRef(false);
   const callbackRef = useRef(callback);
 
@@ -22,5 +22,5 @@ export default (callback, delay, dependencies) => {
       console.log("resetting");
       throttleRef.current = false;
     }, delay);
-  }, dependencies);
+  }, [delay, ...dependencies]);
 };
