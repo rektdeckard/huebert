@@ -47,7 +47,7 @@ const SettingsView = ({ settings, createUser }) => {
             settings.theme === "inverted" ? "inverted red" : "error"
           } message`}
         >
-          <div className="header">Error: {settings.error}</div>
+          <div className="header">{`Error: Hue Bridge ${settings.error}`}</div>
         </div>
       );
     }
