@@ -22,5 +22,5 @@ export default (callback, delay, dependencies = []) => {
       console.log("resetting");
       throttleRef.current = false;
     }, delay);
-  }, [...dependencies, delay]);
+  }, [delay, ...dependencies]);
 };

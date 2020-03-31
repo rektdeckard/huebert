@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { Table, Label, Icon, Form, Checkbox } from "semantic-ui-react";
 import { convertHSBToColor, compatibleText } from "../../utils";
+import "./LightRow.css"
 
 const LightRow = ({
   light,
